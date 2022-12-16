@@ -49,12 +49,15 @@ const authenticateUser = async (req, res, next) => {
 
 const salt = bcrypt.genSaltSync()
 // -------------------------------- USER --------------------------------
+
 app.post("/register", registerUser)
+
 
 // LOGIN
 app.post("/login", loginUser);
 
 app.get("/user", authenticateUser);
+
 app.get("/user", getUserInfo);
 
 
@@ -64,41 +67,44 @@ app.patch("/user", authenticateUser);
 app.patch("/user", async (req, res) => {
   const { newEmail, newPassword } = req.body;
   try {
-    const selectedUser = await User.findOne({accessToken: req.header("Authorization")});
+    const selectedUser = await User.findOne({ accessToken: req.header("Authorization") });
     if (newEmail && newPassword) {
-      await User.findByIdAndUpdate(selectedUser._id, {$set: {email: newEmail, password: bcrypt.hashSync(newPassword, salt)}})
+      await User.findByIdAndUpdate(selectedUser._id, { $set: { email: newEmail, password: bcrypt.hashSync(newPassword, salt) } })
       res.status(200).json({
         success: true,
         response: {
           message: "Your credentials have been updated"
-        }})      
-  } else if (newPassword) {
-    await User.findByIdAndUpdate(selectedUser._id, {$set: {password: bcrypt.hashSync(newPassword, salt)}})
-    res.status(200).json({
-      success: true,
-      response: {
-        message: "Your password have been updated"
-      }})      
+        }
+      })
+    } else if (newPassword) {
+      await User.findByIdAndUpdate(selectedUser._id, { $set: { password: bcrypt.hashSync(newPassword, salt) } })
+      res.status(200).json({
+        success: true,
+        response: {
+          message: "Your password have been updated"
+        }
+      })
     } else if (newEmail) {
-      await User.findByIdAndUpdate(selectedUser._id, {$set: { email: newEmail}})
+      await User.findByIdAndUpdate(selectedUser._id, { $set: { email: newEmail } })
       res.status(200).json({
         success: true,
         response: {
           message: "Your email have been updated"
-        }})    
+        }
+      })
+    }
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      response: err
+    })
   }
-} catch (err) {
-  res.status(400).json({
-    success: false,
-    response: err
-  })
-}
 })
 
 app.delete("/user", authenticateUser);
 app.delete("/user", async (req, res) => {
   try {
-    const deletedUser = await User.findOneAndDelete({accessToken: req.header("Authorization")})
+    const deletedUser = await User.findOneAndDelete({ accessToken: req.header("Authorization") })
     if (deletedUser) {
       res.status(200).json({
         success: true,
@@ -106,7 +112,7 @@ app.delete("/user", async (req, res) => {
           deletedUser: deletedUser.username,
           message: "Your account has been deleted"
         }
-    })
+      })
     } else {
       res.status(400).json({
         success: false,
@@ -120,19 +126,92 @@ app.delete("/user", async (req, res) => {
       success: false,
       response: err
     })
-
   }
 });
 
 // ------------------------------------ EVENTS ----------------------------------------
 // ENDPOINT TO CREATE EVENTS ONLY WHEN AUTHENTICATED
 app.post("/event", authenticateUser);
+
 app.post("/event", createEvent);
 
 //If user is not authnticated they get limited info about the events, if user is authenticated they get all event info.
 app.get("/event", getEvents);
 
 
+//  Kolla om det ska filteras för event ID via params
+
+//NOTE: WE COULD ADD A FIELD TO MAKE THE USER CHOOSE A NAME FOR THE EVENT
+// This allows the user to delete an event
+app.delete("/event", authenticateUser);
+app.delete("/event", async (req, res) => {
+  try {
+    const { eventId } = req.body
+    const user = await User.findOne({ accessToken: req.header("Authorization") })
+    const deletedEvent = await Event.findOneAndDelete({ _id: eventId })
+    if (user) {
+      res.status(200).json({
+        success: true,
+        response: {
+          deletedEvent: deletedEvent._id,
+          message: "The event has been deleted"
+        }
+      })
+    } else {
+      res.status(400).json({
+        success: false,
+        response: {
+          message: "Ooops! Something went wrong. Please try again later."
+        }
+      })
+    }
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      response: err
+    })
+  }
+});
+
+// CHECK IF WE NEED TO ALLOW ALL INFO TO BE CHANGED WITH ELIN
+// CHECK IF WE NEED CONST USER
+app.patch("/event", authenticateUser);
+app.patch("/event", async (req, res) => {
+  const {
+    _id,
+    venue,
+    game,
+    openSpots,
+    totalSpots,
+    description,
+    isFull
+  } = req.body;
+  // const user = await User.findOne({ accessToken: req.header("Authorization") })
+  const selectedEvent = await Event.findOne({ _id })
+  try {
+    if (/* user &&  */selectedEvent) {
+      await Event.findOneAndUpdate(selectedEvent._id, { $set: { venue, game, openSpots, totalSpots, description, isFull } });
+      res.status(200).json({
+        success: true,
+        response: {
+          message: "The event has been updated"
+        }
+      })
+    } else {
+      res.status(400).json({
+        success: false,
+        response: {
+          message: "No changes were made"
+        }
+      })
+    }
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      response: err
+    })
+  }
+})
 
 
 // Start the server
