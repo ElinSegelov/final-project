@@ -30,7 +30,7 @@ export const UserSchema = new mongoose.Schema({
     default: () => new Date()
   }, 
   hostingEvent: {
-    type: Array
+    type: [EventSchema]
   },
   attendingEvent: {
     type: Array
@@ -38,6 +38,9 @@ export const UserSchema = new mongoose.Schema({
 });
 
 export const EventSchema = new mongoose.Schema({
+  host: {
+    type: String
+  },
   venue: {
     type: String,
     required: true,
@@ -48,7 +51,7 @@ export const EventSchema = new mongoose.Schema({
     default: () => new Date()
   },
   eventDate: {
-    type: String, // We need to doublecheck if we need to use DATE or STRING. (DATEPICKER)
+    type: Date, // We need to doublecheck if we need to use DATE or STRING. (DATEPICKER)
     required: false
   },
   game: {
