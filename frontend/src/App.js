@@ -8,7 +8,7 @@ import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import Register from 'components/Register';
 import Login from 'components/Login';
 import NotFound from 'components/NotFound';
-import LandingPage from 'components/LandingPage';
+import LandingPage from 'components/landingPage/LandingPage';
 import Header from 'components/Header';
 
 export const App = () => {

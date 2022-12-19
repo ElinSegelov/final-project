@@ -5,6 +5,7 @@ import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import hamburger from '../assets/icons/icon-hamburger.svg';
 import close from '../assets/icons/icon-close.svg';
+import profileIcon from '../assets/icons/profile-icon.svg'
 
 const Header = () => {
   const [navMenuActive, setNavMenuActive] = useState(false);
@@ -20,6 +21,7 @@ const Header = () => {
     <StyledHeader>
       {/* <Link to="/"><Logo src={logo} alt="home logo" /></Link> */}
       <h1>Octahedron</h1>
+      <Link to="/login"><ProfileIcon src={profileIcon} alt="Login" /></Link>
       {!navMenuActive
         ? <Hamburger onClick={showNavLinks}>
           <img src={hamburger} alt="Open navmenu" />
@@ -48,6 +50,12 @@ export default Header;
   }
 ` */
 
+const ProfileIcon = styled.img`
+  width: 2rem;
+  position: relative;
+  right: 3rem;
+`
+
 const StyledHeader = styled.header`
   position: relative;
   width: 100vw;
@@ -56,7 +64,6 @@ const StyledHeader = styled.header`
   align-items: center;
   padding: 1rem;
   height: 10vh;
-  background-color: red;
   max-width: 100vw;
 `
 const NavLinkWrapper = styled.nav`
@@ -121,7 +128,7 @@ const NavText = styled.li`
 const Hamburger = styled.div`
   z-index: 2;
   position: absolute;
-  right: 3rem;
+  right: 1rem;
 
   @media (min-width: 600px) {
     display: none;
