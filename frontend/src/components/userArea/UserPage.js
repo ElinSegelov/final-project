@@ -2,11 +2,12 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
+import EventCard from './EventCard';
 
 const UserPage = () => {
   const accessToken = useSelector((store) => store.users.accessToken);
   const navigate = useNavigate();
-
+  const username = useSelector((store) => store.users.username)
   // This will prevent to access personal page if not authenticated
   useEffect(() => {
     if (!accessToken) {
@@ -14,9 +15,11 @@ const UserPage = () => {
     }
   }, [accessToken, navigate])
 
-  const username = useSelector((store) => store.users.username)
   return (
-    <div>Welcome back {username}</div>
+    <>
+      <div>Welcome back {username}</div>
+      <EventCard />
+    </>
   )
 }
 

@@ -4,15 +4,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, batch, useSelector } from 'react-redux';
 import { API_URL } from 'utils/utils';
 import users from 'reducers/user';
-import { useNavigate } from 'react-router-dom';
-import { Form, FormWrapper } from './Register';
+import { useNavigate, Link } from 'react-router-dom';
+import { Form, FormWrapper } from 'styles/Forms';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const accessToken = useSelector((store) => store.users.accessToken);
 
   useEffect(() => {
@@ -53,20 +52,24 @@ const Login = () => {
   return (
     <FormWrapper>
       <Form onSubmit={onFormSubmit}>
-        <label htmlFor="username">Username</label>
+        <h2>Login</h2>
+        <label htmlFor="username" />
         <input
+          placeholder="Username"
           type="text"
           id="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)} />
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password" />
         <input
+          placeholder="Password"
           type="password"
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)} />
         <button type="submit">Log In!</button>
       </Form>
+      <Link to="/register">Not a user? Register here!</Link>
     </FormWrapper>
   )
 }

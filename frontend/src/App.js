@@ -9,7 +9,7 @@ import Register from 'components/SignupLoginForm/Register';
 import NotFound from 'components/NotFound';
 import LandingPage from 'components/landingPage/LandingPage';
 import Header from 'components/Header';
-import UserPage from 'components/UserPage';
+import UserPage from 'components/userArea/UserPage';
 import Login from 'components/SignupLoginForm/Login';
 
 export const App = () => {
