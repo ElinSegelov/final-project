@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React from 'react'
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
@@ -29,8 +30,7 @@ const App = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/userpage" element={<UserPage />} />
+          <Route path="/user" element={<UserPage />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<Navigate to="404" />} />
         </Routes>

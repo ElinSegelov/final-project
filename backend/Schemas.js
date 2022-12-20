@@ -10,14 +10,16 @@ export const UserSchema = new mongoose.Schema({
     minlenght: 3,
     maxlenght: 15,
     required: true
-  }, 
+  },
   password: {
     type: String,
     required: true,
     minlenght: 8
   },
   email: {
+    // glöm inte regex
     type: String,
+    unique: true,
     required: true,
     trim: true,
   },
@@ -28,11 +30,11 @@ export const UserSchema = new mongoose.Schema({
   userCreatedAt: {
     type: Date,
     default: () => new Date()
-  }, 
-  hostingEvent: {
+  },
+  hostingEvents: {
     type: [EventSchema]
   },
-  attendingEvent: {
+  attendingEvents: {
     type: Array
   }
 });
