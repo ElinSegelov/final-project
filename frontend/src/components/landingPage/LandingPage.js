@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 import React from 'react';
 import styled from 'styled-components';
-import EventCalender from 'components/DatePicker';
+import EventCalender from 'components/EventCalender';
 import { Link } from 'react-router-dom';
 import Footer from 'components/Footer';
 import { loadEvents } from 'reducers/events';
