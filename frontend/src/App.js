@@ -11,7 +11,7 @@ import NotFound from 'components/NotFound';
 import LandingPage from 'components/landingPage/LandingPage';
 import Header from 'components/Header';
 
-export const App = () => {
+const App = () => {
   const reducer = combineReducers({
     events: events.reducer,
     ui: ui.reducer,
@@ -35,3 +35,4 @@ export const App = () => {
     </Provider>
   )
 }
+export default App;
