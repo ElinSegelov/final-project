@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import crypto from 'crypto';
 import bcrtpt from 'bcrypt';
+import { format } from 'date-fns'
 
 export const UserSchema = new mongoose.Schema({
   username: {
@@ -38,6 +39,9 @@ export const UserSchema = new mongoose.Schema({
 });
 
 export const EventSchema = new mongoose.Schema({
+  eventName: {
+    type: String
+  },
   host: {
     type: String
   },
@@ -51,7 +55,7 @@ export const EventSchema = new mongoose.Schema({
     default: () => new Date()
   },
   eventDate: {
-    type: Date, // We need to doublecheck if we need to use DATE or STRING. (DATEPICKER)
+    type: String, // When events are posted the date format must be new Date().toDateString(). (DATEPICKER)
     required: false
   },
   game: {
