@@ -7,21 +7,15 @@ const events = createSlice({
   initialState: {
     postedEvents: [],
     eventsOfTheDay: [],
-    selectedDate: (new Date().toString())
+    selectedDate: (new Date().toDateString())
   },
   reducers: {
     selectDate: (store, action) => {
       store.selectedDate = action.payload
+      console.log('selectedDate i reducer', store.selectedDate)
     },
     setEvents: (store, action) => {
       store.postedEvents = action.payload
-    },
-    setEventsOfTheDay: (store, action) => {
-      const selectedDate = action.payload;
-      console.log('selectedDate i reducer', selectedDate)
-      store.eventsOfTheDay = store.postedEvents.filter(
-        (event) => event.eventDate.includes('dec')
-      )
     }
   }
 });
@@ -30,6 +24,7 @@ export default events;
 
 export const loadEvents = () => {
   return async (dispatch) => {
+    // UPPDATERA TILL API SEN
     const URL = 'http://localhost:8080/event'
     try {
       const response = await fetch(URL);

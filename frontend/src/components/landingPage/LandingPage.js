@@ -11,9 +11,9 @@ import heroImage from '../../assets/images/hero.jpg';
 import Tutorial from './Tutorial';
 
 const LandingPage = () => {
-/*   const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  dispatch(loadEvents());
 
-  dispatch(loadEvents()); */
   return (
     <>
       <HeroImage src={heroImage} alt="Hero Octahedron" />

@@ -1,26 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker';
 import events from 'reducers/events';
-import { format } from 'date-fns'
 
 import 'react-datepicker/dist/react-datepicker.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const EventCalender = () => {
   const [startDate, setStartDate] = useState(new Date());
   const dispatch = useDispatch();
 
-  const handleDateSelection = (date) => {
-    // const selectedDate = format(date, 'yyyy-MM-dd')
+  const postedEvents = useSelector((store) => store.events.postedEvents)
 
+  const handleDateSelection = (date) => {
     setStartDate(date);
   }
   useEffect(() => {
-    // console.log(format(startDate, 'dd-MM-yyy'))
-    const selectedDate = startDate.toString().slice(4, 15)
-    console.log('selected date i datpicker', selectedDate)
-    dispatch(events.actions.setEventsOfTheDay(selectedDate));
+    dispatch(events.actions.selectDate(startDate.toDateString()));
+    const todaysEvents = postedEvents.filter(
+      (event) => event.eventDate === startDate.toDateString()
+    )
+    console.log('todaysEvents', todaysEvents)
   }, [dispatch, startDate])
 
   return (
