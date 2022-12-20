@@ -8,15 +8,15 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Form, FormWrapper } from 'styles/Forms';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const accessToken = useSelector((store) => store.users.accessToken);
+  const accessToken = useSelector((store) => store.users.user.accessToken);
 
   useEffect(() => {
     if (accessToken) {
-      navigate('/userpage');
+      navigate('/user');
     }
   }, [accessToken, navigate])
 
@@ -27,23 +27,19 @@ const Login = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ email, password })
     }
     fetch(API_URL('login'), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
           batch(() => {
-            dispatch(users.actions.setUserName(data.response.username));
-            dispatch(users.actions.setUserId(data.response.userId));
-            dispatch(users.actions.setAccessToken(data.response.accessToken));
+            dispatch(users.actions.setUser(data.response))
             dispatch(users.actions.setError(null));
           });
         } else {
           batch(() => {
-            dispatch(users.actions.setUserName(null));
-            dispatch(users.actions.setUserId(null));
-            dispatch(users.actions.setAccessToken(null));
+            dispatch(users.actions.setUser(null))
             dispatch(users.actions.setError(data.response));
           });
         }
@@ -58,8 +54,8 @@ const Login = () => {
           placeholder="Username"
           type="text"
           id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)} />
+          value={email}
+          onChange={(e) => setEmail(e.target.value)} />
         <label htmlFor="password" />
         <input
           placeholder="Password"

@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';

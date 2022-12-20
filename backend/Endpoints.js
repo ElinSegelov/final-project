@@ -38,7 +38,7 @@ export const getEvents = async (req, res) => {
 
 // FOR THIS TO WORK, WEE NEED USER ID AS QUERY
 export const createEvent = async (req, res) => {
-  const { userId } = req.query
+  const { userId } = req.params;
   const { venue, eventDate, game, openSpots, totalSpots, description } = req.body;
   const user = await User.findById(userId)
   try {
@@ -60,8 +60,8 @@ export const createEvent = async (req, res) => {
         eventId: newEvent._id,
         message: "Event created"
       }
-    });   
-    await User.findOneAndUpdate(user,{ $addToSet: {hostingEvent: newEvent}})
+    });
+    await User.findOneAndUpdate(user, { $addToSet: { hostingEvent: newEvent } })
   } catch (err) {
     res.status(500).json({
       success: false,
@@ -83,7 +83,7 @@ export const updateEvent = async (req, res) => {
   // const user = await User.findOne({ accessToken: req.header("Authorization") })
   const selectedEvent = await Event.findOne({ _id })
   try {
-    if ( selectedEvent) {
+    if (selectedEvent) {
       await Event.findOneAndUpdate(selectedEvent._id, { $set: { venue, game, openSpots, totalSpots, description, isFull } });
       res.status(200).json({
         success: true,
@@ -149,7 +149,6 @@ export const registerUser = async (req, res) => {
       const newUser = await new User({
         username,
         password: bcrypt.hashSync(password, salt),
-        // Should we also encrypt email?
         email
       }).save();
       res.status(201).json({
@@ -157,9 +156,13 @@ export const registerUser = async (req, res) => {
         response: {
           username: newUser.username,
           accessToken: newUser.accessToken,
-          userId: newUser._id
+          userId: newUser._id,
+          email: newUser.email,
+          userCreatedAt: newUser.userCreatedAt,
+          hostingEvents: newUser.hostingEvents,
+          attendingEvents: newUser.attendingEvents
         }
-      });      
+      });
     }
   } catch (err) {
     res.status(400).json({
@@ -173,10 +176,10 @@ export const registerUser = async (req, res) => {
 
 /* ------------------------------ LOGIN ------------------------------ */
 export const loginUser = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   try {
     const user = await User.findOne({
-      username
+      email
     })
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
@@ -184,7 +187,11 @@ export const loginUser = async (req, res) => {
         response: {
           username: user.username,
           accessToken: user.accessToken,
-          userId: user._id
+          userId: user._id,
+          email: user.email,
+          userCreatedAt: user.userCreatedAt,
+          hostingEvents: user.hostingEvents,
+          attendingEvents: user.attendingEvents
         }
       })
     } else {
@@ -202,11 +209,11 @@ export const loginUser = async (req, res) => {
 }
 
 /* ------------------------------ USER ------------------------------ */
-export const getUserInfo = async (req, res) => {  
+export const getUserInfo = async (req, res) => {
   let allUserInfo = [];
-  const selectedUser = await User.findOne({accessToken: req.header("Authorization")});
+  const selectedUser = await User.findOne({ accessToken: req.header("Authorization") });
   allUserInfo.push(selectedUser);
-// see if this can be done smoother - create new object
+  // see if this can be done smoother - create new object
   const userInfo = allUserInfo.map((user) => {
     return ({
       username: user.username,
@@ -218,7 +225,7 @@ export const getUserInfo = async (req, res) => {
   try {
     res.status(200).json({
       success: true,
-      response: userInfo 
+      response: userInfo
     })
   } catch (err) {
     res.status(400).json({

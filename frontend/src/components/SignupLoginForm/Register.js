@@ -37,17 +37,13 @@ const Register = () => {
       .then((data) => {
         if (data.success) {
           batch(() => {
-            dispatch(users.actions.setUserName(data.response.username));
-            dispatch(users.actions.setUserId(data.response.userId));
-            dispatch(users.actions.setAccessToken(data.response.accessToken));
+            dispatch(users.actions.setUser(data.response))
             dispatch(users.actions.setError(null));
-            navigate('/userpage')
+            navigate('/user')
           });
         } else {
           batch(() => {
-            dispatch(users.actions.setUserName(null));
-            dispatch(users.actions.setUserId(null));
-            dispatch(users.actions.setAccessToken(null));
+            dispatch(users.actions.setUser(null))
             dispatch(users.actions.setError(data.response));
           });
         }

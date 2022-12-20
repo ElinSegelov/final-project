@@ -2,10 +2,18 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* font-family: 'Asgalt-Regular'; */
 }
 body {
   background-color: #242931;
   color: #fff;
+}
+
+@font-face {
+  font-family: 'Asgalt-Regular';
+  src: url(../src/Asgalt-Regular.ttf);
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
 }
 
 input {
