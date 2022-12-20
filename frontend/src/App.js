@@ -12,7 +12,7 @@ import Header from 'components/Header';
 import UserPage from 'components/userArea/UserPage';
 import Login from 'components/SignupLoginForm/Login';
 
-export const App = () => {
+const App = () => {
   const reducer = combineReducers({
     events: events.reducer,
     ui: ui.reducer,
@@ -38,3 +38,4 @@ export const App = () => {
     </Provider>
   )
 }
+export default App;
