@@ -12,7 +12,7 @@ export const getEvents = async (req, res) => {
     return ({
       venue: singleEvent.venue,
       game: singleEvent.game,
-      eventDate: singleEvent.date
+      eventDate: singleEvent.eventDate
     })
   })
   try {
