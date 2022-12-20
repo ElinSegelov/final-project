@@ -1,15 +1,15 @@
 /* eslint-disable linebreak-style */
 import { createSlice } from '@reduxjs/toolkit';
 
-const users = createSlice({
-  name: 'users',
+const user = createSlice({
+  name: 'user',
   initialState: {
-    user: {},
+    userInfo: {},
     error: null
   },
   reducers: {
-    setUser: (store, action) => {
-      store.user = action.payload;
+    setUserInfo: (store, action) => {
+      store.userInfo = action.payload;
     },
     setError: (store, action) => {
       store.error = action.payload;
@@ -17,4 +17,4 @@ const users = createSlice({
   }
 });
 
-export default users;
+export default user;

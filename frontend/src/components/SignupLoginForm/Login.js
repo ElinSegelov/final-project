@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, batch, useSelector } from 'react-redux';
 import { API_URL } from 'utils/utils';
-import users from 'reducers/user';
+import user from 'reducers/user';
 import { useNavigate, Link } from 'react-router-dom';
 import { Form, FormWrapper } from 'styles/Forms';
 
@@ -12,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const accessToken = useSelector((store) => store.users.user.accessToken);
+  const accessToken = useSelector((store) => store.user.userInfo.accessToken);
 
   useEffect(() => {
     if (accessToken) {
@@ -34,13 +34,13 @@ const Login = () => {
       .then((data) => {
         if (data.success) {
           batch(() => {
-            dispatch(users.actions.setUser(data.response))
-            dispatch(users.actions.setError(null));
+            dispatch(user.actions.setUserInfo(data.response))
+            dispatch(user.actions.setError(null));
           });
         } else {
           batch(() => {
-            dispatch(users.actions.setUser(null))
-            dispatch(users.actions.setError(data.response));
+            dispatch(user.actions.setUserInfo(null))
+            dispatch(user.actions.setError(data.response));
           });
         }
       })
