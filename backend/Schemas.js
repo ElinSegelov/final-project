@@ -60,6 +60,10 @@ export const EventSchema = new mongoose.Schema({
     type: String, // When events are posted the date format must be new Date().toDateString(). (DATEPICKER)
     required: false
   },
+  eventTime: {
+    type: String,
+    required: false // Check if is needed to be required
+  },
   game: {
     type: String,
     required: true,
@@ -80,10 +84,5 @@ export const EventSchema = new mongoose.Schema({
   isFull: {
     type: Boolean,
     default: false
-  },
-
-  // Maybe it can be linked with the userID already here.
-  host: {
-    type: String
   }
 });

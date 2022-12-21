@@ -1,19 +1,32 @@
+/* eslint-disable no-underscore-dangle */ // Ignores _ in _id
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { StyledEventCardContainer } from 'styles/Containers'
+import EventCard from './EventCard'
 
 const EventCardContainer = () => {
   // här ska vi mounta EventCard
-  const eventInfo = useSelector((store) => store.events)
+  const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay)
 
-  const selectDateEvents = eventInfo.postedEvents.filter(
-    (event) => event.eventDate === eventInfo.selectedDate
-  )
-
-  console.log(selectDateEvents)
-
+  const allEvents = eventsOfTheDay.map((event) => {
+    return (
+      <div key={event._id}>
+        <EventCard
+          game={event.game}
+          host={event.host}
+          venue={event.venue}
+          openSpots={event.openSpots}
+          totalSpots={event.totalSpots}
+          isFull={event.isFull}
+          description={event.description}
+          eventName={event.eventName}
+          eventTime={event.eventTime} />
+      </div>
+    )
+  })
   return (
-    <div>EventCardContainer</div>
+    <StyledEventCardContainer>{allEvents}</StyledEventCardContainer>
   )
 }
 
-export default EventCardContainer
+export default EventCardContainer;
