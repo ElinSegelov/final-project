@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker';
-import events from 'reducers/events';
+import events, { loadEvents } from 'reducers/events';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,10 @@ const EventCalendar = () => {
   const dispatch = useDispatch();
 
   const postedEvents = useSelector((store) => store.events.postedEvents)
+
+  useEffect(() => {
+    dispatch(loadEvents());
+  }, [])
 
   const handleDateSelection = (date) => {
     setStartDate(date);
