@@ -17,6 +17,9 @@ const events = createSlice({
     },
     setEvents: (store, action) => {
       store.postedEvents = action.payload
+    },
+    setEventsOfTheDay: (store, action) => {
+      store.eventsOfTheDay = action.payload
     }
   }
 });

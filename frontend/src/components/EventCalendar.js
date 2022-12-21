@@ -25,6 +25,8 @@ const EventCalendar = () => {
     const todaysEvents = postedEvents.filter(
       (event) => event.eventDate === startDate.toDateString()
     )
+    dispatch(events.actions.setEventsOfTheDay(todaysEvents));
+
     console.log('todaysEvents', todaysEvents)
   }, [dispatch, startDate])
 
