@@ -5,15 +5,10 @@ import styled from 'styled-components';
 import EventCalender from 'components/DatePicker';
 import { Link } from 'react-router-dom';
 import Footer from 'components/Footer';
-import { loadEvents } from 'reducers/events';
-import { useDispatch } from 'react-redux';
 import heroImage from '../../assets/images/hero.jpg';
 import Tutorial from './Tutorial';
 
 const LandingPage = () => {
-  const dispatch = useDispatch()
-  dispatch(loadEvents());
-
   return (
     <>
       <HeroImage src={heroImage} alt="Hero Octahedron" />
