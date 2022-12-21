@@ -7,7 +7,7 @@ import events from 'reducers/events';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
 
-const EventCalender = () => {
+const EventCalendar = () => {
   const [startDate, setStartDate] = useState(new Date());
   const dispatch = useDispatch();
 
@@ -32,4 +32,4 @@ const EventCalender = () => {
   );
 };
 
-export default EventCalender;
+export default EventCalendar;

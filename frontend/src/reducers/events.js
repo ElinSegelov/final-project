@@ -26,6 +26,7 @@ export default events;
 export const loadEvents = () => {
   return async (dispatch) => {
     // UPPDATERA TILL API SEN
+    console.log('försöker hämta events')
     const URL = 'http://localhost:8080/event'
     try {
       const response = await fetch(URL);

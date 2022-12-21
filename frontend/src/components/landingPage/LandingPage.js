@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 import React from 'react';
 import styled from 'styled-components';
-import EventCalender from 'components/EventCalender';
+import EventCalendar from 'components/EventCalendar';
 import { Link } from 'react-router-dom';
 import Footer from 'components/Footer';
 import { loadEvents } from 'reducers/events';
@@ -18,7 +18,7 @@ const LandingPage = () => {
     <>
       <HeroImage src={heroImage} alt="Hero Octahedron" />
       <Tutorial />
-      <EventCalender />
+      <EventCalendar />
       <RegisterLink to="/register">Sign up</RegisterLink>
       <LoginLink to="/login">Log in</LoginLink>
       <Footer />
@@ -26,7 +26,7 @@ const LandingPage = () => {
   )
 }
 
-export default LandingPage;
+export default LandingPage
 
 const HeroImage = styled.img`
   width: 100%;

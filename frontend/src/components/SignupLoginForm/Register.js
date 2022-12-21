@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, batch, useSelector } from 'react-redux';
 import { API_URL } from 'utils/utils';
-import users from 'reducers/user';
+import user from 'reducers/user';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { FormWrapper, Form, Input } from 'styles/Forms';
@@ -37,14 +37,14 @@ const Register = () => {
       .then((data) => {
         if (data.success) {
           batch(() => {
-            dispatch(users.actions.setUser(data.response))
-            dispatch(users.actions.setError(null));
+            dispatch(user.actions.setUserInfo(data.response))
+            dispatch(user.actions.setError(null));
             navigate('/user')
           });
         } else {
           batch(() => {
-            dispatch(users.actions.setUser(null))
-            dispatch(users.actions.setError(data.response));
+            dispatch(user.actions.setUserInfo(null))
+            dispatch(user.actions.setError(data.response));
           });
         }
       })
