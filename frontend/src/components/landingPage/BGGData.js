@@ -48,17 +48,9 @@ const BGGData = () => {
     fetchData(var1)
   }
 
-  /* useEffect(() => {
-    if (calledOnce.current) {
-      return
-    }
-
-    fetchData(var2)
-    calledOnce.current = true
-  }, [objectid, var2]) */
-
-  const selectInputSubmit = async (temp) => {
-    // event.preventDefault()
+  // ny fetch görst innan searchParameter är uppdaterarad. Är det möjligt att lösa detta med hjälp
+  // av en thunk
+  const selectInputSubmit = (temp) => {
     setSearchParameter(temp)
     console.log('temp', temp)
     console.log('searchParameter', searchParameter)
