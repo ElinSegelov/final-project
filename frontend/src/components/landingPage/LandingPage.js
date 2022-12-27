@@ -7,15 +7,17 @@ import { Link } from 'react-router-dom';
 import Footer from 'components/Footer';
 import heroImage from '../../assets/images/hero.jpg';
 import Tutorial from './Tutorial';
+import BGGData from './BGGData';
 
 const LandingPage = () => {
   return (
     <>
       <HeroImage src={heroImage} alt="Hero Octahedron" />
       <Tutorial />
-      <EventCalendar />
+      {/* <EventCalendar /> */}
       <RegisterLink to="/register">Sign up</RegisterLink>
       <LoginLink to="/login">Log in</LoginLink>
+      <BGGData />
       <Footer />
     </>
   )
