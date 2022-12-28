@@ -16,8 +16,8 @@ const BGGData = () => {
   const var2 = 'https://boardgamegeek.com/xmlapi/boardgame/'
 
   // let suggestions;
-  const fetchData = async (endpoint) => {
-    const URL = `https://api.factmaven.com/xml-to-json/?xml=${endpoint}${searchParameter}`;
+  const fetchData = async (endpoint, newParam) => {
+    const URL = `https://api.factmaven.com/xml-to-json/?xml=${endpoint}${searchParameter || newParam}`;
     let info;
     try {
       const response = await fetch(URL);
@@ -46,15 +46,17 @@ const BGGData = () => {
   const textInputSubmit = (event) => {
     event.preventDefault()
     fetchData(var1)
+    setSearchParameter('')
   }
 
   // ny fetch görst innan searchParameter är uppdaterarad. Är det möjligt att lösa detta med hjälp
   // av en thunk
   const selectInputSubmit = (temp) => {
-    setSearchParameter(temp)
-    console.log('temp', temp)
-    console.log('searchParameter', searchParameter)
-    fetchData(var2)
+    const newParam = temp // får den nya state
+    setSearchParameter(newParam) // assign nya state till searchParameter
+    console.log('temp', newParam) // Vissar rätt
+    console.log('searchParameter', searchParameter) // Nu är den tomt
+    fetchData(var2, newParam) // Sckickar 2 params
   }
 
   return (
