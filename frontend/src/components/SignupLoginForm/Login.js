@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react'
@@ -13,10 +14,11 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.userInfo.accessToken);
+  const userId = useSelector((store) => store.user.userInfo.userId);
 
   useEffect(() => {
     if (accessToken) {
-      navigate('/user');
+      navigate(`/user/${userId}`);
     }
   }, [accessToken, navigate])
 

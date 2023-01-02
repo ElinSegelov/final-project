@@ -57,7 +57,7 @@ app.get("/user", getUserInfo);
 
 // THIS ALLOWS THE USER TO CHANGE THE EMAIL AND THE PASSWORD
 app.patch("/user", authenticateUser);
-app.patch("/user", updateUserInfo); 
+app.patch("/user", updateUserInfo);
 
 app.delete("/user", authenticateUser);
 app.delete("/user", deleteUser);

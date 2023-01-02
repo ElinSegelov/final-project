@@ -11,7 +11,7 @@ const EventSection = () => {
     <section>
       {handleEvent
         ? <>
-          <CreateEventForm />
+          <CreateEventForm setHandleEvent={setHandleEvent} />
           <button type="button" onClick={() => setHandleEvent(false)}>X</button>
         </>
         : <>
