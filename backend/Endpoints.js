@@ -38,12 +38,14 @@ export const getEvents = async (req, res) => {
 
 // FOR THIS TO WORK, WEE NEED USER ID AS QUERY
 export const createEvent = async (req, res) => {
-  const { userId } = req.params;
-  const { venue, eventDate, game, openSpots, totalSpots, description } = req.body;
-  const user = await User.findById(userId)
+  // const { userId } = req.params;
+  const { venue, eventDate, game, openSpots, totalSpots, description, hostId, host } = req.body;
+  const user = await User.findById(hostId)
+  console.log(user)
   try {
     const newEvent = await new Event({
-      host: userId,
+      hostId,
+      host,
       venue,
       eventDate,
       game,
@@ -56,6 +58,7 @@ export const createEvent = async (req, res) => {
       response: {
         venue: newEvent.venue,
         eventDate: newEvent.eventDate,
+        eventTime: newEvent.eventTime,
         game: newEvent.game,
         eventId: newEvent._id,
         message: "Event created"

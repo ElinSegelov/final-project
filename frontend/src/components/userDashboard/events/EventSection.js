@@ -1,12 +1,25 @@
+/* eslint-disable react/jsx-closing-tag-location */
 import EventCalendar from 'components/EventCalendar'
-import React from 'react'
+import React, { useState } from 'react'
 import EventCardContainer from './EventCardContainer'
+import CreateEventForm from './CreateEventForm'
 
 const EventSection = () => {
+  const [handleEvent, setHandleEvent] = useState(false)
+
   return (
     <section>
-      <EventCalendar />
-      <EventCardContainer />
+      {handleEvent
+        ? <>
+          <CreateEventForm setHandleEvent={setHandleEvent} />
+          <button type="button" onClick={() => setHandleEvent(false)}>X</button>
+        </>
+        : <>
+          <button type="button" onClick={() => setHandleEvent(true)}>create</button>
+          <EventCalendar />
+          <EventCardContainer />
+        </>}
+
     </section>
   )
 }

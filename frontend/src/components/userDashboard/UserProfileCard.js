@@ -14,8 +14,8 @@ const UserProfileCard = () => {
       </div>
       <div>
         <h2>{user.username}</h2>
-        <p>Hosting {user.hostingEvents.length} events</p>
-        <p>Attending {user.attendingEvents.length} events</p>
+        <p>Hosting {user.hostingEvents ? user.hostingEvents.length : undefined} events</p>
+        <p>Attending {user.attendingEvents ? user.attendingEvents.length : undefined} events</p>
       </div>
     </ProfileSection>
   )

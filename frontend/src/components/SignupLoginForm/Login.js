@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react'
@@ -8,17 +9,19 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Form, FormWrapper } from 'styles/Forms';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const accessToken = useSelector((store) => store.user.userInfo.accessToken);
+  const userId = useSelector((store) => store.user.userInfo.userId);
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
 
   useEffect(() => {
-    if (accessToken) {
-      navigate('/user');
+    if (loggedInUser || accessToken) {
+      navigate(`/user/${userId}`);
     }
-  }, [accessToken, navigate])
+  }, [loggedInUser, navigate, userId, accessToken])
 
   const onFormSubmit = (event) => {
     event.preventDefault()

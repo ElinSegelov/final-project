@@ -9,19 +9,20 @@ import styled from 'styled-components/macro';
 import { FormWrapper, Form, Input } from 'styles/Forms';
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const userId = useSelector((store) => store.user.userInfo.userId);
+  const accessToken = useSelector((store) => store.user.userInfo.accessToken);
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
 
-  // const accessToken = useSelector((store) => store.user.accessToken);
-
-  // useEffect(() => {
-  //   if (accessToken) {
-  //     navigate('/userpage');
-  //   }
-  // }, [accessToken, navigate])
+  useEffect(() => {
+    if (loggedInUser || accessToken) {
+      navigate(`/user/${userId}`);
+    }
+  }, [loggedInUser, accessToken, navigate, userId])
 
   const onFormSubmit = (event) => {
     event.preventDefault()
@@ -39,8 +40,8 @@ const Register = () => {
           batch(() => {
             dispatch(user.actions.setUserInfo(data.response))
             dispatch(user.actions.setError(null));
-            navigate('/user')
           });
+          navigate(`/user/${userId}`)
         } else {
           batch(() => {
             dispatch(user.actions.setUserInfo(null))

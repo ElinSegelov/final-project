@@ -47,6 +47,9 @@ export const EventSchema = new mongoose.Schema({
   host: {
     type: String
   },
+  hostId: {
+    type: String
+  },
   venue: {
     type: String,
     required: true,
