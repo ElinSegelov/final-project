@@ -9,7 +9,7 @@ const events = createSlice({
     postedEvents: [],
     eventsOfTheDay: [],
     selectedGameWithDataFromAPI: {},
-    selectedDate: (new Date().toDateString())
+    selectedDate: (new Date().toISOString())
   },
   reducers: {
     selectDate: (store, action) => {

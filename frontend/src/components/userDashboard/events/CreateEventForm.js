@@ -51,7 +51,7 @@ const CreateEventForm = ({ setHandleEvent }) => {
       body: JSON.stringify({
         hostId: user.userId,
         host: user.username,
-        eventDate: eventDate.toDateString(),
+        eventDate: eventDate.toISOString(),
         eventTime,
         eventName, // Saknas input
         venue,
@@ -62,7 +62,6 @@ const CreateEventForm = ({ setHandleEvent }) => {
       })
     }
     fetch(API_URL('event'), options)
-    window.alert()
     setHandleEvent(false)
   }
   // Se över hur vi handterar datum/tid i frontend och backend
