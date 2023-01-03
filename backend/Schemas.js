@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { mongo } from 'mongoose';
 import crypto from 'crypto';
 import bcrtpt from 'bcrypt';
 import { format } from 'date-fns'
@@ -48,7 +48,8 @@ export const EventSchema = new mongoose.Schema({
     type: String
   },
   hostId: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
   venue: {
     type: String,

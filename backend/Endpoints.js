@@ -40,7 +40,8 @@ export const getEvents = async (req, res) => {
 export const createEvent = async (req, res) => {
   // const { userId } = req.params;
   const { venue, eventDate, game, openSpots, totalSpots, description, hostId, host } = req.body;
-  const user = await User.findById(hostId)
+  // const user = await User.findById(hostId)
+  const user = await User.findOne({ accessToken: req.header("Authorization") });
   console.log(user)
   try {
     const newEvent = await new Event({
@@ -64,7 +65,7 @@ export const createEvent = async (req, res) => {
         message: "Event created"
       }
     });
-    await User.findOneAndUpdate(user, { $addToSet: { hostingEvent: newEvent } })
+    await User.findByIdAndUpdate(user._id, { $addToSet: { hostingEvents: newEvent } })
   } catch (err) {
     res.status(500).json({
       success: false,
@@ -221,8 +222,8 @@ export const getUserInfo = async (req, res) => {
     return ({
       username: user.username,
       email: user.email,
-      hostingEvent: user.hostingEvent,
-      attendingEvent: user.attendingEvent
+      hostingEvents: user.hostingEvents,
+      attendingEvent: user.attendingEvents
     })
   })
   try {
