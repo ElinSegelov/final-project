@@ -1,11 +1,21 @@
 /* eslint-disable max-len */
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import editIcon from 'assets/icons/icons8-pencil-30.png'
+import { useNavigate } from 'react-router';
+import user from 'reducers/user';
 
 const UserProfileCard = () => {
-  const user = useSelector((store) => store.user.userInfo)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const loggedInUser = useSelector((store) => store.user.userInfo)
+
+  const handleLogout = () => {
+    localStorage.clear()
+    navigate('/')
+    dispatch(user.actions.setLoggedInUser([]))
+  }
   return (
     <ProfileSection>
       <div>
@@ -13,10 +23,11 @@ const UserProfileCard = () => {
         <img src={editIcon} alt="Edit" /> {/* onclick set eventSection state */}
       </div>
       <div>
-        <h2>{user.username}</h2>
-        <p>Hosting {user.hostingEvents ? user.hostingEvents.length : undefined} events</p>
-        <p>Attending {user.attendingEvents ? user.attendingEvents.length : undefined} events</p>
+        <h2>{loggedInUser.username}</h2>
+        <p>Hosting {loggedInUser.hostingEvents ? loggedInUser.hostingEvents.length : undefined} events</p>
+        <p>Attending {loggedInUser.attendingEvents ? loggedInUser.attendingEvents.length : undefined} events</p>
       </div>
+      <button type="button" onClick={handleLogout}>Log Out</button>
     </ProfileSection>
   )
 }

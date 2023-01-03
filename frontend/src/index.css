@@ -20,7 +20,7 @@ input {
   border-radius: 5px;
   background-color: #e9e9f7;
   padding: 5px;
-  width: 100%;
+  /* width: 100%; */
   color: #363c46;
   border: 1px solid #dadaf7;
 }
