@@ -8,17 +8,18 @@ import EventSection from './events/EventSection';
 import UserProfileCard from './UserProfileCard';
 
 const Dashboard = () => {
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
-  //   if (loggedInUser) {
-  //     dispatch(user.actions.setLoggedInUser(loggedInUser))
-  //   }
-  // }, [dispatch])
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userInfo = useSelector((store) => store.user.userInfo)
   const accessToken = useSelector((store) => store.user.userInfo.accessToken);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
+    if (loggedInUser) {
+      dispatch(user.actions.setLoggedInUser(loggedInUser))
+    }
+  }, [dispatch])
+
   // This will prevent to access personal page if not authenticated
   useEffect(() => {
     if (!accessToken) {
@@ -26,9 +27,9 @@ const Dashboard = () => {
     }
   }, [accessToken, navigate])
 
-  // useEffect(() => {
-  //   localStorage.setItem('loggedInUser', JSON.stringify(userInfo))
-  // }, [userInfo])
+  useEffect(() => {
+    localStorage.setItem('loggedInUser', JSON.stringify(userInfo))
+  }, [userInfo])
   return (
     <DashboardWrapper>
       <UserProfileCard />

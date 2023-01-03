@@ -9,18 +9,19 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Form, FormWrapper } from 'styles/Forms';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const accessToken = useSelector((store) => store.user.userInfo.accessToken);
   const userId = useSelector((store) => store.user.userInfo.userId);
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
 
   useEffect(() => {
-    if (accessToken) {
+    if (loggedInUser || accessToken) {
       navigate(`/user/${userId}`);
     }
-  }, [accessToken, navigate])
+  }, [loggedInUser, navigate, userId, accessToken])
 
   const onFormSubmit = (event) => {
     event.preventDefault()
