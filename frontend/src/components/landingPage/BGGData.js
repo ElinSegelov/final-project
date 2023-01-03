@@ -1,8 +1,9 @@
+/* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable no-return-assign */
-
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 const BGGData = () => {
   const [searchParameter, setSearchParameter] = useState('')
@@ -64,15 +65,20 @@ const BGGData = () => {
       <form onSubmit={textInputSubmit}>
         <input type="text" onChange={(event) => setSearchParameter(event.target.value)} />
       </form>
-      {/* <Suggestions text={suggestions} /> */}
-      <form>Suggestions:
-        <select onChange={(event) => selectInputSubmit(event.target.value)}>
-          {suggestions}
-        </select>
-        {/* <button type="submit">Submit</button> */}
-      </form>
+      {suggestions.length
+        ? <form>Suggestions:
+          <GameSelect onChange={(event) => selectInputSubmit(event.target.value)}>
+            {suggestions}
+          </GameSelect>
+          {/* <button type="submit">Submit</button> */}
+        </form>
+        : null}
     </>
 
   )
 }
 export default BGGData;
+
+const GameSelect = styled.select`
+  width: 90vw;
+`
