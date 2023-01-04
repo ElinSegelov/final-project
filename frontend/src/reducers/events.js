@@ -1,6 +1,5 @@
 /* eslint-disable quote-props */
-/* eslint-disable linebreak-style */
-/* eslint-disable no-unused-vars */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const events = createSlice({

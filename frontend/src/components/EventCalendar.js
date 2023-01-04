@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
@@ -15,37 +16,32 @@ const EventCalendar = () => {
   const postedEvents = useSelector((store) => store.events.postedEvents)
   const accessToken = useSelector((store) => store.user.userInfo.accessToken)
 
-  const daysWithEvents = postedEvents.map((activeEvent) => parseISO(activeEvent.eventDate))
-  // console.log('dagar med events', daysWithEvents)
   useEffect(() => {
     dispatch(loadEvents(accessToken));
-    console.log('posted events', postedEvents)
+    console.log('posted events', postedEvents) // TA BORT
   }, [])
 
-  const handleDateSelection = (date) => {
-    setStartDate(date);
+  const handleDateSelection = (selectedDate) => {
+    setStartDate(selectedDate);
   }
   useEffect(() => {
     const todaysEvents = postedEvents.filter(
-      // inga events kommer ha samma startdate med isoString eftersom tiden kommer med
-      (event) => event.eventDate === startDate.toISOString()
+      (event) => event.eventDate.slice(0, 10) === startDate.toISOString().slice(0, 10)
     )
     dispatch(events.actions.selectDate(startDate.toISOString()));
-    // setEventsOfTheDay kör före setEvents efter att jag la till toISOString.
     dispatch(events.actions.setEventsOfTheDay(todaysEvents));
 
-    console.log('todaysEvents', todaysEvents)
+    console.log('todaysEvents', todaysEvents) // TA BORT
   }, [dispatch, startDate])
 
+  const daysWithEvents = postedEvents.map((activeEvent) => parseISO(activeEvent.eventDate))
+
   return (
-    <>
-      <DatePicker
-        selected={startDate}
-        onSelect={handleDateSelection}
-        /* highlightDates={[daysWithEvents]} */
-        /* includeDates={[daysWithEvents]} */
-        inline />
-    </>
+    <DatePicker
+      selected={startDate}
+      onSelect={handleDateSelection}
+      highlightDates={daysWithEvents}
+      inline />
   );
 };
 
