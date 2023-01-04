@@ -5,6 +5,7 @@ import styled from 'styled-components/macro';
 import editIcon from 'assets/icons/icons8-pencil-30.png'
 import { useNavigate } from 'react-router';
 import user from 'reducers/user';
+import { ButtonReversed } from 'styles/Button.styles';
 
 const UserProfileCard = () => {
   const dispatch = useDispatch();
@@ -23,11 +24,11 @@ const UserProfileCard = () => {
         <img src={editIcon} alt="Edit" /> {/* onclick set eventSection state */}
       </div>
       <div>
-        <h2>{loggedInUser.username}</h2>
+        <UserName>{loggedInUser.username}</UserName>
         <p>Hosting {loggedInUser.hostingEvents ? loggedInUser.hostingEvents.length : undefined} events</p>
         <p>Attending {loggedInUser.attendingEvents ? loggedInUser.attendingEvents.length : undefined} events</p>
       </div>
-      <button type="button" onClick={handleLogout}>Log Out</button>
+      <ButtonReversed type="button" onClick={handleLogout}>Log Out</ButtonReversed>
     </ProfileSection>
   )
 }
@@ -52,4 +53,6 @@ const ProfileImg = styled.img`
   padding: 0.5rem;
   border-radius: 50%;
 `
-
+const UserName = styled.h2`
+  color: #DE605B;
+`

@@ -41,6 +41,7 @@ const EventCalendar = () => {
       selected={startDate}
       onSelect={handleDateSelection}
       highlightDates={daysWithEvents}
+      dateFormat="yyyy/MM/dd"
       inline />
   );
 };

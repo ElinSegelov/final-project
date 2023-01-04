@@ -52,11 +52,11 @@ const Login = () => {
     <FormWrapper>
       <Form onSubmit={onFormSubmit}>
         <h2>Login</h2>
-        <label htmlFor="username" />
+        <label htmlFor="email" />
         <input
-          placeholder="Username"
+          placeholder="E-mail"
           type="text"
-          id="username"
+          id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)} />
         <label htmlFor="password" />
@@ -66,9 +66,9 @@ const Login = () => {
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)} />
-        <button type="submit">Log In!</button>
+        <button type="submit">Log In</button>
       </Form>
-      <Link to="/register">Not a user? Register here!</Link>
+      <Link to="/register">Not a user yet? Register here!</Link>
     </FormWrapper>
   )
 }

@@ -15,6 +15,17 @@ body {
   /* other formats include: 'woff2', 'truetype, 'opentype',
                             'embedded-opentype', and 'svg' */
 }
+.react-datepicker-wrapper {
+  width: fit-content;
+
+}
+
+
+a {
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
 
 input {
   border-radius: 5px;
