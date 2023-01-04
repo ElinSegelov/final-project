@@ -34,6 +34,7 @@ const EventCalendar = () => {
     <DatePicker
       selected={startDate}
       onSelect={handleDateSelection}
+      dateFormat="yyy/MM/dd"
       inline />
   );
 };
