@@ -15,7 +15,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useSelector } from 'react-redux';
 
-const CreateEventForm = ({ setHandleEvent, editEvent }) => {
+const EditEvent = () => {
   const [eventDate, setEventDate] = useState(new Date())
   const [eventTime, setEventTime] = useState('');
   const [eventName, setEventName] = useState('');
@@ -42,16 +42,8 @@ const CreateEventForm = ({ setHandleEvent, editEvent }) => {
     } else {
       gameName = selectedGame.name.text;
     }
-    // let temp;
-    const edit = () => {
-      if (editEvent) {
-        return 'PATCH'
-      } else {
-        return 'POST'
-      }
-    }
     const options = {
-      method: edit,
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': user.accessToken
@@ -136,5 +128,5 @@ const CreateEventForm = ({ setHandleEvent, editEvent }) => {
   )
 }
 
-export default CreateEventForm
+export default EditEvent
 

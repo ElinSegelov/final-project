@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { StyledEventCardContainer } from 'styles/Containers'
 import EventCard from './EventCard'
 
-const EventCardContainer = () => {
+const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
   // här ska vi mounta EventCard
   const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay)
 
@@ -12,6 +12,9 @@ const EventCardContainer = () => {
     return (
       <div key={event._id}>
         <EventCard
+          setEditEvent={setEditEvent}
+          hostId={event.hostId}
+          setHandleEvent={setHandleEvent}
           game={event.game}
           host={event.host}
           venue={event.venue}
