@@ -13,6 +13,7 @@ import Header from 'components/Header';
 import UserPage from 'components/userDashboard/Dashboard';
 import Login from 'components/SignupLoginForm/Login';
 import Footer from 'components/Footer';
+import { Main } from 'styles/Containers';
 
 const App = () => {
   const reducer = combineReducers({
@@ -27,14 +28,16 @@ const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/user/:id" element={<UserPage />} />
-          <Route path="/404" element={<NotFound />} />
-          <Route path="*" element={<Navigate to="404" />} />
-        </Routes>
+        <Main>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/user/:id" element={<UserPage />} />
+            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<Navigate to="404" />} />
+          </Routes>
+        </Main>
         <Footer />
       </BrowserRouter>
     </Provider>

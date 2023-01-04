@@ -1,6 +1,5 @@
 /* eslint-disable quote-props */
-/* eslint-disable linebreak-style */
-/* eslint-disable no-unused-vars */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const events = createSlice({
@@ -9,7 +8,7 @@ const events = createSlice({
     postedEvents: [],
     eventsOfTheDay: [],
     selectedGameWithDataFromAPI: {},
-    selectedDate: (new Date().toDateString())
+    selectedDate: (new Date().toISOString())
   },
   reducers: {
     selectDate: (store, action) => {

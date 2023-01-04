@@ -43,19 +43,6 @@ const Header = () => {
 
 export default Header;
 
-/* const Logo = styled.img`
-
-  @media (min-width: 600px) {
-
-  }
-` */
-
-const ProfileIcon = styled.img`
-  width: 2rem;
-  position: relative;
-  right: 3rem;
-`
-
 const StyledHeader = styled.header`
   position: relative;
   width: 100vw;
@@ -65,7 +52,13 @@ const StyledHeader = styled.header`
   padding: 1rem;
   height: 10vh;
   max-width: 100vw;
+  `
+const ProfileIcon = styled.img`
+  width: 2rem;
+  position: relative;
+  right: 3rem;
 `
+
 const NavLinkWrapper = styled.nav`
   position: absolute;
   top: 0;

@@ -2,6 +2,8 @@
 /* eslint-disable react/jsx-closing-tag-location */
 import EventCalendar from 'components/EventCalendar'
 import React, { useState } from 'react'
+import { Button1, ButtonReversed } from 'styles/Button.styles'
+import { InnerWrapper } from 'styles/Containers'
 import EventCardContainer from './EventCardContainer'
 import CreateEventForm from './CreateEventForm'
 import EditEvent from './EditEvent'
@@ -41,4 +43,6 @@ const EventSection = () => {
   )
 }
 
-export default EventSection
+export default EventSection;
+
+// const EventSection

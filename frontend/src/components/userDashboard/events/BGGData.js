@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import events from 'reducers/events';
 import styled from 'styled-components';
+import { Form, Input } from 'styles/Forms';
 
 const BGGData = () => {
   const [searchParameter, setSearchParameter] = useState('')
@@ -35,6 +36,7 @@ const BGGData = () => {
           info = data.boardgames.boardgame;
           // lägg in så att första alternativet är tomt!!!!
           const suggestedGames = info.map((game) => {
+            // if()
             return <option key={game.objectid} value={game.objectid}>{game.name.text}</option>
           })
           setSuggestions(suggestedGames)
@@ -56,24 +58,32 @@ const BGGData = () => {
     setSearchParameter('')
   }
   return (
-    <>
-      <form onSubmit={textInputSubmit}>
-        <input type="text" onChange={(event) => setSearchParameter(event.target.value)} />
-      </form>
+      <BGGFetchForm onSubmit={textInputSubmit}>
+        <Input
+          type="text"
+          placeholder="Game"
+          onChange={(event) => setSearchParameter(event.target.value)} />
       {suggestions.length
-        ? <form>Suggestions:
-          <GameSelect onChange={(event) => selectInputSubmit(event.target.value)}>
+        ? <>
+        <label htmlFor="suggestions">Suggestions:
+          <GameSelect
+            id="suggestions"
+            onChange={(event) => selectInputSubmit(event.target.value)}>
             {suggestions}
           </GameSelect>
+          </label>
           {/* <button type="submit">Submit</button> */}
-        </form>
-        : null}
-    </>
 
+       </> : null}
+      </BGGFetchForm>
   )
 }
 export default BGGData;
 
 const GameSelect = styled.select`
-  width: 90vw;
+  width: 12rem;
+`
+
+const BGGFetchForm = styled(Form)`
+  width: 12rem;
 `
