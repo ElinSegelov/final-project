@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import EventCalendar from 'components/EventCalendar';
 import { Link } from 'react-router-dom';
 import Footer from 'components/Footer';
@@ -16,7 +16,6 @@ const LandingPage = () => {
       <EventCalendar />
       <RegisterLink to="/register">Sign up</RegisterLink>
       <LoginLink to="/login">Log in</LoginLink>
-      <Footer />
     </>
   )
 }

@@ -4,8 +4,8 @@ export const FormWrapper = styled.section`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 50%;
-  height: 250px;
+  width: 80vw;
+  min-height: 70vh;
   align-items: center;
   background-color: #363c46;
   border-radius: 10px;
@@ -18,8 +18,9 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   /* justify-content: center; */
+  width: 100%;
 `
 export const Input = styled.input`
-
+ width: 12rem;
 
 `

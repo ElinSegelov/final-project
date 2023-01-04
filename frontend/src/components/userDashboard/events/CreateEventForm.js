@@ -9,11 +9,12 @@ import BGGData from 'components/userDashboard/events/BGGData'
 import { API_URL } from 'utils/utils';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { FormWrapper, Form } from 'styles/Forms';
+import { FormWrapper, Form, Input } from 'styles/Forms';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import { useSelector } from 'react-redux';
+import { Button1 } from 'styles/Button.styles';
 
 const CreateEventForm = ({ setHandleEvent }) => {
   const [eventDate, setEventDate] = useState(new Date())
@@ -62,7 +63,7 @@ const CreateEventForm = ({ setHandleEvent }) => {
       })
     }
     fetch(API_URL('event'), options)
-    window.alert()
+    window.alert('Event created')
     setHandleEvent(false)
   }
   // Se över hur vi handterar datum/tid i frontend och backend
@@ -74,6 +75,7 @@ const CreateEventForm = ({ setHandleEvent }) => {
         <Form onSubmit={onFormSubmit}>
           <DatePicker
             selected={eventDate}
+            dateFormat="yyyy/MM/dd"
             onSelect={handleDateSelection} />
           <p>Pick a date</p>
           <label htmlFor="eventTime">
@@ -84,28 +86,34 @@ const CreateEventForm = ({ setHandleEvent }) => {
               id="eventTime"
               name="eventTime" />
           </label>
-          <label htmlFor="openSpots">
-            <input
-              placeholder="How many players are missing?"
-              type="number"
-              id="openSpots"
-              onChange={(event) => setOpenSpots(event.target.value)}
-              name="openSpots"
-              min="1"
-              max="100" />
-          </label>
-          <label htmlFor="totalSpots">
-            <input
-              placeholder="Total Spots"
-              type="number"
-              id="totalSpots"
-              onChange={(event) => setTotalSpots(event.target.value)}
-              name="totalSpots"
-              min="1"
-              max="100" />
-          </label>
+          <SpotsInformation>
+            <p>Open spots</p>
+            <legend>
+              <label htmlFor="openSpots">
+                <input
+                  type="number"
+                  placeholder="Open"
+                  id="openSpots"
+                  onChange={(event) => setOpenSpots(event.target.value)}
+                  name="openSpots"
+                  min="1"
+                  max="100" />
+              </label>
+              <p>of</p>
+              <label htmlFor="totalSpots">
+                <input
+                  placeholder="Total"
+                  type="number"
+                  id="totalSpots"
+                  onChange={(event) => setTotalSpots(event.target.value)}
+                  name="totalSpots"
+                  min="1"
+                  max="100" />
+              </label>
+            </legend>
+          </SpotsInformation>
           <label htmlFor="venue">
-            <input
+            <Input
               placeholder="Where will you play?"
               required
               onChange={(event) => setVenue(event.target.value)}
@@ -121,7 +129,7 @@ const CreateEventForm = ({ setHandleEvent }) => {
               name="description"
               rows="4" />
           </label>
-          <button type="submit">CREATE EVENT</button>
+          <Button1 type="submit">CREATE EVENT</Button1>
         </Form>
       </FormWrapper>
     </div>
@@ -130,3 +138,15 @@ const CreateEventForm = ({ setHandleEvent }) => {
 
 export default CreateEventForm
 
+const SpotsInformation = styled.div`
+
+
+legend {
+  display: flex;
+  gap: 0.5rem;
+}
+
+input {
+  width: 2.7rem;
+}
+`
