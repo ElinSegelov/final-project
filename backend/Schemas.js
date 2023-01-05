@@ -85,6 +85,9 @@ export const EventSchema = new mongoose.Schema({
     trim: true,
     maxlenght: 300,
   },
+  image: {
+    type: String
+  },
   isFull: {
     type: Boolean,
     default: false

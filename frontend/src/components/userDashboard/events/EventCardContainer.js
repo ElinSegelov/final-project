@@ -10,18 +10,19 @@ const EventCardContainer = () => {
 
   const allEvents = eventsOfTheDay.map((event) => {
     return (
-      <div key={event._id}>
-        <EventCard
-          game={event.game}
-          host={event.host}
-          venue={event.venue}
-          openSpots={event.openSpots}
-          totalSpots={event.totalSpots}
-          isFull={event.isFull}
-          description={event.description}
-          eventName={event.eventName}
-          eventTime={event.eventTime} />
-      </div>
+      <EventCard
+        key={event._id}
+        id={event._id}
+        image={event.image}
+        game={event.game}
+        host={event.host}
+        venue={event.venue}
+        openSpots={event.openSpots}
+        totalSpots={event.totalSpots}
+        isFull={event.isFull}
+        description={event.description}
+        eventName={event.eventName}
+        eventTime={event.eventTime} />
     )
   })
   return (

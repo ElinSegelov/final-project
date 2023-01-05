@@ -57,6 +57,7 @@ const CreateEventForm = ({ setHandleEvent }) => {
         eventName, // Saknas input
         venue,
         game: gameName,
+        image: selectedGame.image,
         openSpots,
         totalSpots,
         description
@@ -71,11 +72,11 @@ const CreateEventForm = ({ setHandleEvent }) => {
         <h2>Create Event</h2>
         <BGGData />
         <Form onSubmit={onFormSubmit}>
+          <p>Pick a date</p>
           <DatePicker
             selected={eventDate}
             dateFormat="yyyy/MM/dd"
             onSelect={handleDateSelection} />
-          <p>Pick a date</p>
           <label htmlFor="eventTime">
             <input
               type="time"
