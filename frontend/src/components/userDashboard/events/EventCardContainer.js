@@ -1,13 +1,16 @@
+/* eslint-disable no-unneeded-ternary */
 /* eslint-disable no-underscore-dangle */ // Ignores _ in _id
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { StyledEventCardContainer } from 'styles/Containers'
+import { Link } from 'react-router-dom'
 import EventCard from './EventCard'
 
 const EventCardContainer = () => {
   // här ska vi mounta EventCard
   const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay)
-
+  const selectedDate = useSelector((store) => store.events.selectedDate)
+  console.log(selectedDate)
   const allEvents = eventsOfTheDay.map((event) => {
     return (
       <EventCard
@@ -26,7 +29,11 @@ const EventCardContainer = () => {
     )
   })
   return (
-    <StyledEventCardContainer>{allEvents}</StyledEventCardContainer>
+    <StyledEventCardContainer>
+      {eventsOfTheDay.length > 0 ? <h2>Events on {selectedDate.slice(0, 10)}</h2> : null}
+      {allEvents}
+      {eventsOfTheDay.length > 0 ? <Link to="/login">Login for full event information</Link> : null}
+    </StyledEventCardContainer>
   )
 }
 
