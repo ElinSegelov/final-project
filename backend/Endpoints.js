@@ -12,7 +12,8 @@ export const getEvents = async (req, res) => {
     return ({
       venue: singleEvent.venue,
       game: singleEvent.game,
-      eventDate: singleEvent.eventDate
+      eventDate: singleEvent.eventDate,
+      eventTime: singleEvent.eventTime,
     })
   })
   try {
@@ -38,9 +39,18 @@ export const getEvents = async (req, res) => {
 
 // FOR THIS TO WORK, WEE NEED USER ID AS QUERY
 export const createEvent = async (req, res) => {
-  // const { userId } = req.params;
-  const { venue, eventDate, game, openSpots, totalSpots, description, hostId, host } = req.body;
-  // const user = await User.findById(hostId)
+  const {
+    venue,
+    eventDate,
+    eventTime,
+    game,
+    openSpots,
+    totalSpots,
+    description,
+    hostId,
+    host,
+    image
+  } = req.body;
   const user = await User.findOne({ accessToken: req.header("Authorization") });
   console.log(user)
   try {
@@ -49,10 +59,12 @@ export const createEvent = async (req, res) => {
       host,
       venue,
       eventDate,
+      eventTime,
       game,
       openSpots,
       totalSpots,
-      description
+      description,
+      image
     }).save();
     res.status(201).json({
       success: true,

@@ -105,8 +105,4 @@ legend {
   display: flex;
   gap: 0.5rem;
 }
-
-input {
-  width: 2.7rem;
-}
 `

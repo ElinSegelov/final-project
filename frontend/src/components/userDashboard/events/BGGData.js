@@ -21,19 +21,19 @@ const BGGData = () => {
   const fetchData = async (bggEndpoint, objectId) => {
     const URL = `https://api.factmaven.com/xml-to-json/?xml=${bggEndpoint}${objectId || searchParameter}`;
     let info;
+
     try {
       const response = await fetch(URL);
       const data = await response.json();
       console.log('fetched data', data)
+
       if (data) {
         if (objectId) {
           // Checking if the fetch is to objectId endpoint.
           info = data.boardgames.boardgame;
-          console.log('if statement')
           console.log(info)
           dispatch(events.actions.setSelectedGameWithDataFromAPI(info))
         } else if (data.boardgames.boardgame) {
-          console.log('else if statement')
           info = data.boardgames.boardgame;
           // lägg in så att första alternativet är tomt!!!!
           const suggestedGames = info.map((game) => {

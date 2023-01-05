@@ -69,7 +69,8 @@ const EventReusableLogic = ({ setHandleEvent, editEvent }) => {
         game: gameName,
         openSpots,
         totalSpots,
-        description
+        description,
+        image: selectedGame.image
       })
     }
     fetch(API_URL('event'), options)
