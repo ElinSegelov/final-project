@@ -1,91 +1,104 @@
+/* eslint-disable max-len */
 /* eslint-disable no-undef */
 /* eslint-disable quote-props */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react'
+import React from 'react'
 import BGGData from 'components/userDashboard/events/BGGData'
 
-import { API_URL } from 'utils/utils';
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components/macro';
 import { FormWrapper, Form } from 'styles/Forms';
 import DatePicker from 'react-datepicker';
-
 import 'react-datepicker/dist/react-datepicker.css';
+import { Button1 } from 'styles/Button.styles';
+
+import { parseISO } from 'date-fns';
 import { useSelector } from 'react-redux';
 import events from 'reducers/events';
 
 const EditEvent = ({
-  setEventTime,
-  setEventName,
-  setVenue,
-  setOpenSpots,
-  setTotalSpots,
-  setDescription,
-  handleDateSelection,
   onFormSubmit,
   eventDate,
-  venue
+  tempEventInfoForEdit,
+  setTempEventInfoForEdit,
+  handleTempDateSelection
 }) => {
-  const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
+  console.log('edit', tempEventInfoForEdit)
+  //! This is not working.
+  // const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
+  // const tempEventDate = tempEventInfoForEdit.eventDate
   return (
     <div>
       <FormWrapper>
         <h2>Edit Event</h2>
-        <BGGData />
+        {/* <BGGData tempEventInfoForEdit={tempEventInfoForEdit} /> */}
         <Form onSubmit={onFormSubmit}>
           <DatePicker
+            //! The selected date right now is the same as the current date.
+            //! I tried everysingle possibility. it doesnt work
             selected={eventDate}
-            onSelect={handleDateSelection} />
+            // selected={parseISO(selectedEventForEdit.eventDate)}
+            dateFormat="yyyy/MM/dd"
+            onSelect={handleTempDateSelection} />
           <p>Pick a date</p>
           <label htmlFor="eventTime">
+            Choose a new time
             <input
+              value={tempEventInfoForEdit.eventTime || ''}
               type="time"
               required
-              onChange={(event) => setEventTime(event.target.value)}
+              onChange={(event) => {
+                setTempEventInfoForEdit({ ...tempEventInfoForEdit, eventTime: event.target.value })
+              }}
               id="eventTime"
               name="eventTime" />
           </label>
           <label htmlFor="openSpots">
             <input
-              placeholder={selectedEventForEdit.openSpots}
+              value={tempEventInfoForEdit.openSpots || ''}
               type="number"
               id="openSpots"
-              onChange={(event) => setOpenSpots(event.target.value)}
+              onChange={(event) => {
+                setTempEventInfoForEdit({ ...tempEventInfoForEdit, openSpots: event.target.value })
+              }}
               name="openSpots"
               min="1"
               max="100" />
           </label>
           <label htmlFor="totalSpots">
             <input
-              placeholder={selectedEventForEdit.totalSpots}
+              value={tempEventInfoForEdit.totalSpots || ''}
               type="number"
               id="totalSpots"
-              onChange={(event) => setTotalSpots(event.target.value)}
+              onChange={(event) => {
+                setTempEventInfoForEdit({ ...tempEventInfoForEdit, totalSpots: event.target.value })
+              }}
               name="totalSpots"
               min="1"
               max="100" />
           </label>
           <label htmlFor="venue">
             <input
-              placeholder={venue}
+              value={tempEventInfoForEdit.venue || ''}
               required
-              onChange={(event) => setVenue(event.target.value)}
+              onChange={(event) => {
+                setTempEventInfoForEdit({ ...tempEventInfoForEdit, venue: event.target.value })
+              }}
               type="text"
               id="venue"
               name="venue" />
           </label>
           <label htmlFor="description">
             <textarea
-              value={selectedEventForEdit.description}
-              placeholder={selectedEventForEdit.description}
+              value={tempEventInfoForEdit.description || ''}
               id="description"
-              onChange={(event) => setDescription(event.target.value)}
+              onChange={(event) => {
+                setTempEventInfoForEdit({ ...tempEventInfoForEdit, description: event.target.value })
+              }}
               name="description"
               rows="4" />
           </label>
-          <button type="submit">EDIT EVENT</button>
+          <Button1 type="submit">EDIT EVENT</Button1>
         </Form>
       </FormWrapper>
     </div>
