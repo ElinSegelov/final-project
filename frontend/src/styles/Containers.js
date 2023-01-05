@@ -16,10 +16,10 @@ export const InnerWrapper = styled.section`
 `
 
 export const StyledEventCardContainer = styled.section`
-  display: flex;
-  background-color: #363c46;  
+  //display: flex;
+  //background-color: #363c46;  
   width: 90%;
-  border-radius: 10px;
+  //border-radius: 10px;
   align-items: center;
   gap: 1rem;
 `
