@@ -142,6 +142,33 @@ export const deleteEvent = async (req, res) => {
   }
 }
 
+export const applyForSpot = async (req, res) => {
+  const { userEmail, eventId } = req.body;
+  const user = await User.findOne({ accessToken: req.header("Authorization") })
+  
+  await Event.findOneAndUpdate(selectedEvent._id, { $set: { venue, game, openSpots, totalSpots, description, isFull } });
+      res.status(200).json({
+        success: true,
+        response: {
+          message: "The event has been updated"
+        }
+      })
+    } else {
+      res.status(400).json({
+        success: false,
+        response: {
+          message: "No changes were made"
+        }
+      })
+    }
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      response: err
+    })
+  }
+}
+
 /* ------------------------------ REGISTER ------------------------------ */
 export const registerUser = async (req, res) => {
   const { username, password, email } = req.body;

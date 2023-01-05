@@ -5,7 +5,7 @@ import crypto from "crypto"
 import bcrypt from "bcrypt"
 import { User, Event } from "./Models";
 
-import { createEvent, getEvents, getUserInfo, loginUser, registerUser, updateUserInfo, deleteUser, deleteEvent, updateEvent } from "./Endpoints";
+import { createEvent, getEvents, getUserInfo, loginUser, registerUser, updateUserInfo, deleteUser, deleteEvent, updateEvent, applyForSpot } from "./Endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -70,18 +70,16 @@ app.post("/event", createEvent);
 //If user is not authnticated they get limited info about the events, if user is authenticated they get all event info.
 app.get("/event", getEvents);
 
-
-//  Kolla om det ska filteras för event ID via params
-
-//NOTE: WE COULD ADD A FIELD TO MAKE THE USER CHOOSE A NAME FOR THE EVENT
 // This allows the user to delete an event
 app.delete("/event", authenticateUser);
 app.delete("/event", deleteEvent);
 
-// CHECK IF WE NEED TO ALLOW ALL INFO TO BE CHANGED WITH ELIN
-// CHECK IF WE NEED CONST USER
+// Update event
 app.patch("/event", authenticateUser);
 app.patch("/event", updateEvent);
+
+app.post("/applyForSpot", authenticateUser);
+app.post("/applyForSpot", applyForSpot);
 
 
 // Start the server
