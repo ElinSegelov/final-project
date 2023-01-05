@@ -6,7 +6,7 @@ import { StyledEventCardContainer } from 'styles/Containers'
 import { Link } from 'react-router-dom'
 import EventCard from './EventCard'
 
-const EventCardContainer = () => {
+const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
   // här ska vi mounta EventCard
   const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay)
   const selectedDate = useSelector((store) => store.events.selectedDate)
@@ -17,6 +17,10 @@ const EventCardContainer = () => {
         key={event._id}
         id={event._id}
         image={event.image}
+        eventId={event._id}
+        setEditEvent={setEditEvent}
+        hostId={event.hostId}
+        setHandleEvent={setHandleEvent}
         game={event.game}
         host={event.host}
         venue={event.venue}

@@ -11,7 +11,7 @@ const UserProfileCard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loggedInUser = useSelector((store) => store.user.userInfo)
-
+  console.log(loggedInUser)
   const handleLogout = () => {
     localStorage.clear()
     navigate('/')

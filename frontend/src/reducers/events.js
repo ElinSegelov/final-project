@@ -8,6 +8,7 @@ const events = createSlice({
     postedEvents: [],
     eventsOfTheDay: [],
     selectedGameWithDataFromAPI: {},
+    selectedEventForEdit: [],
     selectedDate: (new Date().toISOString())
   },
   reducers: {
@@ -16,6 +17,9 @@ const events = createSlice({
     },
     setEvents: (store, action) => {
       store.postedEvents = action.payload
+    },
+    setSelectedEventForEdit: (store, action) => {
+      store.selectedEventForEdit = action.payload
     },
     setEventsOfTheDay: (store, action) => {
       store.eventsOfTheDay = action.payload
