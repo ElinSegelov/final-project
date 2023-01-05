@@ -1,8 +1,6 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import crypto from "crypto"
-import bcrypt from "bcrypt"
 import { User, Event } from "./Models";
 
 import { createEvent, getEvents, getUserInfo, loginUser, registerUser, updateUserInfo, deleteUser, deleteEvent, updateEvent, applyForSpot } from "./Endpoints";

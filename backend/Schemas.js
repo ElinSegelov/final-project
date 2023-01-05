@@ -91,5 +91,8 @@ export const EventSchema = new mongoose.Schema({
   isFull: {
     type: Boolean,
     default: false
+  },
+  pendingPartyMembers: {
+    type: Array
   }
 });
