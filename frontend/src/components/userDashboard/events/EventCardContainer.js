@@ -7,7 +7,7 @@ import EventCard from './EventCard'
 const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
   // här ska vi mounta EventCard
   const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay)
-
+  // comm
   const allEvents = eventsOfTheDay.map((event) => {
     return (
       <div key={event._id}>
