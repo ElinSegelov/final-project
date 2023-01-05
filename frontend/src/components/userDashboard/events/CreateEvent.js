@@ -16,63 +16,17 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useSelector } from 'react-redux';
 import { Button1 } from 'styles/Button.styles';
 
-const CreateEventForm = ({ setHandleEvent, editEvent }) => {
-  const [eventDate, setEventDate] = useState(new Date())
-  const [eventTime, setEventTime] = useState('');
-  const [eventName, setEventName] = useState('');
-  const [venue, setVenue] = useState('');
-  const [openSpots, setOpenSpots] = useState('');
-  const [totalSpots, setTotalSpots] = useState('');
-  const [description, setDescription] = useState('');
-
-  const user = useSelector((store) => store.user.userInfo);
-  const selectedGame = useSelector((store) => store.events.selectedGameWithDataFromAPI);
-  let gameName;
-
-  const handleDateSelection = (date) => {
-    setEventDate(date)
-  }
-
-  const onFormSubmit = (event) => {
-    event.preventDefault()
-    // The games sometimes have several titles. We check if there are more than one title, if so,
-    // we find the primary one.
-    if (selectedGame.name.length > 1) {
-      const nameOfGame = selectedGame.name.find((nameGame) => nameGame.primary === 'true')
-      gameName = nameOfGame.text;
-    } else {
-      gameName = selectedGame.name.text;
-    }
-    // let temp;
-    const edit = () => {
-      if (editEvent) {
-        return 'PATCH'
-      } else {
-        return 'POST'
-      }
-    }
-    const options = {
-      method: edit,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': user.accessToken
-      },
-      body: JSON.stringify({
-        hostId: user.userId,
-        host: user.username,
-        eventDate: eventDate.toISOString(),
-        eventTime,
-        eventName, // Saknas input
-        venue,
-        game: gameName,
-        openSpots,
-        totalSpots,
-        description
-      })
-    }
-    fetch(API_URL('event'), options)
-    setHandleEvent(false)
-  }
+const CreateEvent = ({
+  setEventTime,
+  setEventName,
+  setVenue,
+  setOpenSpots,
+  setTotalSpots,
+  setDescription,
+  handleDateSelection,
+  onFormSubmit,
+  eventDate
+}) => {
   return (
     <div>
       <FormWrapper>
@@ -142,7 +96,7 @@ const CreateEventForm = ({ setHandleEvent, editEvent }) => {
   )
 }
 
-export default CreateEventForm
+export default CreateEvent
 
 const SpotsInformation = styled.div`
 

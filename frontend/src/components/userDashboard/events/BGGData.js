@@ -4,7 +4,7 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import events from 'reducers/events';
 import styled from 'styled-components';
 import { Form, Input } from 'styles/Forms';
@@ -13,6 +13,7 @@ const BGGData = () => {
   const [searchParameter, setSearchParameter] = useState('')
   const [suggestions, setSuggestions] = useState([])
   const dispatch = useDispatch()
+  const gameName = useSelector((store) => store.events.selectedEventForEdit.game)
 
   const BGG_API_SEARCH_BY_NAME = 'https://boardgamegeek.com/xmlapi/search?search='
   const BGG_API_SEARCH_BY_OBJECT_ID = 'https://boardgamegeek.com/xmlapi/boardgame/'
@@ -58,24 +59,25 @@ const BGGData = () => {
     setSearchParameter('')
   }
   return (
-      <BGGFetchForm onSubmit={textInputSubmit}>
-        <Input
-          type="text"
-          placeholder="Game"
-          onChange={(event) => setSearchParameter(event.target.value)} />
+    <BGGFetchForm onSubmit={textInputSubmit}>
+      <Input
+        value={gameName}
+        type="text"
+        placeholder="Game"
+        onChange={(event) => setSearchParameter(event.target.value)} />
       {suggestions.length
         ? <>
-        <label htmlFor="suggestions">Suggestions:
-          <GameSelect
-            id="suggestions"
-            onChange={(event) => selectInputSubmit(event.target.value)}>
-            {suggestions}
-          </GameSelect>
+          <label htmlFor="suggestions">Suggestions:
+            <GameSelect
+              id="suggestions"
+              onChange={(event) => selectInputSubmit(event.target.value)}>
+              {suggestions}
+            </GameSelect>
           </label>
           {/* <button type="submit">Submit</button> */}
 
-       </> : null}
-      </BGGFetchForm>
+        </> : null}
+    </BGGFetchForm>
   )
 }
 export default BGGData;

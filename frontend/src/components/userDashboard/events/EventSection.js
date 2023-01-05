@@ -5,9 +5,10 @@ import React, { useState } from 'react'
 import { Button1, ButtonReversed } from 'styles/Button.styles'
 import { InnerWrapper } from 'styles/Containers'
 import EventCardContainer from './EventCardContainer'
-import CreateEventForm from './CreateEventForm'
 import EditEvent from './EditEvent'
 import SelectedEvent from './SelectedEvent'
+import EventReusableLogic from './EventReusableLogic'
+import CreateEvent from './CreateEvent'
 
 const EventSection = () => {
   const [handleEvent, setHandleEvent] = useState(false)
@@ -18,7 +19,7 @@ const EventSection = () => {
       <section hidden={editEvent}>
         {handleEvent
           ? <>
-            <CreateEventForm
+            <EventReusableLogic
               editEvent={editEvent}
               setHandleEvent={setHandleEvent} />
             <button type="button" onClick={() => setHandleEvent(false)}>X</button>
@@ -35,7 +36,9 @@ const EventSection = () => {
       <section>
         {editEvent
           ? <>
-            <CreateEventForm />
+            <EventReusableLogic
+              editEvent={editEvent}
+              setHandleEvent={setHandleEvent} />
             <button type="button" onClick={() => setEditEvent(false)}>X</button></>
           : ''}
       </section>

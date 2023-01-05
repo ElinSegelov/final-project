@@ -14,62 +14,25 @@ import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import { useSelector } from 'react-redux';
+import events from 'reducers/events';
 
-const EditEvent = () => {
-  const [eventDate, setEventDate] = useState(new Date())
-  const [eventTime, setEventTime] = useState('');
-  const [eventName, setEventName] = useState('');
-  const [venue, setVenue] = useState('');
-  const [openSpots, setOpenSpots] = useState('');
-  const [totalSpots, setTotalSpots] = useState('');
-  const [description, setDescription] = useState('');
-
-  const user = useSelector((store) => store.user.userInfo);
-  const selectedGame = useSelector((store) => store.events.selectedGameWithDataFromAPI);
-  let gameName;
-
-  const handleDateSelection = (date) => {
-    setEventDate(date)
-  }
-
-  const onFormSubmit = (event) => {
-    event.preventDefault()
-    // The games sometimes have several titles. We check if there are more than one title, if so,
-    // we find the primary one.
-    if (selectedGame.name.length > 1) {
-      const nameOfGame = selectedGame.name.find((nameGame) => nameGame.primary === 'true')
-      gameName = nameOfGame.text;
-    } else {
-      gameName = selectedGame.name.text;
-    }
-    const options = {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': user.accessToken
-      },
-      body: JSON.stringify({
-        hostId: user.userId,
-        host: user.username,
-        eventDate: eventDate.toDateString(),
-        eventTime,
-        eventName, // Saknas input
-        venue,
-        game: gameName,
-        openSpots,
-        totalSpots,
-        description
-      })
-    }
-    fetch(API_URL('event'), options)
-    window.alert()
-    setHandleEvent(false)
-  }
-  // Se över hur vi handterar datum/tid i frontend och backend
+const EditEvent = ({
+  setEventTime,
+  setEventName,
+  setVenue,
+  setOpenSpots,
+  setTotalSpots,
+  setDescription,
+  handleDateSelection,
+  onFormSubmit,
+  eventDate,
+  venue
+}) => {
+  const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
   return (
     <div>
       <FormWrapper>
-        <h2>Create Event</h2>
+        <h2>Edit Event</h2>
         <BGGData />
         <Form onSubmit={onFormSubmit}>
           <DatePicker
@@ -86,7 +49,7 @@ const EditEvent = () => {
           </label>
           <label htmlFor="openSpots">
             <input
-              placeholder="How many players are missing?"
+              placeholder={selectedEventForEdit.openSpots}
               type="number"
               id="openSpots"
               onChange={(event) => setOpenSpots(event.target.value)}
@@ -96,7 +59,7 @@ const EditEvent = () => {
           </label>
           <label htmlFor="totalSpots">
             <input
-              placeholder="Total Spots"
+              placeholder={selectedEventForEdit.totalSpots}
               type="number"
               id="totalSpots"
               onChange={(event) => setTotalSpots(event.target.value)}
@@ -106,7 +69,7 @@ const EditEvent = () => {
           </label>
           <label htmlFor="venue">
             <input
-              placeholder="Where will you play?"
+              placeholder={venue}
               required
               onChange={(event) => setVenue(event.target.value)}
               type="text"
@@ -115,13 +78,14 @@ const EditEvent = () => {
           </label>
           <label htmlFor="description">
             <textarea
-              placeholder="Describe the event"
+              value={selectedEventForEdit.description}
+              placeholder={selectedEventForEdit.description}
               id="description"
               onChange={(event) => setDescription(event.target.value)}
               name="description"
               rows="4" />
           </label>
-          <button type="submit">CREATE EVENT</button>
+          <button type="submit">EDIT EVENT</button>
         </Form>
       </FormWrapper>
     </div>

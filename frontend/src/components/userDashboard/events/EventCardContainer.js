@@ -12,6 +12,7 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
     return (
       <div key={event._id}>
         <EventCard
+          eventId={event._id}
           setEditEvent={setEditEvent}
           hostId={event.hostId}
           setHandleEvent={setHandleEvent}
