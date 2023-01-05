@@ -152,6 +152,39 @@ export const deleteEvent = async (req, res) => {
   }
 }
 
+export const applyForSpot = async (req, res) => {
+  // eventID är samma som eventets _id
+  const { userEmail, eventId } = req.body;
+  const user = await User.findOne({ accessToken: req.header("Authorization") })
+  const selectedEvent = await Event.findOne({ eventId })
+  //! det här funkar nog inte
+  //const host = await User.findOne({hostingEvents: includes(selectedEvent)})
+  
+  try {
+    if (selectedEvent) {   
+      await Event.findOneAndUpdate(selectedEvent._id, { $push: { pendingPartyMembers: userEmail } });
+      res.status(200).json({
+        success: true,
+        response: {
+          message: "User added to pendingPartyMembers list"
+        }
+      })
+    } else {
+      res.status(400).json({
+        success: false,
+        response: {
+          message: "Could not add user to pendingPartyMembers list "
+        }
+      })
+    }
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      response: err
+    })
+  }
+}
+
 /* ------------------------------ REGISTER ------------------------------ */
 export const registerUser = async (req, res) => {
   const { username, password, email } = req.body;
