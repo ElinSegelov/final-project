@@ -1,8 +1,7 @@
 import { User, Event } from './Models';
 import bcrypt from 'bcrypt';
-import crypto from "crypto"
-import { createTransport } from 'nodemailer';
 import nodemailer from 'nodemailer'
+import { EMAIL, EMAIL_PASSWORD } from './secrets';
 
 const salt = bcrypt.genSaltSync()
 
@@ -154,13 +153,10 @@ export const deleteEvent = async (req, res) => {
   }
 }
 
+//! Här anmäler man intresse och mail skickas till host
 export const applyForSpot = async (req, res) => {
-  // eventID är samma som eventets _id
   const { userEmail, username, eventId } = req.body;
-  // const user = await User.findOne({ accessToken: req.header("Authorization") })
   const selectedEvent = await Event.findOne({ _id: eventId })
-
-  //! Här skickar vi mail
   try {
     if (selectedEvent) {   
       console.log('selected event', selectedEvent)
@@ -171,24 +167,22 @@ export const applyForSpot = async (req, res) => {
           message: "User added to pendingPartyMembers list"
         }
       })
-      //const host = await User.findOne({hostingEvents: {$elemMatch: {selectedEvent} }})
+
       const host = await User.findOne({_id: selectedEvent.hostId})
       console.log('host', host.email)
-
+  
       let transporter = nodemailer.createTransport({
         service: "hotmail",
         auth: {
-          user: "octahedronLFP@outlook.com",
-          pass: "8mkc(wm_/y+NR!:",
+          user: EMAIL,
+          pass: EMAIL_PASSWORD,
         },
       })
       
       const messageToHost = {
-        from: "octahedronLFP@outlook.com",
-        //to: `${host.email}`,
-        to: "elin.segelov@hotmail.com",
+        from: EMAIL,
+        to: `${host.email}`,
         subject: `${username} wants to join your party for playing ${selectedEvent.game}`,
-        text: `${username} wants to join your party. Please contact them on ${userEmail}`,
         html: `
           <p>User <span style="color:#DE605B; font-size: 1.2rem;">${username}</span> wants to join your party. Please contact <span style="color:#DE605B; font-size: 1.2rem;">${username}</span> on ${userEmail}</p>
           <div 
