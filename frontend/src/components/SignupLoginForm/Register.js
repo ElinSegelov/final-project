@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react'
@@ -7,6 +8,8 @@ import user from 'reducers/user';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { FormWrapper, Form, Input } from 'styles/Forms';
+import Swal from 'sweetalert2';
+import { Button1 } from 'styles/Button.styles';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -23,6 +26,24 @@ const Register = () => {
       navigate(`/user/${userId}`);
     }
   }, [loggedInUser, accessToken, navigate, userId])
+
+  const handleValidationErrors = (data) => {
+    if (password.length < 8) {
+      Swal.fire('Password must be at least 8 characters')
+      setPassword('')
+    } else if (data.response.keyValue.username === username) {
+      Swal.fire('This username already exist')
+      setUsername('')
+    } else if (data.response.keyValue.email === email) {
+      Swal.fire('This email already exist')
+      setEmail('')
+    } else {
+      setPassword('')
+      setUsername('')
+      setEmail('')
+      Swal.fire('Sorry, something went wrong')
+    }
+  }
 
   const onFormSubmit = (event) => {
     event.preventDefault()
@@ -44,8 +65,9 @@ const Register = () => {
           navigate(`/user/${userId}`)
         } else {
           batch(() => {
-            dispatch(user.actions.setUserInfo(null))
+            dispatch(user.actions.setUserInfo({}))
             dispatch(user.actions.setError(data.response));
+            handleValidationErrors(data)
           });
         }
       })
@@ -56,6 +78,7 @@ const Register = () => {
         <h2>Sign Up</h2>
         <label htmlFor="username" />
         <input
+          required
           placeholder="Username*"
           type="text"
           id="username"
@@ -63,6 +86,7 @@ const Register = () => {
           onChange={(e) => setUsername(e.target.value)} />
         <label htmlFor="password" />
         <input
+          required
           placeholder="Password*"
           type="password"
           id="password"
@@ -70,13 +94,14 @@ const Register = () => {
           onChange={(e) => setPassword(e.target.value)} />
         <label htmlFor="email" />
         <input
+          required
           placeholder="Email Address*"
           type="email"
           id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)} />
         <div>
-          <button type="submit">Sign Up!</button>
+          <Button1 type="submit">Sign Up!</Button1>
         </div>
       </Form>
       <Link to="/login">Already a user? Login here!</Link>

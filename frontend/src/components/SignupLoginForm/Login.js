@@ -7,6 +7,8 @@ import { API_URL } from 'utils/utils';
 import user from 'reducers/user';
 import { useNavigate, Link } from 'react-router-dom';
 import { Form, FormWrapper } from 'styles/Forms';
+import { Button1 } from 'styles/Button.styles';
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -23,6 +25,11 @@ const Login = () => {
     }
   }, [loggedInUser, navigate, userId, accessToken])
 
+  const handleValidationErrors = (data) => {
+    setEmail('')
+    setPassword('')
+    Swal.fire(data.response)
+  }
   const onFormSubmit = (event) => {
     event.preventDefault()
     const options = {
@@ -42,8 +49,9 @@ const Login = () => {
           });
         } else {
           batch(() => {
-            dispatch(user.actions.setUserInfo(null))
-            dispatch(user.actions.setError(data.response));
+            dispatch(user.actions.setUserInfo({}))
+            dispatch(user.actions.setError(data.response))
+            handleValidationErrors(data)
           });
         }
       })
@@ -54,6 +62,7 @@ const Login = () => {
         <h2>Login</h2>
         <label htmlFor="email" />
         <input
+          required
           placeholder="E-mail"
           type="text"
           id="email"
@@ -61,12 +70,13 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)} />
         <label htmlFor="password" />
         <input
+          required
           placeholder="Password"
           type="password"
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)} />
-        <button type="submit">Log In</button>
+        <Button1 type="submit">Log In</Button1>
       </Form>
       <Link to="/register">Not a user yet? Register here!</Link>
     </FormWrapper>
