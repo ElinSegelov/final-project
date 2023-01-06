@@ -1,15 +1,18 @@
+require('dotenv').config({ path: 'backend/.env' })
+/* import dotenv from "dotenv"
+dotenv.config() */
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import { User, Event } from "./Models";
-
 import { createEvent, getEvents, getUserInfo, loginUser, registerUser, updateUserInfo, deleteUser, deleteEvent, updateEvent, applyForSpot } from "./Endpoints";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
+const mongoUrl = /* process.env.MONGO_URL || */ "mongodb://localhost/final-project";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-const port = process.env.PORT || 8080;
+
+const port = /* process.env.PORT || */ 8080;
 const app = express();
 
 // Add middlewares to enable cors and json body parsing
