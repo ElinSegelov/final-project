@@ -38,6 +38,7 @@ const EventSection = () => {
           ? <>
             <EventReusableLogic
               editEvent={editEvent}
+              setEditEvent={setEditEvent}
               setHandleEvent={setHandleEvent} />
             <button type="button" onClick={() => setEditEvent(false)}>X</button></>
           : ''}

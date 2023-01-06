@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable indent */
 /* eslint-disable no-return-assign */
@@ -9,11 +10,11 @@ import events from 'reducers/events';
 import styled from 'styled-components';
 import { Form, Input } from 'styles/Forms';
 
-const BGGData = () => {
+const BGGData = ({ tempEventInfoForEdit }) => {
   const [searchParameter, setSearchParameter] = useState('')
   const [suggestions, setSuggestions] = useState([])
   const dispatch = useDispatch()
-  const gameName = useSelector((store) => store.events.selectedEventForEdit.game)
+  const gameFromSelectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit.game)
 
   const BGG_API_SEARCH_BY_NAME = 'https://boardgamegeek.com/xmlapi/search?search='
   const BGG_API_SEARCH_BY_OBJECT_ID = 'https://boardgamegeek.com/xmlapi/boardgame/'
@@ -61,7 +62,7 @@ const BGGData = () => {
   return (
     <BGGFetchForm onSubmit={textInputSubmit}>
       <Input
-        value={gameName}
+        value={gameFromSelectedEventForEdit}
         type="text"
         placeholder="Game"
         onChange={(event) => setSearchParameter(event.target.value)} />

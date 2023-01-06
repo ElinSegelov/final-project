@@ -94,13 +94,16 @@ export const updateEvent = async (req, res) => {
     openSpots,
     totalSpots,
     description,
-    isFull
+    eventDate,
+    eventTime,
+    eventName,
+    image
   } = req.body;
   // const user = await User.findOne({ accessToken: req.header("Authorization") })
   const selectedEvent = await Event.findOne({ _id })
   try {
     if (selectedEvent) {
-      await Event.findOneAndUpdate(selectedEvent._id, { $set: { venue, game, openSpots, totalSpots, description, isFull } });
+      await Event.findOneAndUpdate(selectedEvent._id, { $set: { venue, game, openSpots, totalSpots, description, eventDate, eventTime, eventName, image } });
       res.status(200).json({
         success: true,
         response: {
