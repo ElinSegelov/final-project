@@ -4,7 +4,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react'
+import React, { useState } from 'react'
 import BGGData from 'components/userDashboard/events/BGGData'
 
 import { FormWrapper, Form } from 'styles/Forms';
@@ -18,15 +18,20 @@ import events from 'reducers/events';
 
 const EditEvent = ({
   onFormSubmit,
-  eventDate,
   tempEventInfoForEdit,
-  setTempEventInfoForEdit,
-  handleTempDateSelection
+  setTempEventInfoForEdit
 }) => {
+  const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
+  const [startDate, setStartDate] = useState(parseISO(selectedEventForEdit.eventDate));
+  console.log(parseISO(selectedEventForEdit.eventDate))
   console.log('edit', tempEventInfoForEdit)
   //! This is not working.
-  // const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
   // const tempEventDate = tempEventInfoForEdit.eventDate
+
+  const handleTempDateSelection = (date) => {
+    setStartDate(date)
+    setTempEventInfoForEdit({ ...tempEventInfoForEdit, eventDate: date.toISOString() })
+  }
   return (
     <div>
       <FormWrapper>
@@ -36,7 +41,7 @@ const EditEvent = ({
           <DatePicker
             //! The selected date right now is the same as the current date.
             //! I tried everysingle possibility. it doesnt work
-            selected={eventDate}
+            selected={startDate}
             // selected={parseISO(selectedEventForEdit.eventDate)}
             dateFormat="yyyy/MM/dd"
             onSelect={handleTempDateSelection} />

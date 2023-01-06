@@ -5,17 +5,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react'
-import BGGData from 'components/userDashboard/events/BGGData'
-
 import { API_URL } from 'utils/utils';
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components/macro';
-import { FormWrapper, Form, Input } from 'styles/Forms';
-import DatePicker from 'react-datepicker';
-
-import 'react-datepicker/dist/react-datepicker.css';
 import { useSelector } from 'react-redux';
-import { Button1 } from 'styles/Button.styles';
 import EditEvent from './EditEvent';
 import CreateEvent from './CreateEvent';
 
@@ -41,10 +32,6 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
   const handleDateSelection = (date) => {
     setEventDate(date)
   }
-  const handleTempDateSelection = (date) => {
-    setEventDate(date)
-    setTempEventInfoForEdit({ ...tempEventInfoForEdit, eventDate: date.toISOString() })
-  }
 
   const onFormSubmit = (event) => {
     event.preventDefault()
@@ -59,16 +46,6 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
         },
         body: JSON.stringify(
           tempEventInfoForEdit
-          // _id: tempEventInfoForEdit._id,
-          // venue: tempEventInfoForEdit.venue,
-          // game: tempEventInfoForEdit.game,
-          // openSpots: tempEventInfoForEdit.openSpots,
-          // totalSpots: tempEventInfoForEdit.totalSpots,
-          // description: tempEventInfoForEdit.description,
-          // eventDate: eventDate.toISOString()
-          // eventTime: tempEventInfoForEdit.eventTime,
-          // eventName, // Saknas input
-          // image: tempEventInfoForEdit.image
         )
       }
       fetch(API_URL('event'), options)
@@ -111,7 +88,6 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
           eventDate={eventDate}
           setTempEventInfoForEdit={setTempEventInfoForEdit}
           tempEventInfoForEdit={tempEventInfoForEdit}
-          handleTempDateSelection={handleTempDateSelection}
           onFormSubmit={onFormSubmit} />
         : <CreateEvent
           eventDate={eventDate}
