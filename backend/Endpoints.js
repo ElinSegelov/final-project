@@ -1,6 +1,8 @@
 import { User, Event } from './Models';
 import bcrypt from 'bcrypt';
 import crypto from "crypto"
+import { createTransport } from 'nodemailer';
+import nodemailer from 'nodemailer'
 
 const salt = bcrypt.genSaltSync()
 
@@ -154,14 +156,14 @@ export const deleteEvent = async (req, res) => {
 
 export const applyForSpot = async (req, res) => {
   // eventID är samma som eventets _id
-  const { userEmail, eventId } = req.body;
-  const user = await User.findOne({ accessToken: req.header("Authorization") })
-  const selectedEvent = await Event.findOne({ eventId })
-  //! det här funkar nog inte
-  //const host = await User.findOne({hostingEvents: includes(selectedEvent)})
-  
+  const { userEmail, username, eventId } = req.body;
+  // const user = await User.findOne({ accessToken: req.header("Authorization") })
+  const selectedEvent = await Event.findOne({ _id: eventId })
+
+  //! Här skickar vi mail
   try {
     if (selectedEvent) {   
+      console.log('selected event', selectedEvent)
       await Event.findOneAndUpdate(selectedEvent._id, { $push: { pendingPartyMembers: userEmail } });
       res.status(200).json({
         success: true,
@@ -169,6 +171,52 @@ export const applyForSpot = async (req, res) => {
           message: "User added to pendingPartyMembers list"
         }
       })
+      //const host = await User.findOne({hostingEvents: {$elemMatch: {selectedEvent} }})
+      const host = await User.findOne({_id: selectedEvent.hostId})
+      console.log('host', host.email)
+
+      let transporter = nodemailer.createTransport({
+        service: "hotmail",
+        auth: {
+          user: "octahedronLFP@outlook.com",
+          pass: "8mkc(wm_/y+NR!:",
+        },
+      })
+      
+      const messageToHost = {
+        from: "octahedronLFP@outlook.com",
+        //to: `${host.email}`,
+        to: "elin.segelov@hotmail.com",
+        subject: `${username} wants to join your party for playing ${selectedEvent.game}`,
+        text: `${username} wants to join your party. Please contact them on ${userEmail}`,
+        html: `
+          <p>User <span style="color:#DE605B; font-size: 1.2rem;">${username}</span> wants to join your party. Please contact <span style="color:#DE605B; font-size: 1.2rem;">${username}</span> on ${userEmail}</p>
+          <div 
+            style="
+              padding: 1rem 2rem;
+              border-radius: 0.5rem;
+              color: #FFF;
+              background-color: #363c46;">
+                <h3 style="color: #DE605B;">${selectedEvent.game}</h3>
+                <img style="width: 10rem;" src=${selectedEvent.image} alt="game" />
+                <p><span style="color: #DE605B;">Where?</span> ${selectedEvent.venue}</p>
+                <p><span style="color: #DE605B;">When?</span> ${selectedEvent.eventTime}</p>
+                <p>
+                  <span style="color: #DE605B;">Open spots:</span> ${selectedEvent.openSpots} / ${selectedEvent.totalSpots}
+                </p>
+          </div>
+        `
+      };
+
+      transporter.sendMail(messageToHost, (err, info) => {
+        if (err) {
+          console.error(err)
+        } else {
+          console.log('Sent:', info.response)
+        }
+
+      })
+
     } else {
       res.status(400).json({
         success: false,
