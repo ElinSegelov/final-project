@@ -16,6 +16,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [repeatePassword, setRepeatePassword] = useState('');
   const [email, setEmail] = useState('');
   const userId = useSelector((store) => store.user.userInfo.userId);
   const accessToken = useSelector((store) => store.user.userInfo.accessToken);
@@ -54,23 +55,27 @@ const Register = () => {
       },
       body: JSON.stringify({ username, password, email })
     }
-    fetch(API_URL('register'), options)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          batch(() => {
-            dispatch(user.actions.setUserInfo(data.response))
-            dispatch(user.actions.setError(null));
-          });
-          navigate(`/user/${userId}`)
-        } else {
-          batch(() => {
-            dispatch(user.actions.setUserInfo({}))
-            dispatch(user.actions.setError(data.response));
-            handleValidationErrors(data)
-          });
-        }
-      })
+    if (password === repeatePassword) {
+      fetch(API_URL('register'), options)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            batch(() => {
+              dispatch(user.actions.setUserInfo(data.response))
+              dispatch(user.actions.setError(null));
+            });
+            navigate(`/user/${userId}`)
+          } else {
+            batch(() => {
+              dispatch(user.actions.setUserInfo({}))
+              dispatch(user.actions.setError(data.response));
+              handleValidationErrors(data)
+            });
+          }
+        })
+    } else if (password !== repeatePassword) {
+      Swal.fire('Passwords are not equal')
+    }
   }
   return (
     <FormWrapper>
@@ -92,6 +97,14 @@ const Register = () => {
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)} />
+        <label htmlFor="repeatePassword" />
+        <input
+          required
+          placeholder="Confirm your password*"
+          type="password"
+          id="repeatePassword"
+          value={repeatePassword}
+          onChange={(e) => setRepeatePassword(e.target.value)} />
         <label htmlFor="email" />
         <input
           required
