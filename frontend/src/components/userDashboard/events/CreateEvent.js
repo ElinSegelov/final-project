@@ -1,19 +1,15 @@
-/* eslint-disable no-undef */
-/* eslint-disable quote-props */
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react'
+
+import React from 'react'
 import BGGData from 'components/userDashboard/events/BGGData'
 
-import { API_URL } from 'utils/utils';
-import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { FormWrapper, Form, Input } from 'styles/Forms';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import { useSelector } from 'react-redux';
+
 import { Button1 } from 'styles/Button.styles';
 
 const CreateEvent = ({
@@ -51,6 +47,7 @@ const CreateEvent = ({
             <legend>
               <label htmlFor="openSpots">
                 <input
+                  required
                   type="number"
                   placeholder="Open"
                   id="openSpots"
@@ -62,6 +59,7 @@ const CreateEvent = ({
               <p>of</p>
               <label htmlFor="totalSpots">
                 <input
+                  required
                   placeholder="Total"
                   type="number"
                   id="totalSpots"
@@ -99,8 +97,6 @@ const CreateEvent = ({
 export default CreateEvent
 
 const SpotsInformation = styled.div`
-
-
 legend {
   display: flex;
   gap: 0.5rem;

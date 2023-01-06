@@ -62,7 +62,7 @@ const BGGData = ({ tempEventInfoForEdit }) => {
   return (
     <BGGFetchForm onSubmit={textInputSubmit}>
       <Input
-        value={gameFromSelectedEventForEdit}
+        /* value={gameFromSelectedEventForEdit} */
         type="text"
         placeholder="Game"
         onChange={(event) => setSearchParameter(event.target.value)} />

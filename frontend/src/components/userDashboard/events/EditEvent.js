@@ -6,7 +6,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react'
 import BGGData from 'components/userDashboard/events/BGGData'
-
+import styled from 'styled-components/macro';
 import { FormWrapper, Form } from 'styles/Forms';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -14,7 +14,6 @@ import { Button1 } from 'styles/Button.styles';
 
 import { parseISO } from 'date-fns';
 import { useSelector } from 'react-redux';
-import events from 'reducers/events';
 
 const EditEvent = ({
   onFormSubmit,
@@ -25,8 +24,6 @@ const EditEvent = ({
   const [startDate, setStartDate] = useState(parseISO(selectedEventForEdit.eventDate));
   console.log(parseISO(selectedEventForEdit.eventDate))
   console.log('edit', tempEventInfoForEdit)
-  //! This is not working.
-  // const tempEventDate = tempEventInfoForEdit.eventDate
 
   const handleTempDateSelection = (date) => {
     setStartDate(date)
@@ -39,15 +36,11 @@ const EditEvent = ({
         {/* <BGGData tempEventInfoForEdit={tempEventInfoForEdit} /> */}
         <Form onSubmit={onFormSubmit}>
           <DatePicker
-            //! The selected date right now is the same as the current date.
-            //! I tried everysingle possibility. it doesnt work
             selected={startDate}
-            // selected={parseISO(selectedEventForEdit.eventDate)}
             dateFormat="yyyy/MM/dd"
             onSelect={handleTempDateSelection} />
           <p>Pick a date</p>
           <label htmlFor="eventTime">
-            Choose a new time
             <input
               value={tempEventInfoForEdit.eventTime || ''}
               type="time"
@@ -58,32 +51,41 @@ const EditEvent = ({
               id="eventTime"
               name="eventTime" />
           </label>
-          <label htmlFor="openSpots">
-            <input
-              value={tempEventInfoForEdit.openSpots || ''}
-              type="number"
-              id="openSpots"
-              onChange={(event) => {
-                setTempEventInfoForEdit({ ...tempEventInfoForEdit, openSpots: event.target.value })
-              }}
-              name="openSpots"
-              min="1"
-              max="100" />
-          </label>
-          <label htmlFor="totalSpots">
-            <input
-              value={tempEventInfoForEdit.totalSpots || ''}
-              type="number"
-              id="totalSpots"
-              onChange={(event) => {
-                setTempEventInfoForEdit({ ...tempEventInfoForEdit, totalSpots: event.target.value })
-              }}
-              name="totalSpots"
-              min="1"
-              max="100" />
-          </label>
+          <SpotsInformation>
+            <p>Open spots</p>
+            <legend>
+              <label htmlFor="openSpots">
+                <input
+                  placeholder="Open"
+                  value={tempEventInfoForEdit.openSpots || ''}
+                  type="number"
+                  id="openSpots"
+                  onChange={(event) => {
+                    setTempEventInfoForEdit({ ...tempEventInfoForEdit, openSpots: event.target.value })
+                  }}
+                  name="openSpots"
+                  min="1"
+                  max="100" />
+              </label>
+              <p>of</p>
+              <label htmlFor="totalSpots">
+                <input
+                  placeholder="Total"
+                  value={tempEventInfoForEdit.totalSpots || ''}
+                  type="number"
+                  id="totalSpots"
+                  onChange={(event) => {
+                    setTempEventInfoForEdit({ ...tempEventInfoForEdit, totalSpots: event.target.value })
+                  }}
+                  name="totalSpots"
+                  min="1"
+                  max="100" />
+              </label>
+            </legend>
+          </SpotsInformation>
           <label htmlFor="venue">
             <input
+              placeholder="Where will you play?"
               value={tempEventInfoForEdit.venue || ''}
               required
               onChange={(event) => {
@@ -95,6 +97,7 @@ const EditEvent = ({
           </label>
           <label htmlFor="description">
             <textarea
+              placeholder="Describe the event"
               value={tempEventInfoForEdit.description || ''}
               id="description"
               onChange={(event) => {
@@ -111,4 +114,11 @@ const EditEvent = ({
 }
 
 export default EditEvent
+
+const SpotsInformation = styled.div`
+legend {
+  display: flex;
+  gap: 0.5rem;
+}
+`
 
