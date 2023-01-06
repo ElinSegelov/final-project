@@ -1,9 +1,6 @@
-/* eslint-disable max-len */
-/* eslint-disable no-undef */
-/* eslint-disable quote-props */
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable max-len */
+
 import React, { useState } from 'react'
 import BGGData from 'components/userDashboard/events/BGGData'
 import styled from 'styled-components/macro';
@@ -22,8 +19,6 @@ const EditEvent = ({
 }) => {
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
   const [startDate, setStartDate] = useState(parseISO(selectedEventForEdit.eventDate));
-  console.log(parseISO(selectedEventForEdit.eventDate))
-  console.log('edit', tempEventInfoForEdit)
 
   const handleTempDateSelection = (date) => {
     setStartDate(date)

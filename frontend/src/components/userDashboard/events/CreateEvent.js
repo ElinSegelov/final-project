@@ -14,7 +14,7 @@ import { Button1 } from 'styles/Button.styles';
 
 const CreateEvent = ({
   setEventTime,
-  setEventName,
+  setEventName, //! No value / input
   setVenue,
   setOpenSpots,
   setTotalSpots,

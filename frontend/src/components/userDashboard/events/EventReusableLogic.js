@@ -26,10 +26,12 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
   let gameName;
 
-  console.log('tempEventInfoForEdit', tempEventInfoForEdit)
+  console.log(tempEventInfoForEdit) //! TA BORT SEN
   useEffect(() => {
-    setTempEventInfoForEdit(selectedEventForEdit)
-  }, [selectedEventForEdit])
+    if (editEvent) {
+      setTempEventInfoForEdit(selectedEventForEdit)
+    }
+  }, [selectedEventForEdit, editEvent])
 
   const handleDateSelection = (date) => {
     setEventDate(date)
