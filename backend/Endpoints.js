@@ -192,7 +192,7 @@ export const applyForSpot = async (req, res) => {
 export const registerUser = async (req, res) => {
   const { username, password, email } = req.body;
   try {
-    if (password.lenght < 8) {
+    if (password.length < 8) {
       res.status(400).json({
         success: false,
         response: "Passwords must be at least 8 characters long"
