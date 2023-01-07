@@ -17,6 +17,11 @@ body {
   width: fit-content;
 }
 
+h1 {
+  font-family: 'Asgalt-Regular';
+  font-size: 50px
+}
+
 a {
   text-decoration: none;
   color: #fff;

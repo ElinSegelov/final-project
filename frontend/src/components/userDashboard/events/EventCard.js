@@ -10,7 +10,8 @@ import deleteIcon from 'assets/icons/delete-icon.png'
 import { useDispatch, useSelector } from 'react-redux';
 import events from 'reducers/events';
 import { API_URL } from 'utils/utils';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import ApplyToEvent from './ApplyForEvent'
 
 const EventCard = ({
   id,
@@ -80,11 +81,11 @@ const EventCard = ({
       <StyledEventCard key={id}>
         {user.userId === hostId
           ?
-          <section>
+          <HandleEventContainer>
             <button type="button" onClick={(handleEditEvent)}><img src={editIcon} alt="edit event" /></button>
             <button type="button" onClick={(handleDeleteEvent)}><DeleteImg src={deleteIcon} alt="delete event" /></button>
-          </section>
-          : ''}
+          </HandleEventContainer>
+          : null}
         <GameImage src={image} alt={game} />
         <EventInfo>
           <h3>{eventName} - {game}</h3>
@@ -94,6 +95,10 @@ const EventCard = ({
           <p><span>Open spots:</span>{isFull ? 'Event is full' : ` ${openSpots} / ${totalSpots}`}</p>
         </EventInfo>
         <DescriptionParagraph>{description}</DescriptionParagraph>
+        {user.userId !== hostId
+          ?
+          <ApplyToEvent eventId={id} />
+          : null}
       </StyledEventCard>
     )
   } else {
@@ -110,7 +115,7 @@ const EventCard = ({
   }
 }
 
-export default EventCard
+export default EventCard;
 
 const StyledEventCard = styled.div`
   width: 100%;
@@ -122,6 +127,9 @@ const StyledEventCard = styled.div`
   line-height: 1.2;
   background-color: #363c46;
   border-radius: 0.6rem;
+`
+const HandleEventContainer = styled.section`
+  grid-column: 1 / 3;
 `
 
 const GameImage = styled.img`
