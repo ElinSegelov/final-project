@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { API_URL } from 'utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { swalWithTimer } from 'utils/sweetAlerts';
+import { swalBlurBackground } from 'utils/sweetAlerts';
 import ui from 'reducers/ui';
 import EditEvent from './EditEvent';
 import CreateEvent from './CreateEvent';
@@ -38,13 +38,13 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
   const handleEventValidation = () => {
     dispatch(ui.actions.setLoading(false))
     if (editEvent) {
-      swalWithTimer(editEvent)
+      swalBlurBackground(editEvent)
       setEditEvent(false)
       if (selectedEventForEdit === tempEventInfoForEdit) {
         Swal.fire('No changes were made')
       }
     } else {
-      swalWithTimer(editEvent)
+      swalBlurBackground(editEvent)
       setHandleEvent(false)
     }
   }

@@ -1,19 +1,25 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable max-len */
 /* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable indent */
 /* eslint-disable no-return-assign */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-unused-vars */
+import { LoadingBlurBackground, LoadingForGameSearch } from 'components/loaders/loadingAnimations';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import events from 'reducers/events';
+import ui from 'reducers/ui';
 import styled from 'styled-components';
 import { Form, Input } from 'styles/Forms';
+import loaderOrange from 'assets/Loader/Loader_2.gif'
 
 const BGGData = () => {
   const [searchParameter, setSearchParameter] = useState('')
   const [suggestions, setSuggestions] = useState([])
   const dispatch = useDispatch()
+  const isLoading = useSelector((store) => store.ui.isLoading)
 
   const BGG_API_SEARCH_BY_NAME = 'https://boardgamegeek.com/xmlapi/search?search='
   const BGG_API_SEARCH_BY_OBJECT_ID = 'https://boardgamegeek.com/xmlapi/boardgame/'
@@ -49,35 +55,59 @@ const BGGData = () => {
 
   const textInputSubmit = (event) => {
     event.preventDefault()
+    dispatch(ui.actions.setLoading(true))
     fetchData(BGG_API_SEARCH_BY_NAME)
+      .finally(() => dispatch(ui.actions.setLoading(false)))
   }
 
   const selectInputSubmit = (objectId) => {
     console.log('objectId', objectId) //! RADERA SENARE
+    dispatch(ui.actions.setLoading(true))
     fetchData(BGG_API_SEARCH_BY_OBJECT_ID, objectId)
-    setSearchParameter('')
+      .finally(() => {
+        dispatch(ui.actions.setLoading(false))
+        setSearchParameter('')
+      })
   }
   return (
-    <BGGFetchForm onSubmit={textInputSubmit}>
-      <Input
-        type="text"
-        placeholder="Game"
-        onChange={(event) => setSearchParameter(event.target.value)} />
-      {suggestions.length
-        ? <>
-          <label htmlFor="suggestions">Suggestions:
-            <GameSelect
-              id="suggestions"
-              onChange={(event) => selectInputSubmit(event.target.value)}>
-              {suggestions}
-            </GameSelect>
-          </label>
-        </> : null}
-    </BGGFetchForm>
+    <>
+      {isLoading
+        ?
+        <LoaderWrapper>
+          <LoadingForGameSearch />
+        </LoaderWrapper>
+        :
+        <BGGFetchForm onSubmit={textInputSubmit}>
+          <InputWrapper>
+            <Input
+              type="text"
+              placeholder="Game"
+              onChange={(event) => setSearchParameter(event.target.value)} />
+          </InputWrapper>
+          {suggestions.length
+            ?
+            <label htmlFor="suggestions">
+              <GameSelect
+                id="suggestions"
+                onChange={(event) => selectInputSubmit(event.target.value)}>
+                {suggestions}
+              </GameSelect>
+            </label>
+            : null}
+        </BGGFetchForm>}
+    </>
   )
 }
 export default BGGData;
 
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+const LoaderWrapper = styled.div`
+  width: 60px;
+  height: 60px;
+`
 const GameSelect = styled.select`
   width: 12rem;
 `

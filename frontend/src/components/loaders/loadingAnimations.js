@@ -16,6 +16,11 @@ export const LoadingBlurBackground = () => {
     </LoaderWrapper>
   )
 }
+export const LoadingForGameSearch = () => {
+  return (
+    <GifLoader src={loaderOrange} alt="loader" />
+  )
+}
 
 const GifLoader = styled.img`
   display: flex;
