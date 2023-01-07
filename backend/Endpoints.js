@@ -5,10 +5,13 @@ import { EMAIL, EMAIL_PASSWORD } from './secrets';
 
 const salt = bcrypt.genSaltSync()
 
+//TODO Dela upp! En fil för events, en för användare, login, register
+
 /* ------------------------------ EVENTS ------------------------------ */
 export const getEvents = async (req, res) => {
   const accessToken = req.header("Authorization");
   const allEvents = await Event.find().sort({ createdAt: "desc" });
+  //flytta basicEventinfomappningen till else-satsen
   const basicEventInfo = allEvents.map((singleEvent) => {
     return ({
       venue: singleEvent.venue,
@@ -52,6 +55,7 @@ export const createEvent = async (req, res) => {
     host,
     image
   } = req.body;
+  //checka så att vi har fått all required data, annrs skicka status 400.
   const user = await User.findOne({ accessToken: req.header("Authorization") });
   console.log(user)
   try {
@@ -100,7 +104,8 @@ export const updateEvent = async (req, res) => {
     eventName,
     image
   } = req.body;
-  // const user = await User.findOne({ accessToken: req.header("Authorization") })
+  //checka så att vi har fått all required data, annrs skicka status 400.
+  //checka så att användaren som vill radera är host annars skicka 401
   const selectedEvent = await Event.findOne({ _id })
   try {
     if (selectedEvent) {
@@ -115,7 +120,7 @@ export const updateEvent = async (req, res) => {
       res.status(400).json({
         success: false,
         response: {
-          message: "No changes were made"
+          message: "Event was not found"
         }
       })
     }
@@ -130,8 +135,12 @@ export const updateEvent = async (req, res) => {
 export const deleteEvent = async (req, res) => {
   try {
     const { eventId } = req.body
+    //checka så att vi har fått all required data, annrs skicka status 400.
+    //checka så att användaren som vill radera är host annars skicka 401
     const user = await User.findOne({ accessToken: req.header("Authorization") })
     const deletedEvent = await Event.findOneAndDelete({ _id: eventId })
+    //checka att eventet är raderat (kolla vad findOneAndDelete returnerar) 400 om det gick dåligt
+    //lägg in om eventet är deleteat i if condition på 142
     if (user) {
       res.status(200).json({
         success: true,
@@ -159,11 +168,15 @@ export const deleteEvent = async (req, res) => {
 //! Här anmäler man intresse och mail skickas till host
 export const applyForSpot = async (req, res) => {
   const { userEmail, username, eventId } = req.body;
+  //checka så att vi har fått all required data, annrs skicka status 400.
+
   const selectedEvent = await Event.findOne({ _id: eventId })
+
   try {
     if (selectedEvent) {
       console.log('selected event', selectedEvent)
       await Event.findOneAndUpdate(selectedEvent._id, { $push: { pendingPartyMembers: userEmail } });
+      //lägg in resultat av await i variabel. returnera 400 om vi inte lyckas uppdatera (kolla vad findOneAndUpdate returnerar)
       res.status(200).json({
         success: true,
         response: {
@@ -171,6 +184,7 @@ export const applyForSpot = async (req, res) => {
         }
       })
 
+      //Lägg logik för mail innan vi skickar 200. Checka för att mail har gått iväg till host.
       const host = await User.findOne({ _id: selectedEvent.hostId })
       console.log('host', host.email)
 
@@ -187,7 +201,10 @@ export const applyForSpot = async (req, res) => {
         to: `${host.email}`,
         subject: `${username} wants to join your party for playing ${selectedEvent.game}`,
         html: `
-          <p>User <span style="color:#DE605B; font-size: 1.2rem;">${username}</span> wants to join your party. Please contact <span style="color:#DE605B; font-size: 1.2rem;">${username}</span> on ${userEmail}</p>
+          <p>
+            User <span style="color:#DE605B; font-size: 1.2rem;">${username}</span> wants to join your party.
+            Please contact <span style="color:#DE605B; font-size: 1.2rem;">${username}</span> on ${userEmail}
+          </p>
           <div 
             style="
               padding: 1rem 2rem;
@@ -208,17 +225,18 @@ export const applyForSpot = async (req, res) => {
       transporter.sendMail(messageToHost, (err, info) => {
         if (err) {
           console.error(err)
+          //skicka 400 med meddelande om att mail inte kunde skickas till host
         } else {
           console.log('Sent:', info.response)
+          //Skicka 200 för anmälan här
         }
-
       })
 
     } else {
       res.status(400).json({
         success: false,
         response: {
-          message: "Could not add user to pendingPartyMembers list "
+          message: "Could not find event"
         }
       })
     }
@@ -233,6 +251,7 @@ export const applyForSpot = async (req, res) => {
 /* ------------------------------ REGISTER ------------------------------ */
 export const registerUser = async (req, res) => {
   const { username, password, email } = req.body;
+  //checka så att vi har fått all required data, annrs skicka status 400. Vi kan lägga in check för längd på pwd om vi vill
   try {
     if (password.length < 8) {
       res.status(400).json({
@@ -266,11 +285,10 @@ export const registerUser = async (req, res) => {
   }
 };
 
-
-
 /* ------------------------------ LOGIN ------------------------------ */
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
+  //checka så att vi har fått all required data, annrs skicka status 400.
   try {
     const user = await User.findOne({
       email
@@ -304,10 +322,14 @@ export const loginUser = async (req, res) => {
 
 /* ------------------------------ USER ------------------------------ */
 export const getUserInfo = async (req, res) => {
-  let allUserInfo = [];
+  const allUserInfo = []; //! radera
   const selectedUser = await User.findOne({ accessToken: req.header("Authorization") });
-  allUserInfo.push(selectedUser);
+  allUserInfo.push(selectedUser); //! radera
   // see if this can be done smoother - create new object
+  //! lägg in alla properties som vi vill ha, redaera logik för att mappaa/array
+  /* const userInfo = {
+    username: selectedUser.username
+  } */
   const userInfo = allUserInfo.map((user) => {
     return ({
       username: user.username,
@@ -332,9 +354,11 @@ export const getUserInfo = async (req, res) => {
 // CHECK OUT IF WE CAN SIMPLIFY THIS BLOCK
 export const updateUserInfo = async (req, res) => {
   const { email, password } = req.body;
+  //checka så att vi har fått all required data, annrs skicka status 400.
   try {
     const selectedUser = await User.findOne({ accessToken: req.header("Authorization") });
-    if (email && password) {
+    //! funkr det med bara if-statement om man vill uppdatera ena? Kolla annars på optional setting i databasen
+    if (selectedUser && email && password) {
       await User.findByIdAndUpdate(selectedUser._id, { $set: { email, password: bcrypt.hashSync(password, salt) } })
       res.status(200).json({
         success: true,
@@ -370,6 +394,7 @@ export const updateUserInfo = async (req, res) => {
 export const deleteUser = async (req, res) => {
   try {
     const deletedUser = await User.findOneAndDelete({ accessToken: req.header("Authorization") })
+    //! Hur hantera events och anmälningar när man tar bort user. Ska partymembers meddelas?
     if (deletedUser) {
       res.status(200).json({
         success: true,

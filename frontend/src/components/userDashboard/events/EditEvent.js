@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
-
 import React, { useState } from 'react'
 import BGGData from 'components/userDashboard/events/BGGData'
 import styled from 'styled-components/macro';
@@ -8,7 +7,6 @@ import { FormWrapper, Form } from 'styles/Forms';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Button1 } from 'styles/Button.styles';
-
 import { parseISO } from 'date-fns';
 import { useSelector } from 'react-redux';
 

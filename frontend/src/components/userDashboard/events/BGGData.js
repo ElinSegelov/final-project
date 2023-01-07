@@ -5,16 +5,15 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import events from 'reducers/events';
 import styled from 'styled-components';
 import { Form, Input } from 'styles/Forms';
 
-const BGGData = ({ tempEventInfoForEdit }) => {
+const BGGData = () => {
   const [searchParameter, setSearchParameter] = useState('')
   const [suggestions, setSuggestions] = useState([])
   const dispatch = useDispatch()
-  const gameFromSelectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit.game)
 
   const BGG_API_SEARCH_BY_NAME = 'https://boardgamegeek.com/xmlapi/search?search='
   const BGG_API_SEARCH_BY_OBJECT_ID = 'https://boardgamegeek.com/xmlapi/boardgame/'
@@ -26,7 +25,7 @@ const BGGData = ({ tempEventInfoForEdit }) => {
     try {
       const response = await fetch(URL);
       const data = await response.json();
-      console.log('fetched data', data)
+      console.log('fetched data', data) //! Radera senare
 
       if (data) {
         if (objectId) {
@@ -38,7 +37,6 @@ const BGGData = ({ tempEventInfoForEdit }) => {
           info = data.boardgames.boardgame;
           // lägg in så att första alternativet är tomt!!!!
           const suggestedGames = info.map((game) => {
-            // if()
             return <option key={game.objectid} value={game.objectid}>{game.name.text}</option>
           })
           setSuggestions(suggestedGames)
@@ -55,14 +53,13 @@ const BGGData = ({ tempEventInfoForEdit }) => {
   }
 
   const selectInputSubmit = (objectId) => {
-    console.log('objectId', objectId) // RADERA SENARE
+    console.log('objectId', objectId) //! RADERA SENARE
     fetchData(BGG_API_SEARCH_BY_OBJECT_ID, objectId)
     setSearchParameter('')
   }
   return (
     <BGGFetchForm onSubmit={textInputSubmit}>
       <Input
-        /* value={gameFromSelectedEventForEdit} */
         type="text"
         placeholder="Game"
         onChange={(event) => setSearchParameter(event.target.value)} />
@@ -75,8 +72,6 @@ const BGGData = ({ tempEventInfoForEdit }) => {
               {suggestions}
             </GameSelect>
           </label>
-          {/* <button type="submit">Submit</button> */}
-
         </> : null}
     </BGGFetchForm>
   )

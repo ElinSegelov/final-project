@@ -5,10 +5,7 @@ import React, { useState } from 'react'
 import { Button1, ButtonReversed } from 'styles/Button.styles'
 import { InnerWrapper } from 'styles/Containers'
 import EventCardContainer from './EventCardContainer'
-import EditEvent from './EditEvent'
-import SelectedEvent from './SelectedEvent'
 import EventReusableLogic from './EventReusableLogic'
-import CreateEvent from './CreateEvent'
 
 const EventSection = () => {
   const [handleEvent, setHandleEvent] = useState(false)
@@ -16,37 +13,35 @@ const EventSection = () => {
 
   return (
     <>
-      <section hidden={editEvent}>
+      <InnerWrapper hidden={editEvent}>
         {handleEvent
           ? <>
             <EventReusableLogic
               editEvent={editEvent}
               setHandleEvent={setHandleEvent} />
-            <button type="button" onClick={() => setHandleEvent(false)}>X</button>
+            <ButtonReversed type="button" onClick={() => setHandleEvent(false)}>X</ButtonReversed>
           </>
           : <>
-            <button type="button" onClick={() => setHandleEvent(true)}>create</button>
+            <Button1 type="button" onClick={() => setHandleEvent(true)}>Create</Button1>
             <EventCalendar />
             <EventCardContainer
               setHandleEvent={setHandleEvent}
               setEditEvent={setEditEvent}
               editEvent={editEvent} />
           </>}
-      </section>
-      <section>
+      </InnerWrapper>
+      <InnerWrapper>
         {editEvent
           ? <>
             <EventReusableLogic
               editEvent={editEvent}
               setEditEvent={setEditEvent}
               setHandleEvent={setHandleEvent} />
-            <button type="button" onClick={() => setEditEvent(false)}>X</button></>
+            <ButtonReversed type="button" onClick={() => setEditEvent(false)}>X</ButtonReversed></>
           : ''}
-      </section>
+      </InnerWrapper>
     </>
   )
 }
 
 export default EventSection;
-
-// const EventSection
