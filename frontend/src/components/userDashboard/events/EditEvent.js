@@ -57,8 +57,8 @@ const EditEvent = ({
                     setTempEventInfoForEdit({ ...tempEventInfoForEdit, openSpots: event.target.value })
                   }}
                   name="openSpots"
-                  min="1"
-                  max="100" />
+                  min="0"
+                  max={tempEventInfoForEdit.totalSpots} />
               </label>
               <p>of</p>
               <label htmlFor="totalSpots">
@@ -72,7 +72,7 @@ const EditEvent = ({
                   }}
                   name="totalSpots"
                   min="1"
-                  max="100" />
+                  max="8" />
               </label>
             </legend>
           </SpotsInformation>

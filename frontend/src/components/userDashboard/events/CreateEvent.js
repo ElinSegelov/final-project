@@ -17,7 +17,8 @@ const CreateEvent = ({
   setDescription,
   handleDateSelection,
   onFormSubmit,
-  eventDate
+  eventDate,
+  totalSpots
 }) => {
   return (
     <div>
@@ -50,7 +51,7 @@ const CreateEvent = ({
                   onChange={(event) => setOpenSpots(event.target.value)}
                   name="openSpots"
                   min="1"
-                  max="100" />
+                  max={totalSpots} />
               </label>
               <p>of</p>
               <label htmlFor="totalSpots">
@@ -62,7 +63,7 @@ const CreateEvent = ({
                   onChange={(event) => setTotalSpots(event.target.value)}
                   name="totalSpots"
                   min="1"
-                  max="100" />
+                  max="8" />
               </label>
             </legend>
           </SpotsInformation>
