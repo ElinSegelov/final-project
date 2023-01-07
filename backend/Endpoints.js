@@ -161,7 +161,7 @@ export const applyForSpot = async (req, res) => {
   const { userEmail, username, eventId } = req.body;
   const selectedEvent = await Event.findOne({ _id: eventId })
   try {
-    if (selectedEvent) {   
+    if (selectedEvent) {
       console.log('selected event', selectedEvent)
       await Event.findOneAndUpdate(selectedEvent._id, { $push: { pendingPartyMembers: userEmail } });
       res.status(200).json({
@@ -171,9 +171,9 @@ export const applyForSpot = async (req, res) => {
         }
       })
 
-      const host = await User.findOne({_id: selectedEvent.hostId})
+      const host = await User.findOne({ _id: selectedEvent.hostId })
       console.log('host', host.email)
-  
+
       let transporter = nodemailer.createTransport({
         service: "hotmail",
         auth: {
@@ -181,7 +181,7 @@ export const applyForSpot = async (req, res) => {
           pass: EMAIL_PASSWORD,
         },
       })
-      
+
       const messageToHost = {
         from: EMAIL,
         to: `${host.email}`,

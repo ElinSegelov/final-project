@@ -7,6 +7,8 @@
 import React, { useEffect, useState } from 'react'
 import { API_URL } from 'utils/utils';
 import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import { swalWithTimer } from 'utils/swal';
 import EditEvent from './EditEvent';
 import CreateEvent from './CreateEvent';
 
@@ -24,19 +26,32 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
   let gameName;
 
-  console.log('tempEventInfoForEdit', tempEventInfoForEdit)
+  console.log(tempEventInfoForEdit) //! TA BORT SEN
   useEffect(() => {
-    setTempEventInfoForEdit(selectedEventForEdit)
-  }, [selectedEventForEdit])
+    if (editEvent) {
+      setTempEventInfoForEdit(selectedEventForEdit)
+    }
+  }, [selectedEventForEdit, editEvent])
 
   const handleDateSelection = (date) => {
     setEventDate(date)
   }
+  const handleEventValidation = () => {
+    if (editEvent) {
+      swalWithTimer(editEvent)
+      setEditEvent(false)
+      if (selectedEventForEdit === tempEventInfoForEdit) {
+        Swal.fire('No changes were made')
+      }
+    } else {
+      swalWithTimer(editEvent)
+      setHandleEvent(false)
+    }
+  }
 
   const onFormSubmit = (event) => {
     event.preventDefault()
-    // The games sometimes have several titles. We check if there are more than one title, if so,
-    // we find the primary one.
+
     if (editEvent) {
       const options = {
         method: 'PATCH',
@@ -49,14 +64,17 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
         )
       }
       fetch(API_URL('event'), options)
-      setEditEvent(false)
+      handleEventValidation()
     } else {
+      // The games sometimes have several titles. We check if there are more than one title, if so,
+      // we find the primary one.
       if (selectedGame.name.length > 1) {
         const nameOfGame = selectedGame.name.find((nameGame) => nameGame.primary === 'true')
         gameName = nameOfGame.text;
       } else {
         gameName = selectedGame.name.text;
       }
+
       const options = {
         method: 'POST',
         headers: {
@@ -78,7 +96,7 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
         })
       }
       fetch(API_URL('event'), options)
-      setHandleEvent(false)
+      handleEventValidation()
     }
   }
   return (
