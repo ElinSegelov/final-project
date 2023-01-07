@@ -6,14 +6,14 @@ export const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
     unique: true,
-    minlenght: 3,
-    maxlenght: 15,
+    minlength: 3,
+    maxlength: 15,
     required: true
   },
   password: {
     type: String,
     required: true,
-    minlenght: 8
+    minlength: 8
   },
   email: {
     // glöm inte validation
