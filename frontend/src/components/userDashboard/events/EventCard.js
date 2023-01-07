@@ -26,8 +26,8 @@ const EventCard = ({
   image,
   hostId,
   setEditEvent,
-  eventId
-  // setHandleEvent
+  eventId,
+  setHandleEvent
 }) => {
   // Om inget eventnamn, visa endast game
   const dispatch = useDispatch();
@@ -40,6 +40,7 @@ const EventCard = ({
   const handleEditEvent = () => {
     dispatch(events.actions.setSelectedEventForEdit(selectedEventForEditOrRemove))
     setEditEvent(true)
+    setHandleEvent(false)
     console.log('selectedEventForEdit', selectedEventForEditOrRemove)
   }
 

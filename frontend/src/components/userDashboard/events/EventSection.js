@@ -13,22 +13,24 @@ const EventSection = () => {
 
   return (
     <>
-      <InnerWrapper hidden={editEvent}>
-        {handleEvent
-          ? <>
-            <EventReusableLogic
-              editEvent={editEvent}
-              setHandleEvent={setHandleEvent} />
-            <ButtonReversed type="button" onClick={() => setHandleEvent(false)}>X</ButtonReversed>
-          </>
-          : <>
-            <Button1 type="button" onClick={() => setHandleEvent(true)}>Create</Button1>
-            <EventCalendar />
-            <EventCardContainer
-              setHandleEvent={setHandleEvent}
-              setEditEvent={setEditEvent}
-              editEvent={editEvent} />
-          </>}
+      <InnerWrapper>
+        <section hidden={editEvent}>
+          {handleEvent
+            ? <>
+              <EventReusableLogic
+                editEvent={editEvent}
+                setHandleEvent={setHandleEvent} />
+              <ButtonReversed type="button" onClick={() => setHandleEvent(false)}>X</ButtonReversed>
+            </>
+            : <>
+              <Button1 type="button" onClick={() => setHandleEvent(true)}>Create</Button1>
+              <EventCalendar />
+              <EventCardContainer
+                setHandleEvent={setHandleEvent}
+                setEditEvent={setEditEvent}
+                editEvent={editEvent} />
+            </>}
+        </section>
       </InnerWrapper>
       <InnerWrapper>
         {editEvent

@@ -105,6 +105,7 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
           tempEventInfoForEdit={tempEventInfoForEdit}
           onFormSubmit={onFormSubmit} />
         : <CreateEvent
+          totalSpots={totalSpots}
           eventDate={eventDate}
           setEventTime={setEventTime}
           setEventName={setEventName}
