@@ -1,14 +1,11 @@
 /* eslint-disable react/jsx-indent-props */
-/* eslint-disable no-undef */
 /* eslint-disable quote-props */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/label-has-associated-control */
+
 import React, { useEffect, useState } from 'react'
 import { API_URL } from 'utils/utils';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { swalWithTimer } from 'utils/swal';
+import { swalWithTimer } from 'utils/sweetAlerts';
 import EditEvent from './EditEvent';
 import CreateEvent from './CreateEvent';
 

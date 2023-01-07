@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState } from 'react';
@@ -25,10 +26,10 @@ const Header = () => {
       {!navMenuActive
         ? <Hamburger onClick={showNavLinks}>
           <img src={hamburger} alt="Open navmenu" />
-          </Hamburger>
+        </Hamburger>
         : <Hamburger onClick={showNavLinks}>
           <img src={close} alt="Close navmenu" />
-          </Hamburger>}
+        </Hamburger>}
       <NavLinkWrapper style={navMenuActive ? { display: 'flex' } : { display: 'none' }}>
         <NavLinks>
           <NavLink to="/" end><NavText>Home</NavText></NavLink>
@@ -52,7 +53,8 @@ const StyledHeader = styled.header`
   padding: 1rem;
   height: 10vh;
   max-width: 100vw;
-  `
+`
+
 const ProfileIcon = styled.img`
   width: 2rem;
   position: relative;

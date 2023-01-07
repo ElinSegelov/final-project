@@ -7,10 +7,9 @@ import { Link } from 'react-router-dom'
 import EventCard from './EventCard'
 
 const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
-  // här ska vi mounta EventCard
   const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay)
   const selectedDate = useSelector((store) => store.events.selectedDate)
-  console.log(selectedDate)
+  console.log(selectedDate) //! Radera senare
   const allEvents = eventsOfTheDay.map((event) => {
     return (
       <EventCard

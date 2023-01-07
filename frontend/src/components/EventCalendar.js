@@ -1,7 +1,4 @@
-/* eslint-disable no-undef */
-/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker';
 import events, { loadEvents } from 'reducers/events';
@@ -18,7 +15,7 @@ const EventCalendar = () => {
 
   useEffect(() => {
     dispatch(loadEvents(accessToken));
-    console.log('posted events', postedEvents) // TA BORT
+    console.log('posted events', postedEvents) //! TA BORT SEN
   }, [])
 
   const handleDateSelection = (selectedDate) => {
@@ -31,7 +28,7 @@ const EventCalendar = () => {
     dispatch(events.actions.selectDate(startDate.toISOString()));
     dispatch(events.actions.setEventsOfTheDay(todaysEvents));
 
-    console.log('todaysEvents', todaysEvents) // TA BORT
+    console.log('todaysEvents', todaysEvents) //! TA BORT SEN
   }, [dispatch, startDate])
 
   const daysWithEvents = postedEvents.map((activeEvent) => parseISO(activeEvent.eventDate))

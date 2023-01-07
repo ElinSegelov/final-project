@@ -1,11 +1,19 @@
-require('dotenv').config({ path: 'backend/.env' })
-/* import dotenv from "dotenv"
-dotenv.config() */
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import { User, Event } from "./Models";
-import { createEvent, getEvents, getUserInfo, loginUser, registerUser, updateUserInfo, deleteUser, deleteEvent, updateEvent, applyForSpot } from "./Endpoints";
+import { User } from "./Models";
+import {
+  createEvent,
+  getEvents,
+  getUserInfo,
+  loginUser,
+  registerUser,
+  updateUserInfo,
+  deleteUser,
+  deleteEvent,
+  updateEvent,
+  applyForSpot
+} from "./Endpoints";
 
 const mongoUrl = /* process.env.MONGO_URL || */ "mongodb://localhost/final-project";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -20,19 +28,18 @@ app.use(cors());
 app.use(express.json());
 
 // Start defining your routes here
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
   res.send("");
 });
 
-
-// DUBBELCHECK STATUS CODES
+//! DUBBELCHECK STATUS CODES
 
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {
     const user = await User.findOne({ accessToken })
     if (user) {
-      console.log("authenticated") // TA BORT NÄR DEN INTE BEHÖVS LÄNGRE FÖR FELSÖKNING
+      console.log("authenticated") //! TA BORT NÄR DEN INTE BEHÖVS LÄNGRE FÖR FELSÖKNING
       next();
     } else {
       res.status(401).json({
@@ -56,7 +63,8 @@ app.post("/login", loginUser);
 app.get("/user", authenticateUser);
 app.get("/user", getUserInfo);
 
-// THIS ALLOWS THE USER TO CHANGE THE EMAIL AND THE PASSWORD
+// THIS ALLOWS THE USER TO CHANGE OR DELETE THE EMAIL AND THE PASSWORD
+//! NO FUNCTIONALITY IN FE ATM
 app.patch("/user", authenticateUser);
 app.patch("/user", updateUserInfo);
 
@@ -68,14 +76,14 @@ app.delete("/user", deleteUser);
 app.post("/event", authenticateUser);
 app.post("/event", createEvent);
 
-//If user is not authnticated they get limited info about the events, if user is authenticated they get all event info.
+//If user is not authenticated they get limited info about the events, if user is authenticated they get all event info.
 app.get("/event", getEvents);
 
 // This allows the user to delete an event
 app.delete("/event", authenticateUser);
 app.delete("/event", deleteEvent);
 
-// Update event
+// This allows the user to update event
 app.patch("/event", authenticateUser);
 app.patch("/event", updateEvent);
 

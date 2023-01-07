@@ -12,14 +12,10 @@ body {
 @font-face {
   font-family: 'Asgalt-Regular';
   src: url(../src/Asgalt-Regular.ttf);
-  /* other formats include: 'woff2', 'truetype, 'opentype',
-                            'embedded-opentype', and 'svg' */
 }
 .react-datepicker-wrapper {
   width: fit-content;
-
 }
-
 
 a {
   text-decoration: none;
@@ -31,7 +27,6 @@ input {
   border-radius: 5px;
   background-color: #e9e9f7;
   padding: 5px;
-  /* width: 100%; */
   color: #363c46;
   border: 1px solid #dadaf7;
 }

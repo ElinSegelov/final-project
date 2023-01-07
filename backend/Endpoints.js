@@ -100,7 +100,7 @@ export const updateEvent = async (req, res) => {
     eventName,
     image
   } = req.body;
-  // const user = await User.findOne({ accessToken: req.header("Authorization") })
+
   const selectedEvent = await Event.findOne({ _id })
   try {
     if (selectedEvent) {
@@ -265,8 +265,6 @@ export const registerUser = async (req, res) => {
     });
   }
 };
-
-
 
 /* ------------------------------ LOGIN ------------------------------ */
 export const loginUser = async (req, res) => {

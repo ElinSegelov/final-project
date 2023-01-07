@@ -1,8 +1,7 @@
-/* eslint-disable quote-props */
 /* eslint-disable operator-linebreak */
+/* eslint-disable quote-props */
 /* eslint-disable no-underscore-dangle */
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
+
 import React from 'react'
 import styled from 'styled-components/macro'
 import { Button1 } from 'styles/Button.styles'
@@ -27,8 +26,8 @@ const EventCard = ({
   image,
   hostId,
   setEditEvent,
-  eventId,
-  setHandleEvent
+  eventId
+  // setHandleEvent
 }) => {
   // Om inget eventnamn, visa endast game
   const dispatch = useDispatch();
@@ -70,8 +69,7 @@ const EventCard = ({
           'Deleted!',
           'Your event has been deleted.',
           'success'
-        )/* .then(setTimeout(window.location.reload()), 3000) */ // Kanske går att göra via state på calendar?
-        // timeout not working properly?
+        )
       }
     })
   }
@@ -147,5 +145,5 @@ const DescriptionParagraph = styled.p`
 
 const DeleteImg = styled.img`
   width: 24px;
-  height: 24px
+  height: 24px;
 `

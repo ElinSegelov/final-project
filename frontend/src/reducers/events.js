@@ -1,5 +1,4 @@
 /* eslint-disable quote-props */
-
 import { createSlice } from '@reduxjs/toolkit';
 
 const events = createSlice({
@@ -34,7 +33,7 @@ export default events;
 
 export const loadEvents = (accessToken) => {
   return async (dispatch) => {
-    // UPPDATERA TILL API SEN
+    //! UPPDATERA TILL API SEN
     const URL = 'http://localhost:8080/event'
     const options = {
       method: 'GET',
@@ -52,6 +51,7 @@ export const loadEvents = (accessToken) => {
       console.error(error);
     } finally {
       console.log('Ready to go')
+      //! set loading state
     }
   }
 }

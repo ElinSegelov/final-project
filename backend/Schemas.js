@@ -1,7 +1,5 @@
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
 import crypto from 'crypto';
-import bcrtpt from 'bcrypt';
-import { format } from 'date-fns'
 
 export const UserSchema = new mongoose.Schema({
   username: {
@@ -18,7 +16,7 @@ export const UserSchema = new mongoose.Schema({
     minlenght: 8
   },
   email: {
-    // glöm inte regex
+    // glöm inte validation
     type: String,
     unique: true,
     required: true,
@@ -62,11 +60,11 @@ export const EventSchema = new mongoose.Schema({
   },
   eventDate: {
     type: String, // When events are posted the date format must be new Date().toDateString(). (DATEPICKER)
-    required: false
+    required: true
   },
   eventTime: {
     type: String,
-    required: false // Check if is needed to be required
+    required: true
   },
   game: {
     type: String,
