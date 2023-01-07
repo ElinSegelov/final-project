@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker';
@@ -5,6 +6,7 @@ import events, { loadEvents } from 'reducers/events';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { parseISO } from 'date-fns';
+import ui from 'reducers/ui';
 
 const EventCalendar = () => {
   const [startDate, setStartDate] = useState(new Date());

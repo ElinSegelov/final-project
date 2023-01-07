@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable operator-linebreak */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -10,6 +12,8 @@ import styled from 'styled-components/macro';
 import { FormWrapper, Form, Input } from 'styles/Forms';
 import Swal from 'sweetalert2';
 import { Button1 } from 'styles/Button.styles';
+import ui from 'reducers/ui';
+import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -21,6 +25,7 @@ const Register = () => {
   const userId = useSelector((store) => store.user.userInfo.userId);
   const accessToken = useSelector((store) => store.user.userInfo.accessToken);
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
+  const isLoading = useSelector((store) => store.ui.isLoading)
 
   useEffect(() => {
     if (loggedInUser || accessToken) {
@@ -47,6 +52,7 @@ const Register = () => {
   }
 
   const onFormSubmit = (event) => {
+    dispatch(ui.actions.setLoading(true))
     event.preventDefault()
     const options = {
       method: 'POST',
@@ -73,52 +79,58 @@ const Register = () => {
             });
           }
         })
+        .finally(() => dispatch(ui.actions.setLoading(false)))
     } else if (password !== repeatePassword) {
       Swal.fire('Passwords are not equal')
     }
   }
   return (
-    <FormWrapper>
-      <Form onSubmit={onFormSubmit}>
-        <h2>Sign Up</h2>
-        <label htmlFor="username" />
-        <input
-          required
-          placeholder="Username*"
-          type="text"
-          id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)} />
-        <label htmlFor="password" />
-        <input
-          required
-          placeholder="Password*"
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)} />
-        <label htmlFor="repeatePassword" />
-        <input
-          required
-          placeholder="Confirm your password*"
-          type="password"
-          id="repeatePassword"
-          value={repeatePassword}
-          onChange={(e) => setRepeatePassword(e.target.value)} />
-        <label htmlFor="email" />
-        <input
-          required
-          placeholder="Email Address*"
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)} />
-        <div>
-          <Button1 type="submit">Sign Up!</Button1>
-        </div>
-      </Form>
-      <Link to="/login">Already a user? Login here!</Link>
-    </FormWrapper>
+    <div>
+      {isLoading
+        ? <LoadingBlurBackground />
+        :
+        <FormWrapper>
+          <Form onSubmit={onFormSubmit}>
+            <h2>Sign Up</h2>
+            <label htmlFor="username" />
+            <input
+              required
+              placeholder="Username*"
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)} />
+            <label htmlFor="password" />
+            <input
+              required
+              placeholder="Password*"
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)} />
+            <label htmlFor="repeatePassword" />
+            <input
+              required
+              placeholder="Confirm your password*"
+              type="password"
+              id="repeatePassword"
+              value={repeatePassword}
+              onChange={(e) => setRepeatePassword(e.target.value)} />
+            <label htmlFor="email" />
+            <input
+              required
+              placeholder="Email Address*"
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} />
+            <div>
+              <Button1 type="submit">Sign Up!</Button1>
+            </div>
+          </Form>
+          <Link to="/login">Already a user? Login here!</Link>
+        </FormWrapper>}
+    </div>
   )
 }
 

@@ -1,5 +1,10 @@
+/* eslint-disable no-lone-blocks */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-expressions */
 /* eslint-disable quote-props */
 import { createSlice } from '@reduxjs/toolkit';
+
+import ui from './ui';
 
 const events = createSlice({
   name: 'events',
@@ -33,6 +38,7 @@ export default events;
 
 export const loadEvents = (accessToken) => {
   return async (dispatch) => {
+    // { () => dispatch(ui.actions.setLoading(true)) }
     //! UPPDATERA TILL API SEN
     const URL = 'http://localhost:8080/event'
     const options = {
@@ -50,8 +56,8 @@ export const loadEvents = (accessToken) => {
     } catch (error) {
       console.error(error);
     } finally {
-      console.log('Ready to go')
-      //! set loading state
+      // { () => dispatch(ui.actions.setLoading(false)) }
+      console.log('ready')
     }
   }
 }
