@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -9,6 +10,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Form, FormWrapper } from 'styles/Forms';
 import { Button1 } from 'styles/Button.styles';
 import Swal from 'sweetalert2';
+import ui from 'reducers/ui';
+import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -17,6 +20,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const accessToken = useSelector((store) => store.user.userInfo.accessToken);
   const userId = useSelector((store) => store.user.userInfo.userId);
+  const isLoading = useSelector((store) => store.ui.isLoading)
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
 
   useEffect(() => {
@@ -31,6 +35,7 @@ const Login = () => {
     Swal.fire(data.response)
   }
   const onFormSubmit = (event) => {
+    dispatch(ui.actions.setLoading(true))
     event.preventDefault()
     const options = {
       method: 'POST',
@@ -55,31 +60,37 @@ const Login = () => {
           });
         }
       })
+      .finally(() => dispatch(ui.actions.setLoading(false)))
   }
   return (
-    <FormWrapper>
-      <Form onSubmit={onFormSubmit}>
-        <h2>Login</h2>
-        <label htmlFor="email" />
-        <input
-          required
-          placeholder="E-mail"
-          type="text"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)} />
-        <label htmlFor="password" />
-        <input
-          required
-          placeholder="Password"
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)} />
-        <Button1 type="submit">Log In</Button1>
-      </Form>
-      <Link to="/register">Not a user yet? Register here!</Link>
-    </FormWrapper>
+    <div>
+      {isLoading
+        ? <LoadingBlurBackground />
+        :
+        <FormWrapper>
+          <Form onSubmit={onFormSubmit}>
+            <h2>Login</h2>
+            <label htmlFor="email" />
+            <input
+              required
+              placeholder="E-mail"
+              type="text"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} />
+            <label htmlFor="password" />
+            <input
+              required
+              placeholder="Password"
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)} />
+            <Button1 type="submit">Log In</Button1>
+          </Form>
+          <Link to="/register">Not a user yet? Register here!</Link>
+        </FormWrapper>}
+    </div>
   )
 }
 

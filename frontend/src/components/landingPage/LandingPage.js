@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import React from 'react';
@@ -6,6 +7,8 @@ import EventCalendar from 'components/EventCalendar';
 import { Link } from 'react-router-dom';
 import Footer from 'components/Footer';
 import EventCardContainer from 'components/userDashboard/events/EventCardContainer';
+import { useSelector } from 'react-redux';
+import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
 import heroImage from '../../assets/images/hero.jpg';
 import Tutorial from './Tutorial';
 
