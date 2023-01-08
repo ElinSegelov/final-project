@@ -21,7 +21,6 @@ const EventCalendar = () => {
 
   useEffect(() => {
     dispatch(loadEvents(accessToken));
-    console.log('posted events', postedEvents) //! TA BORT SEN
   }, [])
 
   const handleDateSelection = (selectedDate) => {
@@ -33,8 +32,6 @@ const EventCalendar = () => {
     )
     dispatch(events.actions.selectDate(startDate.toISOString()));
     dispatch(events.actions.setEventsOfTheDay(todaysEvents));
-
-    console.log('todaysEvents', todaysEvents) //! TA BORT SEN
   }, [dispatch, startDate])
 
   const daysWithEvents = postedEvents.map((activeEvent) => parseISO(activeEvent.eventDate))

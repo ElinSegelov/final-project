@@ -11,6 +11,7 @@ import { parseISO } from 'date-fns';
 import { useSelector } from 'react-redux';
 
 const EditEvent = ({
+  editEvent,
   onFormSubmit,
   tempEventInfoForEdit,
   setTempEventInfoForEdit
@@ -26,7 +27,10 @@ const EditEvent = ({
     <div>
       <FormWrapper>
         <h2>Edit Event</h2>
-        {/* <BGGData tempEventInfoForEdit={tempEventInfoForEdit} /> */}
+        <BGGData
+          tempEventInfoForEdit={tempEventInfoForEdit}
+          editEvent={editEvent}
+          setTempEventInfoForEdit={setTempEventInfoForEdit} />
         <Form onSubmit={onFormSubmit}>
           <DatePicker
             selected={startDate}

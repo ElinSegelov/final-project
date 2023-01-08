@@ -1,9 +1,4 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable max-len */
 /* eslint-disable react/jsx-closing-tag-location */
-/* eslint-disable indent */
-/* eslint-disable no-return-assign */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-unused-vars */
 import { LoadingBlurBackground, LoadingForGameSearch } from 'components/loaders/loadingAnimations';
@@ -14,34 +9,41 @@ import ui from 'reducers/ui';
 import styled from 'styled-components';
 import { Form, Input } from 'styles/Forms';
 import loaderOrange from 'assets/Loader/Loader_2.gif'
+import { BGG_API_SEARCH_BY_NAME, BGG_API_SEARCH_BY_OBJECT_ID } from 'utils/utils';
 
-const BGGData = () => {
-  const [searchParameter, setSearchParameter] = useState('')
-  const [suggestions, setSuggestions] = useState([])
+const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) => {
+  const [searchParameter, setSearchParameter] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
   const dispatch = useDispatch()
   const isLoading = useSelector((store) => store.ui.isLoading)
-
-  const BGG_API_SEARCH_BY_NAME = 'https://boardgamegeek.com/xmlapi/search?search='
-  const BGG_API_SEARCH_BY_OBJECT_ID = 'https://boardgamegeek.com/xmlapi/boardgame/'
 
   const fetchData = async (bggEndpoint, objectId) => {
     const URL = `https://api.factmaven.com/xml-to-json/?xml=${bggEndpoint}${objectId || searchParameter}`;
     let info;
+    let gameName;
 
     try {
       const response = await fetch(URL);
       const data = await response.json();
-      console.log('fetched data', data) //! Radera senare
 
       if (data) {
         if (objectId) {
           // Checking if the fetch is to objectId endpoint.
           info = data.boardgames.boardgame;
-          console.log(info)
           dispatch(events.actions.setSelectedGameWithDataFromAPI(info))
+
+          if (editEvent) {
+            if (info.name.length > 1) {
+              const nameOfGame = info.name.find((nameGame) => nameGame.primary === 'true')
+              gameName = nameOfGame.text;
+            } else {
+              gameName = info.name.text;
+            }
+            setTempEventInfoForEdit({ ...tempEventInfoForEdit, game: gameName, image: info.image })
+          }
         } else if (data.boardgames.boardgame) {
           info = data.boardgames.boardgame;
-          // lägg in så att första alternativet är tomt!!!!
+          // TODO lägg in så att första alternativet är tomt!!!!
           const suggestedGames = info.map((game) => {
             return <option key={game.objectid} value={game.objectid}>{game.name.text}</option>
           })
@@ -49,7 +51,7 @@ const BGGData = () => {
         }
       }
     } catch (error) {
-      console.error(error)
+      console.error(error.message)
     }
   }
 
@@ -61,7 +63,6 @@ const BGGData = () => {
   }
 
   const selectInputSubmit = (objectId) => {
-    console.log('objectId', objectId) //! RADERA SENARE
     dispatch(ui.actions.setLoading(true))
     fetchData(BGG_API_SEARCH_BY_OBJECT_ID, objectId)
       .finally(() => {
@@ -77,13 +78,11 @@ const BGGData = () => {
           <LoadingForGameSearch />
         </LoaderWrapper>
         :
-        <BGGFetchForm onSubmit={textInputSubmit}>
-          <InputWrapper>
+        <BGGFetchForm onSubmit={textInputSubmit}>          
             <Input
+              placeholder={(tempEventInfoForEdit && tempEventInfoForEdit.game) || 'Game'}
               type="text"
-              placeholder="Game"
-              onChange={(event) => setSearchParameter(event.target.value)} />
-          </InputWrapper>
+              onChange={(event) => setSearchParameter(event.target.value)} />         
           {suggestions.length
             ?
             <label htmlFor="suggestions">
@@ -100,10 +99,6 @@ const BGGData = () => {
 }
 export default BGGData;
 
-const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`
 const LoaderWrapper = styled.div`
   width: 60px;
   height: 60px;
@@ -111,7 +106,6 @@ const LoaderWrapper = styled.div`
 const GameSelect = styled.select`
   width: 12rem;
 `
-
 const BGGFetchForm = styled(Form)`
   width: 12rem;
 `

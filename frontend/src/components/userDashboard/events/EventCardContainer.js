@@ -4,12 +4,12 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { StyledEventCardContainer } from 'styles/Containers'
 import { Link } from 'react-router-dom'
+import user from 'reducers/user'
 import EventCard from './EventCard'
 
 const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
   const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay)
   const selectedDate = useSelector((store) => store.events.selectedDate)
-  console.log(selectedDate) //! Radera senare
   const allEvents = eventsOfTheDay.map((event) => {
     return (
       <EventCard
@@ -35,7 +35,7 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
     <StyledEventCardContainer>
       {eventsOfTheDay.length > 0 ? <h2>Events on {selectedDate.slice(0, 10)}</h2> : null}
       {allEvents}
-      {eventsOfTheDay.length > 0 ? <Link to="/login">Login for full event information</Link> : null}
+      {eventsOfTheDay.length > 0 && !user ? <Link to="/login">Login for full event information</Link> : null}
     </StyledEventCardContainer>
   )
 }

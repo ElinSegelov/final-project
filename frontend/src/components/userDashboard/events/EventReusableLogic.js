@@ -19,13 +19,13 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
   const [totalSpots, setTotalSpots] = useState('');
   const [description, setDescription] = useState('');
   const [tempEventInfoForEdit, setTempEventInfoForEdit] = useState({})
+
   const user = useSelector((store) => store.user.userInfo);
   const selectedGame = useSelector((store) => store.events.selectedGameWithDataFromAPI);
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
   let gameName;
   const dispatch = useDispatch()
 
-  console.log(tempEventInfoForEdit) //! TA BORT SEN
   useEffect(() => {
     if (editEvent) {
       setTempEventInfoForEdit(selectedEventForEdit)
@@ -35,6 +35,7 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
   const handleDateSelection = (date) => {
     setEventDate(date)
   }
+
   const handleEventValidation = () => {
     dispatch(ui.actions.setLoading(false))
     if (editEvent) {
@@ -103,6 +104,7 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
     <section>
       {editEvent
         ? <EditEvent
+          editEvent={editEvent}
           eventDate={eventDate}
           setTempEventInfoForEdit={setTempEventInfoForEdit}
           tempEventInfoForEdit={tempEventInfoForEdit}
