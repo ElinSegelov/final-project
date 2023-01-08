@@ -167,87 +167,86 @@ export const deleteEvent = async (req, res) => {
 
 //! Här anmäler man intresse och mail skickas till host
 export const applyForSpot = async (req, res) => {
+  let success = false;
   const { userEmail, username, eventId } = req.body;
   //checka så att vi har fått all required data, annrs skicka status 400.
+  if (!userEmail || !username || !eventId) {
+    res.status(400).json({
+      success: false,
+      message: 'Request requires "userEmail", "username" and "eventId". At least one of these are missing'
+    })
+  } else {
+    try {
+      const selectedEvent = await Event.findOne({ _id: eventId })
+      if (selectedEvent) {
+        try {   
+          await Event.findOneAndUpdate(selectedEvent._id, { $push: { pendingPartyMembers: userEmail } });
+          const host = await User.findOne({ _id: selectedEvent.hostId })
+          console.log('host', host.email)
+    
+          let transporter = nodemailer.createTransport({
+            service: "hotmail",
+            auth: {
+              user: EMAIL,
+              pass: EMAIL_PASSWORD,
+            },
+          })
 
-  const selectedEvent = await Event.findOne({ _id: eventId })
+          const messageToHost = {
+            from: EMAIL,
+            to: `${host.email}`,
+            subject: `${username} wants to join your party for playing ${selectedEvent.game}`,
+            html: `
+              <p>
+                User <span style="color:#DE605B; font-size: 1.2rem;">${username}</span> wants to join your party.
+                Please contact <span style="color:#DE605B; font-size: 1.2rem;">${username}</span> on ${userEmail}
+              </p>
+              <div style="
+                padding: 1rem 2rem;
+                border-radius: 0.5rem;
+                color: #FFF;
+                background-color: #363c46;">
 
-  try {
-    if (selectedEvent) {
-      console.log('selected event', selectedEvent)
-      await Event.findOneAndUpdate(selectedEvent._id, { $push: { pendingPartyMembers: userEmail } });
-      //lägg in resultat av await i variabel. returnera 400 om vi inte lyckas uppdatera (kolla vad findOneAndUpdate returnerar)
-      res.status(200).json({
-        success: true,
-        response: {
-          message: "User added to pendingPartyMembers list"
-        }
-      })
-
-      //Lägg logik för mail innan vi skickar 200. Checka för att mail har gått iväg till host.
-      const host = await User.findOne({ _id: selectedEvent.hostId })
-      console.log('host', host.email)
-
-      let transporter = nodemailer.createTransport({
-        service: "hotmail",
-        auth: {
-          user: EMAIL,
-          pass: EMAIL_PASSWORD,
-        },
-      })
-
-      const messageToHost = {
-        from: EMAIL,
-        to: `${host.email}`,
-        subject: `${username} wants to join your party for playing ${selectedEvent.game}`,
-        html: `
-          <p>
-            User <span style="color:#DE605B; font-size: 1.2rem;">${username}</span> wants to join your party.
-            Please contact <span style="color:#DE605B; font-size: 1.2rem;">${username}</span> on ${userEmail}
-          </p>
-          <div 
-            style="
-              padding: 1rem 2rem;
-              border-radius: 0.5rem;
-              color: #FFF;
-              background-color: #363c46;">
                 <h3 style="color: #DE605B;">${selectedEvent.game}</h3>
                 <img style="width: 10rem;" src=${selectedEvent.image} alt="game" />
-                <p><span style="color: #DE605B;">Where?</span> ${selectedEvent.venue}</p>
-                <p><span style="color: #DE605B;">When?</span> ${selectedEvent.eventTime}</p>
+                <p><span style="color: #DE605B;">Location:</span> ${selectedEvent.venue}</p>
+                <p><span style="color: #DE605B;">Time:</span> ${selectedEvent.eventTime}</p>
                 <p>
                   <span style="color: #DE605B;">Open spots:</span> ${selectedEvent.openSpots} / ${selectedEvent.totalSpots}
                 </p>
-          </div>
-        `
-      };
-
-      transporter.sendMail(messageToHost, (err, info) => {
-        if (err) {
-          console.error(err)
-          //skicka 400 med meddelande om att mail inte kunde skickas till host
-        } else {
-          console.log('Sent:', info.response)
-          //Skicka 200 för anmälan här
+              </div>
+            `
+          } 
+          transporter.sendMail(messageToHost, (error, info) => {
+              if (error) {
+                console.error('line 235', error)
+                //! user ska tas bort från pendingPartyMembers om mail inte kan skickas till host
+                //!DETTA BORDE GÖRAS GENOM ATT SÖKA UPP userEmail OCH RADERA DEN INTE SÅ SOM DET ÄR GJORT NU
+                Event.findOneAndUpdate(selectedEvent._id, { $pop: { pendingPartyMembers: userEmail } });
+              } else {
+                console.log('Sent:', info.response)
+              }
+          })
+          res.status(200).json({
+            success: true,
+            message: 'User has been added to list of pendingPartyMembers and the host of the event has been notified' //!behöver bättre meddelande  
+          })
+        } catch (err) {
+          res.status(400).json({
+            success: false,
+            error: err.stack,
+            response: 'Could not add user to list of pendingPartyMembers FAIL'
+          })
         }
-      })
-
-    } else {
-      res.status(400).json({
+      }
+    } catch (err) {
+      res.status(500).json({
         success: false,
-        response: {
-          message: "Could not find event"
-        }
+        response: err.message
       })
     }
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      response: err
-    })
   }
 }
-
 /* ------------------------------ REGISTER ------------------------------ */
 export const registerUser = async (req, res) => {
   const { username, password, email } = req.body;
