@@ -13,21 +13,15 @@ import heroImage from '../../assets/images/hero.jpg';
 import Tutorial from './Tutorial';
 
 const LandingPage = () => {
-  const isLoading = useSelector((store) => store.ui.isLoading)
   return (
-    <div>
-      {isLoading
-        ? <LoadingBlurBackground />
-        :
-        <>
-          <HeroImage src={heroImage} alt="Hero Octahedron" />
-          <Tutorial />
-          <EventCalendar />
-          <EventCardContainer />
-          <RegisterLink to="/register">Sign up</RegisterLink>
-          <LoginLink to="/login">Log in</LoginLink>
-        </>}
-    </div>
+    <>
+      <HeroImage src={heroImage} alt="Hero Octahedron" />
+      <Tutorial />
+      <EventCalendar />
+      <EventCardContainer />
+      <RegisterLink to="/register">Sign up</RegisterLink>
+      <LoginLink to="/login">Log in</LoginLink>
+    </>
   )
 }
 

@@ -3,7 +3,6 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable quote-props */
 import { createSlice } from '@reduxjs/toolkit';
-
 import ui from './ui';
 
 const events = createSlice({
@@ -38,7 +37,7 @@ export default events;
 
 export const loadEvents = (accessToken) => {
   return async (dispatch) => {
-    // { () => dispatch(ui.actions.setLoading(true)) }
+    dispatch(ui.actions.setLoading(true))
     //! UPPDATERA TILL API SEN
     const URL = 'http://localhost:8080/event'
     const options = {
@@ -56,7 +55,7 @@ export const loadEvents = (accessToken) => {
     } catch (error) {
       console.error(error);
     } finally {
-      // { () => dispatch(ui.actions.setLoading(false)) }
+      dispatch(ui.actions.setLoading(false))
       console.log('ready')
     }
   }
