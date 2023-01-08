@@ -28,8 +28,8 @@ const ApplyToEvent = ({ eventId }) => {
       const data = await response.json();
       console.log(data)
       Swal.fire({
-        title: `${data.response}`,
-        timer: 1400,
+        title: `${data.message}`, // TODO ändra meddelande
+        timer: 5000,
         color: '#DE605B',
         timerProgressBar: true,
         showConfirmButton: false
