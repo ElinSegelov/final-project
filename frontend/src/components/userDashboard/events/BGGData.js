@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-unused-vars */
@@ -8,7 +9,6 @@ import events from 'reducers/events';
 import ui from 'reducers/ui';
 import styled from 'styled-components';
 import { Form, Input } from 'styles/Forms';
-import loaderOrange from 'assets/Loader/Loader_2.gif'
 import { BGG_API_SEARCH_BY_NAME, BGG_API_SEARCH_BY_OBJECT_ID } from 'utils/utils';
 
 const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) => {
@@ -78,11 +78,11 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
           <LoadingForGameSearch />
         </LoaderWrapper>
         :
-        <BGGFetchForm onSubmit={textInputSubmit}>          
-            <Input
-              placeholder={(tempEventInfoForEdit && tempEventInfoForEdit.game) || 'Game'}
-              type="text"
-              onChange={(event) => setSearchParameter(event.target.value)} />         
+        <BGGFetchForm onSubmit={textInputSubmit}>
+          <Input
+            placeholder={(tempEventInfoForEdit && tempEventInfoForEdit.game) || 'Game'}
+            type="text"
+            onChange={(event) => setSearchParameter(event.target.value)} />
           {suggestions.length
             ?
             <label htmlFor="suggestions">
