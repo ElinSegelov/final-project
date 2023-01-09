@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { swalBlurBackground } from 'utils/sweetAlerts';
 import ui from 'reducers/ui';
+import { InnerWrapper } from 'styles/Containers';
 import EditEvent from './EditEvent';
 import CreateEvent from './CreateEvent';
 
@@ -101,7 +102,7 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
     }
   }
   return (
-    <section>
+    <InnerWrapper>
       {editEvent
         ? <EditEvent
           editEvent={editEvent}
@@ -120,7 +121,7 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
           setDescription={setDescription}
           handleDateSelection={handleDateSelection}
           onFormSubmit={onFormSubmit} />}
-    </section>
+    </InnerWrapper>
   )
 }
 
