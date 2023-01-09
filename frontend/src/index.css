@@ -11,7 +11,18 @@
   --lightDark: #363c46;
   --light: #DDDDDD;
 }
+/* SWEET ALERT */
+body.swal2-shown > [aria-hidden='true'] {
+  transition: 0.1s filter;
+  filter: blur(10px);
+}
+.swal2-title {
+  font-family: 'Helvetica';
+  font-size: 40px;
+  padding: 0;
+}
 
+/* ---------------- */
 @font-face {
   font-family: 'Asgalt-Regular';
   src: url(./assets/fonts/Asgalt-Regular.ttf);
@@ -64,6 +75,7 @@ body {
 h1 {
   font-family: 'Asgalt-Regular';
   font-size: 60px;
+
 }
 
 a {

@@ -3,9 +3,10 @@
 
 import React, { useEffect, useState } from 'react'
 import { API_URL } from 'utils/utils';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { swalWithTimer } from 'utils/sweetAlerts';
+import { swalBlurBackground } from 'utils/sweetAlerts';
+import ui from 'reducers/ui';
 import EditEvent from './EditEvent';
 import CreateEvent from './CreateEvent';
 
@@ -18,12 +19,13 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
   const [totalSpots, setTotalSpots] = useState('');
   const [description, setDescription] = useState('');
   const [tempEventInfoForEdit, setTempEventInfoForEdit] = useState({})
+
   const user = useSelector((store) => store.user.userInfo);
   const selectedGame = useSelector((store) => store.events.selectedGameWithDataFromAPI);
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
   let gameName;
+  const dispatch = useDispatch()
 
-  console.log(tempEventInfoForEdit) //! TA BORT SEN
   useEffect(() => {
     if (editEvent) {
       setTempEventInfoForEdit(selectedEventForEdit)
@@ -33,22 +35,24 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
   const handleDateSelection = (date) => {
     setEventDate(date)
   }
+
   const handleEventValidation = () => {
+    dispatch(ui.actions.setLoading(false))
     if (editEvent) {
-      swalWithTimer(editEvent)
+      swalBlurBackground(editEvent)
       setEditEvent(false)
       if (selectedEventForEdit === tempEventInfoForEdit) {
         Swal.fire('No changes were made')
       }
     } else {
-      swalWithTimer(editEvent)
+      swalBlurBackground(editEvent)
       setHandleEvent(false)
     }
   }
 
   const onFormSubmit = (event) => {
     event.preventDefault()
-
+    dispatch(ui.actions.setLoading(true))
     if (editEvent) {
       const options = {
         method: 'PATCH',
@@ -61,7 +65,7 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
         )
       }
       fetch(API_URL('event'), options)
-      handleEventValidation()
+        .finally(() => handleEventValidation())
     } else {
       // The games sometimes have several titles. We check if there are more than one title, if so,
       // we find the primary one.
@@ -93,13 +97,14 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
         })
       }
       fetch(API_URL('event'), options)
-      handleEventValidation()
+        .finally(() => handleEventValidation())
     }
   }
   return (
     <section>
       {editEvent
         ? <EditEvent
+          editEvent={editEvent}
           eventDate={eventDate}
           setTempEventInfoForEdit={setTempEventInfoForEdit}
           tempEventInfoForEdit={tempEventInfoForEdit}
