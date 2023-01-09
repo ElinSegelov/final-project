@@ -12,7 +12,9 @@ const events = createSlice({
     eventsOfTheDay: [],
     selectedGameWithDataFromAPI: {},
     selectedEventForEdit: [],
-    selectedDate: (new Date().toISOString())
+    selectedDate: (new Date().toISOString()),
+    hostingEvents: [],
+    error: null
   },
   reducers: {
     selectDate: (store, action) => {
@@ -29,6 +31,12 @@ const events = createSlice({
     },
     setSelectedGameWithDataFromAPI: (store, action) => {
       store.selectedGameWithDataFromAPI = action.payload
+    },
+    setHostingEvents: (store, action) => {
+      store.hostingEvents = action.payload
+    },
+    setError: (store, action) => {
+      store.error = action.payload;
     }
   }
 });
