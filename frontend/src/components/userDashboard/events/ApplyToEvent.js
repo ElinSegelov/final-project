@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { Button1 } from 'styles/Button.styles';
 import { API_URL } from 'utils/utils';
 import Swal from 'sweetalert2';
+import styled from 'styled-components';
 
 const ApplyToEvent = ({ eventId }) => {
   const user = useSelector((store) => store.user.userInfo);
@@ -46,11 +47,17 @@ const ApplyToEvent = ({ eventId }) => {
     }
   }
   return (
-    <Button1
+    <ApplyButton
       type="button"
       onClick={sendApplication}>
           Apply for a spot
-    </Button1>
+    </ApplyButton>
   )
 }
 export default ApplyToEvent;
+
+const ApplyButton = styled(Button1)`
+  margin: 0.5rem auto 0;
+  grid-column: 1 / 4;
+  width: 100%
+`

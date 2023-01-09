@@ -1,15 +1,21 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable spaced-comment */
+/* eslint-disable max-len */
 /* eslint-disable no-unneeded-ternary */
 /* eslint-disable no-underscore-dangle */ // Ignores _ in _id
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { StyledEventCardContainer } from 'styles/Containers'
 import { Link } from 'react-router-dom'
-import user from 'reducers/user'
+import { Button1 } from 'styles/Button.styles'
+import styled from 'styled-components'
 import EventCard from './EventCard'
 
 const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
   const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay)
   const selectedDate = useSelector((store) => store.events.selectedDate)
+  const accessToken = useSelector((store) => store.user.userInfo.accessToken);
+
   const allEvents = eventsOfTheDay.map((event) => {
     return (
       <EventCard
@@ -31,13 +37,32 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
         eventTime={event.eventTime} />
     )
   })
+  console.log('user', accessToken)
   return (
-    <StyledEventCardContainer>
-      {eventsOfTheDay.length > 0 ? <h2>Events on {selectedDate.slice(0, 10)}</h2> : null}
-      {allEvents}
-      {eventsOfTheDay.length > 0 && !user ? <Link to="/login">Login for full event information</Link> : null}
-    </StyledEventCardContainer>
+    <ActiveEventSection>
+      <InfoAndPrompt>
+        {eventsOfTheDay.length > 0 ? <h3>Events on {selectedDate.slice(0, 10)}</h3> : null}
+        {eventsOfTheDay.length > 0 && !accessToken ? <Link to="/login"><Button1>Login for more info</Button1></Link> : null}
+      </InfoAndPrompt>
+      <StyledEventCardContainer>
+        {allEvents}
+      </StyledEventCardContainer>
+    </ActiveEventSection>
   )
 }
 
 export default EventCardContainer;
+
+//! Vi borde inte ha en länk runt en knapp (rad 45). Jag har gjort så så länge för det strulade när jag
+//! förökte lägga navigate på onclick
+
+const ActiveEventSection = styled.section`
+  margin-bottom: 1rem;
+`
+
+const InfoAndPrompt = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.5rem;
+`

@@ -15,3 +15,13 @@ export const ButtonReversed = styled.button`
   background: transparent;
   color: #fff;
 `
+export const TransparentButton = styled.button`
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  grid-column: 3;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+`
