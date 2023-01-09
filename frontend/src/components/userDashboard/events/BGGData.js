@@ -71,41 +71,53 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
       })
   }
   return (
-    <>
-      {isLoading
+    <BGGFetchForm onSubmit={textInputSubmit}>
+      <InputWrapper>
+        <Input
+          placeholder={(tempEventInfoForEdit && tempEventInfoForEdit.game) || 'Game'}
+          type="text"
+          onChange={(event) => setSearchParameter(event.target.value)} />
+        {isLoading
+          ?
+          <LoaderWrapper>
+            <LoadingForGameSearch />
+          </LoaderWrapper>
+          : null}
+      </InputWrapper>
+      {suggestions.length
         ?
-        <LoaderWrapper>
-          <LoadingForGameSearch />
-        </LoaderWrapper>
-        :
-        <BGGFetchForm onSubmit={textInputSubmit}>
-          <Input
-            placeholder={(tempEventInfoForEdit && tempEventInfoForEdit.game) || 'Game'}
-            type="text"
-            onChange={(event) => setSearchParameter(event.target.value)} />
-          {suggestions.length
-            ?
-            <label htmlFor="suggestions">
-              <GameSelect
-                id="suggestions"
-                onChange={(event) => selectInputSubmit(event.target.value)}>
-                {suggestions}
-              </GameSelect>
-            </label>
-            : null}
-        </BGGFetchForm>}
-    </>
+        <label htmlFor="suggestions">
+          <GameSelect
+            id="suggestions"
+            onChange={(event) => selectInputSubmit(event.target.value)}>
+            {suggestions}
+          </GameSelect>
+        </label>
+        : null}
+    </BGGFetchForm>
   )
 }
 export default BGGData;
 
+const InputWrapper = styled.div`
+  position: relative;
+  display: flex;
+  margin-bottom: 1rem;
+`
+
 const LoaderWrapper = styled.div`
-  width: 60px;
-  height: 60px;
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  right: 0;
 `
 const GameSelect = styled.select`
   width: 12rem;
+  position: absolute;
+  top: 2rem;
+  height: 2rem;
 `
 const BGGFetchForm = styled(Form)`
   width: 12rem;
+  position: relative;
 `

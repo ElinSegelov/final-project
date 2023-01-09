@@ -43,7 +43,7 @@ export default UserProfileCard;
 const ProfileSection = styled.section`
   display: flex;
   background-color: #363c46;
-  
+  border: 1px solid var(--orangeRed);
   width: 100vw;
   border-radius: 10px;
   align-items: center;

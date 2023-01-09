@@ -4,23 +4,24 @@ export const FormWrapper = styled.section`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 80vw;
+  width: 90vw;
   min-height: 70vh;
   align-items: center;
   background-color: #363c46;
   border-radius: 10px;
   justify-content: center;
-  row-gap: 5vh;
+  row-gap: 1rem;
+  margin-top: 1rem;
   `
 export const Form = styled.form`
-  row-gap: 1vh;
+  row-gap: 0.5rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  
   /* justify-content: center; */
-  width: 100%;
+  width: 12rem;
 `
 export const Input = styled.input`
- width: 12rem;
+ width: 100%;
 
 `
