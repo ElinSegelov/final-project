@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { GiDiceEightFacesEight } from 'react-icons/gi';
 import hamburger from '../assets/icons/icon-hamburger.svg';
 import close from '../assets/icons/icon-close.svg';
 import profileIcon from '../assets/icons/profile-icon.svg'
@@ -20,8 +21,11 @@ const Header = () => {
   }
   return (
     <StyledHeader>
-      {/* <Link to="/"><Logo src={logo} alt="home logo" /></Link> */}
-      <h1>Octahedron</h1>
+      <FlexDiv>
+
+      <Link to="/"><GiDiceEightFacesEight className="placeholder" /></Link>
+      <h1>octahedron</h1>
+      </FlexDiv>
       <Link to="/login"><ProfileIcon src={profileIcon} alt="Login" /></Link>
       {!navMenuActive
         ? <Hamburger onClick={showNavLinks}>
@@ -53,12 +57,28 @@ const StyledHeader = styled.header`
   padding: 1rem;
   height: 10vh;
   max-width: 100vw;
+
+  //! placeholder tillsammans med h1 är bara tillfälligt. Ska ersättas av logga.
+  .placeholder {
+    width: 3rem !important;
+    height: 3rem !important;
+    fill: var(--orangeRed) !important;
+  }
+
+  h1 {
+    margin-left: 0.5rem;
+  }
+`
+
+const FlexDiv = styled.div`
+  display: flex;
 `
 
 const ProfileIcon = styled.img`
   width: 2rem;
   position: relative;
   right: 3rem;
+  
 `
 
 const NavLinkWrapper = styled.nav`

@@ -2,11 +2,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* font-family: 'Asgalt-Regular'; */
+  font-family: 'Gotham-Book';
 }
-body {
-  background-color: #242931;
-  color: #fff;
+
+:root {
+  --orangeRed: #DE605B;
+  --dark: #242931;
+  --lightDark: #363c46;
+  --light: #DDDDDD;
 }
 /* SWEET ALERT */
 body.swal2-shown > [aria-hidden='true'] {
@@ -22,15 +25,57 @@ body.swal2-shown > [aria-hidden='true'] {
 /* ---------------- */
 @font-face {
   font-family: 'Asgalt-Regular';
-  src: url(../src/Asgalt-Regular.ttf);
+  src: url(./assets/fonts/Asgalt-Regular.ttf);
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url(./assets/fonts/Gotham-Medium.otf);
+}
+@font-face {
+  font-family: 'Gotham-Book';
+  src: url(./assets/fonts/Gotham-Book.otf);
+}
+
+body {
+  background-color: #242931;
+  color: var(--light);
 }
 .react-datepicker-wrapper {
   width: fit-content;
 }
 
+.react-datepicker {
+  margin-top: 2rem;
+  width: 90vw;
+}
+
+.react-datepicker__header {
+  background: var(--dark);
+}
+
+.react-datepicker__current-month, .react-datepicker__day-name, .react-datepicker__day {
+  color: var(--light);
+
+}
+.react-datepicker__month-container {
+  width: 100%;
+  background: var(--lightDark);
+}
+.react-datepicker__day {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding-top: 0.4rem;
+}
+
+.react-datepicker__day--highlighted {
+  background: var(--orangeRed);
+}
+
+
 h1 {
   font-family: 'Asgalt-Regular';
-  font-size: 50px
+  font-size: 60px;
+
 }
 
 a {
