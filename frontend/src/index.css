@@ -10,6 +10,7 @@
   --dark: #242931;
   --lightDark: #363c46;
   --light: #DDDDDD;
+  --today: #6e8191;
 }
 /* SWEET ALERT */
 body.swal2-shown > [aria-hidden='true'] {
@@ -40,37 +41,6 @@ body {
   background-color: #242931;
   color: var(--light);
 }
-.react-datepicker-wrapper {
-  width: fit-content;
-}
-
-.react-datepicker {
-  margin-top: 2rem;
-  width: 90vw;
-}
-
-.react-datepicker__header {
-  background: var(--dark);
-}
-
-.react-datepicker__current-month, .react-datepicker__day-name, .react-datepicker__day {
-  color: var(--light);
-
-}
-.react-datepicker__month-container {
-  width: 100%;
-  background: var(--lightDark);
-}
-.react-datepicker__day {
-  width: 2.5rem;
-  height: 2.5rem;
-  padding-top: 0.4rem;
-}
-
-.react-datepicker__day--highlighted {
-  background: var(--orangeRed);
-}
-
 
 h1 {
   font-family: 'Asgalt-Regular';
@@ -82,6 +52,12 @@ a {
   text-decoration: none;
   color: #fff;
   cursor: pointer;
+}
+
+button {
+  border: none;
+  font-size: 16px;
+  letter-spacing: 1.5px;
 }
 
 input {
@@ -115,3 +91,53 @@ input::-ms-input-placeholder {
 input::placeholder {
   color: #a1a1a2;
 }
+
+
+/* ----------- DATEPICKER ---------- */
+.react-datepicker-wrapper {
+  width: fit-content;
+}
+
+.react-datepicker {
+  margin: 2rem 0;
+  width: 90vw;
+}
+
+.react-datepicker__header {
+  background: var(--dark);
+}
+
+.react-datepicker__current-month, .react-datepicker__day-name, .react-datepicker__day {
+  color: var(--light);
+  font-size: 1.1rem;
+
+}
+.react-datepicker__month-container {
+  width: 100%;
+  background: var(--lightDark);
+}
+.react-datepicker__day {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding-top: 0.4rem;
+  margin: 0.25rem;
+}
+.react-datepicker__day--selected {
+  color: #000;
+  background: var(--light);
+  /* har den här färgen när on hover #1d5d90 */
+
+}
+.react-datepicker__day-name {
+  margin: 0.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding-top: 0.4rem;
+}
+
+.react-datepicker__day--highlighted {
+  background: var(--orangeRed);
+  color: #000;
+}
+
+

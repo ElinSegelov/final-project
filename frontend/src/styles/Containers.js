@@ -16,10 +16,9 @@ export const InnerWrapper = styled.section`
 `
 
 export const StyledEventCardContainer = styled.section`
-  //display: flex;
-  //background-color: #363c46;  
-  width: 90%;
-  //border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
   align-items: center;
   gap: 1rem;
 `

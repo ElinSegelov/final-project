@@ -15,7 +15,7 @@ import Tutorial from './Tutorial';
 const LandingPage = () => {
   return (
     <>
-      <HeroImage src={heroImage} alt="Hero Octahedron" />
+      {/* <HeroImage src={heroImage} alt="Hero Octahedron" /> */}
       <Tutorial />
       <EventCalendar />
       <EventCardContainer />
@@ -27,9 +27,9 @@ const LandingPage = () => {
 
 export default LandingPage
 
-const HeroImage = styled.img`
-  width: 100%;
-`
+/* const HeroImage = styled.img`
+  width: 80%;
+` */
 
 const StyledLink = styled(Link)`
 text-decoration: none;

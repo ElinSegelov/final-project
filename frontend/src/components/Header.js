@@ -57,6 +57,7 @@ const StyledHeader = styled.header`
   padding: 1rem;
   height: 10vh;
   max-width: 100vw;
+  border-bottom: 1px solid var(--orangeRed);
 
   //! placeholder tillsammans med h1 är bara tillfälligt. Ska ersättas av logga.
   .placeholder {
