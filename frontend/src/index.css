@@ -32,16 +32,32 @@ body {
 .react-datepicker-wrapper {
   width: fit-content;
 }
+
 .react-datepicker {
+  margin-top: 2rem;
   width: 90vw;
+}
+
+.react-datepicker__header {
+  background: var(--dark);
+}
+
+.react-datepicker__current-month, .react-datepicker__day-name, .react-datepicker__day {
+  color: var(--light);
+
 }
 .react-datepicker__month-container {
   width: 100%;
+  background: var(--lightDark);
 }
 .react-datepicker__day {
   width: 2.5rem;
   height: 2.5rem;
   padding-top: 0.4rem;
+}
+
+.react-datepicker__day--highlighted {
+  background: var(--orangeRed);
 }
 
 

@@ -4,7 +4,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { BsDice4 } from 'react-icons/fa'
 import { GiDiceEightFacesEight } from 'react-icons/gi';
 import hamburger from '../assets/icons/icon-hamburger.svg';
 import close from '../assets/icons/icon-close.svg';
@@ -25,7 +24,7 @@ const Header = () => {
       <FlexDiv>
 
       <Link to="/"><GiDiceEightFacesEight className="placeholder" /></Link>
-      <h1>Octahedron</h1>
+      <h1>octahedron</h1>
       </FlexDiv>
       <Link to="/login"><ProfileIcon src={profileIcon} alt="Login" /></Link>
       {!navMenuActive
