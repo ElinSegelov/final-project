@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@babel/eslint-parser": "^7.18.9",
-    "@babel/preset-env": "^7.20.2",
     "@reduxjs/toolkit": "^1.9.1",
     "@sweetalert2/theme-dark": "^5.0.15",
     "date-fns": "^2.29.3",
