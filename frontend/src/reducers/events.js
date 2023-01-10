@@ -1,8 +1,6 @@
-/* eslint-disable no-lone-blocks */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-unused-expressions */
 /* eslint-disable quote-props */
 import { createSlice } from '@reduxjs/toolkit';
+import { API_URL } from 'utils/utils';
 import ui from './ui';
 
 const events = createSlice({
@@ -47,7 +45,7 @@ export const loadEvents = (accessToken) => {
   return async (dispatch) => {
     dispatch(ui.actions.setLoading(true))
     //! UPPDATERA TILL API SEN
-    const URL = 'http://localhost:8080/event'
+    // const URL = 'http://localhost:8080/event'
     const options = {
       method: 'GET',
       headers: {
@@ -56,12 +54,12 @@ export const loadEvents = (accessToken) => {
       }
     }
     try {
-      const response = await fetch(URL, options);
+      const response = await fetch(API_URL('event'), options);
       const data = await response.json()
       console.log('fetched data', data)
       dispatch(events.actions.setPostedEvents(data.response))
     } catch (error) {
-      console.error(error);
+      console.error(error.stack);
     } finally {
       dispatch(ui.actions.setLoading(false))
       console.log('ready')
