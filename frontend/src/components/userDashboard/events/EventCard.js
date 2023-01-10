@@ -73,11 +73,22 @@ const EventCard = ({
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(API_URL('event'), options)
-        Swal.fire(
-          'Deleted!',
-          'Your event has been deleted.',
-          'success'
-        )
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
+              dispatch(events.actions.setError(null))
+            } else {
+              dispatch(events.actions.setError(data.response))
+            }
+          })
+          .finally(() => {
+            Swal.fire(
+              'Deleted!',
+              'Your event has been deleted.',
+              'success'
+            )
+          })
       }
     })
   }

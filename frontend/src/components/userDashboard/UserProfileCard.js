@@ -12,6 +12,7 @@ const UserProfileCard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loggedInUser = useSelector((store) => store.user.userInfo)
+  const hostingEventsForDisplaying = useSelector((store) => store.events.hostingEvents)
 
   const handleEditUser = () => {
     console.log('clicked to edit user')
@@ -30,7 +31,7 @@ const UserProfileCard = () => {
       </div>
       <div>
         <UserName>{loggedInUser.username}</UserName>
-        <p>Hosting {loggedInUser.hostingEvents ? loggedInUser.hostingEvents.length : undefined} events</p>
+        <p>Hosting {hostingEventsForDisplaying ? hostingEventsForDisplaying.length : undefined} events</p>
         <p>Attending {loggedInUser.attendingEvents ? loggedInUser.attendingEvents.length : undefined} events</p>
       </div>
       <ButtonReversed type="button" onClick={handleLogout}>Log Out</ButtonReversed>

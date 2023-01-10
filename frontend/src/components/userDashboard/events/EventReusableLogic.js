@@ -1,12 +1,14 @@
+/* eslint-disable max-len */
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable quote-props */
 
 import React, { useEffect, useState } from 'react'
 import { API_URL } from 'utils/utils';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { swalBlurBackground } from 'utils/sweetAlerts';
 import ui from 'reducers/ui';
+import events from 'reducers/events';
 import { InnerWrapper } from 'styles/Containers';
 import EditEvent from './EditEvent';
 import CreateEvent from './CreateEvent';
@@ -20,12 +22,13 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
   const [totalSpots, setTotalSpots] = useState('');
   const [description, setDescription] = useState('');
   const [tempEventInfoForEdit, setTempEventInfoForEdit] = useState({})
-
   const user = useSelector((store) => store.user.userInfo);
   const selectedGame = useSelector((store) => store.events.selectedGameWithDataFromAPI);
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
+
   let gameName;
   const dispatch = useDispatch()
+  console.log(tempEventInfoForEdit)
 
   useEffect(() => {
     if (editEvent) {
@@ -66,6 +69,20 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
         )
       }
       fetch(API_URL('event'), options)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            batch(() => {
+              dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
+              console.log(data.response.hostingEvents)
+              dispatch(events.actions.setError(null))
+            })
+          } else {
+            batch(() => {
+              dispatch(events.actions.setError(data.response))
+            })
+          }
+        })
         .finally(() => handleEventValidation())
     } else {
       // The games sometimes have several titles. We check if there are more than one title, if so,
@@ -98,6 +115,15 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
         })
       }
       fetch(API_URL('event'), options)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
+            dispatch(events.actions.setError(null))
+          } else {
+            dispatch(events.actions.setError(data.response))
+          }
+        })
         .finally(() => handleEventValidation())
     }
   }

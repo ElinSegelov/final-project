@@ -12,6 +12,7 @@ import { Button1 } from 'styles/Button.styles';
 import Swal from 'sweetalert2';
 import ui from 'reducers/ui';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
+import events from 'reducers/events';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ const Login = () => {
           batch(() => {
             dispatch(user.actions.setUserInfo(data.response))
             dispatch(user.actions.setError(null));
+            dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
           });
         } else {
           batch(() => {

@@ -71,18 +71,22 @@ export const createEvent = async (req, res) => {
       description,
       image
     }).save();
-    res.status(201).json({
-      success: true,
-      response: {
-        venue: newEvent.venue,
-        eventDate: newEvent.eventDate,
-        eventTime: newEvent.eventTime,
-        game: newEvent.game,
-        eventId: newEvent._id,
-        message: "Event created"
-      }
-    });
-    await User.findByIdAndUpdate(user._id, { $addToSet: { hostingEvents: newEvent } })
+    const savedEventInUserSchema = await User.findByIdAndUpdate(user._id, { $addToSet: { hostingEvents: newEvent } })
+    if (savedEventInUserSchema) {
+      const host = await User.findOne({ _id: newEvent.hostId })
+      res.status(201).json({
+        success: true,
+        response: {
+          venue: newEvent.venue,
+          eventDate: newEvent.eventDate,
+          eventTime: newEvent.eventTime,
+          game: newEvent.game,
+          eventId: newEvent._id,
+          hostingEvents: host.hostingEvents,
+          message: "Event created"
+        }
+      });
+    }
   } catch (err) {
     res.status(500).json({
       success: false,
@@ -109,13 +113,18 @@ export const updateEvent = async (req, res) => {
   const selectedEvent = await Event.findOne({ _id })
   try {
     if (selectedEvent) {
-      await Event.findOneAndUpdate(selectedEvent._id, { $set: { venue, game, openSpots, totalSpots, description, eventDate, eventTime, eventName, image } });
-      res.status(200).json({
-        success: true,
-        response: {
-          message: "The event has been updated"
-        }
-      })
+      const eventUpdated = await Event.findOneAndUpdate(selectedEvent._id, { $set: { venue, game, openSpots, totalSpots, description, eventDate, eventTime, eventName, image } });
+      if (eventUpdated) {
+        const host = await User.findOne({ _id: selectedEvent.hostId })
+        res.status(200).json({
+          success: true,
+          response: {
+            updatedEvent: selectedEvent,
+            hostingEvents: host.hostingEvents,
+            message: "The event has been updated"
+          }
+        })
+      }
     } else {
       res.status(400).json({
         success: false,
@@ -137,30 +146,58 @@ export const deleteEvent = async (req, res) => {
     const { eventId } = req.body
     //checka så att vi har fått all required data, annrs skicka status 400.
     //checka så att användaren som vill radera är host annars skicka 401
+    const eventToDelete = await Event.findOne({ _id: eventId })
     const user = await User.findOne({ accessToken: req.header("Authorization") })
-    const deletedEvent = await Event.findOneAndDelete({ _id: eventId })
+    const host = await User.findById({ _id: eventToDelete.hostId })
+    // const host = await User.findOne({ _id: deletedEvent.hostId })
     //checka att eventet är raderat (kolla vad findOneAndDelete returnerar) 400 om det gick dåligt
     //lägg in om eventet är deleteat i if condition på 142
-    if (user) {
-      res.status(200).json({
-        success: true,
-        response: {
-          deletedEvent: deletedEvent._id,
-          message: "The event has been deleted"
+
+    if (user.username === host.username) {
+      const eventToDelete = await Event.findOne({ _id: eventId })
+      if (eventToDelete) {
+        const updatedHostingEvents = await User.findOneAndUpdate({ _id: eventToDelete.hostId }, { $pull: { hostingEvents: { _id: eventToDelete._id } } }, { new: true })
+        const deletedEventFromSchema = await Event.findByIdAndDelete({ _id: eventId })
+        if (updatedHostingEvents && deletedEventFromSchema) {
+          res.status(200).json({
+            success: true,
+            response: {
+              deletedEventFromSchema: deletedEventFromSchema,
+              hostingEvents: updatedHostingEvents.hostingEvents,
+              message: "The event has been deleted"
+            }
+          })
+        } else {
+          res.status(400).json({
+            success: false,
+            response: {
+              message: "Could not find this event"
+            }
+          })
         }
-      })
+      } else {
+        res.status(400).json({
+          success: false,
+          response: {
+            message: "Could not find this event"
+          }
+        })
+      }
     } else {
       res.status(400).json({
         success: false,
         response: {
-          message: "Ooops! Something went wrong. Please try again later."
+          message: "User not found"
         }
       })
     }
   } catch (err) {
     res.status(500).json({
       success: false,
-      response: err
+      response: {
+        err,
+        message: err.stack
+      }
     })
   }
 }
@@ -179,11 +216,11 @@ export const applyForSpot = async (req, res) => {
     try {
       const selectedEvent = await Event.findOne({ _id: eventId })
       if (selectedEvent) {
-        try {   
+        try {
           await Event.findOneAndUpdate(selectedEvent._id, { $push: { pendingPartyMembers: userEmail } });
           const host = await User.findOne({ _id: selectedEvent.hostId })
           console.log('host', host.email)
-    
+
           let transporter = nodemailer.createTransport({
             service: "hotmail",
             auth: {
@@ -216,16 +253,16 @@ export const applyForSpot = async (req, res) => {
                 </p>
               </div>
             `
-          } 
+          }
           transporter.sendMail(messageToHost, (error, info) => {
-              if (error) {
-                console.error('line 235', error)
-                //! user ska tas bort från pendingPartyMembers om mail inte kan skickas till host
-                //!DETTA BORDE GÖRAS GENOM ATT SÖKA UPP userEmail OCH RADERA DEN INTE SÅ SOM DET ÄR GJORT NU
-                Event.findOneAndUpdate(selectedEvent._id, { $pop: { pendingPartyMembers: userEmail } });
-              } else {
-                console.log('Sent:', info.response)
-              }
+            if (error) {
+              console.error('line 235', error)
+              //! user ska tas bort från pendingPartyMembers om mail inte kan skickas till host
+              //!DETTA BORDE GÖRAS GENOM ATT SÖKA UPP userEmail OCH RADERA DEN INTE SÅ SOM DET ÄR GJORT NU
+              Event.findOneAndUpdate(selectedEvent._id, { $pop: { pendingPartyMembers: userEmail } });
+            } else {
+              console.log('Sent:', info.response)
+            }
           })
           res.status(200).json({
             success: true,
