@@ -7,7 +7,8 @@ import styled from 'styled-components/macro';
 import { GiDiceEightFacesEight } from 'react-icons/gi';
 import hamburger from '../assets/icons/icon-hamburger.svg';
 import close from '../assets/icons/icon-close.svg';
-import profileIcon from '../assets/icons/profile-icon.svg'
+import profileIcon from '../assets/icons/profile-icon.svg';
+import logo from '../assets/images/logo.png';
 
 const Header = () => {
   const [navMenuActive, setNavMenuActive] = useState(false);
@@ -22,9 +23,7 @@ const Header = () => {
   return (
     <StyledHeader>
       <FlexDiv>
-
-      <Link to="/"><GiDiceEightFacesEight className="placeholder" /></Link>
-      <h1>octahedron</h1>
+      <Link to="/"><Logo src={logo} alt="Octahedron" /></Link>
       </FlexDiv>
       <Link to="/login"><ProfileIcon src={profileIcon} alt="Login" /></Link>
       {!navMenuActive
@@ -58,17 +57,10 @@ const StyledHeader = styled.header`
   height: 10vh;
   max-width: 100vw;
   border-bottom: 1px solid var(--orangeRed);
-
-  //! placeholder tillsammans med h1 är bara tillfälligt. Ska ersättas av logga.
-  .placeholder {
-    width: 3rem !important;
-    height: 3rem !important;
-    fill: var(--orangeRed) !important;
-  }
-
-  h1 {
-    margin-left: 0.5rem;
-  }
+  //background-image: url('../assets/images/hero1.png')
+`
+const Logo = styled.img`
+  width: 16rem;
 `
 
 const FlexDiv = styled.div`
