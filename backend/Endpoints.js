@@ -220,17 +220,18 @@ export const applyForSpot = async (req, res) => {
           await Event.findOneAndUpdate(selectedEvent._id, { $push: { pendingPartyMembers: userEmail } });
           const host = await User.findOne({ _id: selectedEvent.hostId })
           console.log('host', host.email)
+          
 
           let transporter = nodemailer.createTransport({
             service: "hotmail",
             auth: {
-              user: EMAIL,
-              pass: EMAIL_PASSWORD,
+              user: process.env.EMAIL,
+              pass: process.env.EMAIL_PASSWORD,
             },
           })
 
           const messageToHost = {
-            from: EMAIL,
+            from: process.env.EMAIL,
             to: `${host.email}`,
             subject: `${username} wants to join your party for playing ${selectedEvent.game}`,
             html: `
