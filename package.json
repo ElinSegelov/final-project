@@ -3,8 +3,5 @@
   "version": "1.0.0",
   "scripts": {
     "postinstall": "npm install --prefix backend"
-  },
-  "dependencies": {
-    "@babel/preset-env": "^7.20.2"
   }
 }
