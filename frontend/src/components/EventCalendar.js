@@ -27,16 +27,19 @@ const EventCalendar = () => {
     setStartDate(selectedDate);
   }
   useEffect(() => {
+    batch(() => {
+      dispatch(events.actions.selectDate(startDate.toISOString()));
+    })
+  }, [dispatch, startDate])
+
+  useEffect(() => {
     if (postedEvents) {
       const todaysEvents = postedEvents.filter(
         (event) => event.eventDate.slice(0, 10) === startDate.toISOString().slice(0, 10)
       )
-      batch(() => {
-        dispatch(events.actions.selectDate(startDate.toISOString()));
-        dispatch(events.actions.setEventsOfTheDay(todaysEvents));
-      })
+      dispatch(events.actions.setEventsOfTheDay(todaysEvents));
     }
-  }, [dispatch, startDate, postedEvents])
+  }, [postedEvents, startDate])
 
   const daysWithEvents = postedEvents.map((activeEvent) => parseISO(activeEvent.eventDate))
 
