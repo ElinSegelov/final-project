@@ -113,9 +113,9 @@ const EditEvent = ({
 export default EditEvent
 
 const SpotsInformation = styled.div`
-legend {
-  display: flex;
-  gap: 0.5rem;
-}
+  legend {
+    display: flex;
+    gap: 0.5rem;
+  }
 `
 

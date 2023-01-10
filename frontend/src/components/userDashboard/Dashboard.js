@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import styled from 'styled-components/macro';
 import user from 'reducers/user';
 import events from 'reducers/events';
+import { InnerWrapper } from 'styles/Containers';
 import EventSection from './events/EventSection';
 import UserProfileCard from './UserProfileCard';
 
@@ -44,6 +45,6 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-const DashboardWrapper = styled.section`
+const DashboardWrapper = styled(InnerWrapper)`
 /*   padding: 1rem; */
 `

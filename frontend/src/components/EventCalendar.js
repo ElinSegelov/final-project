@@ -57,6 +57,6 @@ const EventCalendar = () => {
 export default EventCalendar;
 
 const LoaderWrapper = styled.div`
-  width: 100px;
-  height: 100px;
+  width: 6.25rem;
+  height: 6.25rem;
 `

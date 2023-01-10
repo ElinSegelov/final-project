@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { swalBlurBackground } from 'utils/sweetAlerts';
 import ui from 'reducers/ui';
 import events from 'reducers/events';
+import { InnerWrapper } from 'styles/Containers';
 import EditEvent from './EditEvent';
 import CreateEvent from './CreateEvent';
 
@@ -21,11 +22,9 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
   const [totalSpots, setTotalSpots] = useState('');
   const [description, setDescription] = useState('');
   const [tempEventInfoForEdit, setTempEventInfoForEdit] = useState({})
-
   const user = useSelector((store) => store.user.userInfo);
   const selectedGame = useSelector((store) => store.events.selectedGameWithDataFromAPI);
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
-  // const hostingEvents = useSelector((store) => store.events.hostingEvents)
 
   let gameName;
   const dispatch = useDispatch()
@@ -129,7 +128,7 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
     }
   }
   return (
-    <section>
+    <InnerWrapper>
       {editEvent
         ? <EditEvent
           editEvent={editEvent}
@@ -148,7 +147,7 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
           setDescription={setDescription}
           handleDateSelection={handleDateSelection}
           onFormSubmit={onFormSubmit} />}
-    </section>
+    </InnerWrapper>
   )
 }
 

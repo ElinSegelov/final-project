@@ -1,17 +1,22 @@
+/* eslint-disable no-undef */
 /* eslint-disable max-len */
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import editIcon from 'assets/icons/icons8-pencil-30.png'
 import { useNavigate } from 'react-router';
 import user from 'reducers/user';
-import { ButtonReversed } from 'styles/Button.styles';
+import { RiEdit2Fill } from 'react-icons/ri'
+import { ButtonReversed, TransparentButton } from 'styles/Button.styles';
 
 const UserProfileCard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loggedInUser = useSelector((store) => store.user.userInfo)
   const hostingEventsForDisplaying = useSelector((store) => store.events.hostingEvents)
+
+  const handleEditUser = () => {
+    console.log('clicked to edit user')
+  }
 
   const handleLogout = () => {
     localStorage.clear()
@@ -22,7 +27,7 @@ const UserProfileCard = () => {
     <ProfileSection>
       <div>
         <ProfileImg src="https://pub-static.fotor.com/assets/projects/pages/d5bdd0513a0740a8a38752dbc32586d0/fotor-03d1a91a0cec4542927f53c87e0599f6.jpg" alt="placeholder" />
-        <img src={editIcon} alt="Edit" /> {/* onclick set eventSection state */}
+        <TransparentButton type="button" onClick={(handleEditUser)}><RiEdit2Fill /></TransparentButton>
       </div>
       <div>
         <UserName>{loggedInUser.username}</UserName>
@@ -39,13 +44,14 @@ export default UserProfileCard;
 const ProfileSection = styled.section`
   display: flex;
   background-color: #363c46;
-  
+  border: 1px solid var(--orangeRed);
   width: 100vw;
   border-radius: 10px;
   align-items: center;
   gap: 1rem;
   position: sticky;
   top: 0;
+  z-index: 2;
 `
 
 const ProfileImg = styled.img`
