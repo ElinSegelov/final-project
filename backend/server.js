@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import { User } from "./Models";
+import dotenv from 'dotenv'
 import {
   createEvent,
   getEvents,
@@ -14,6 +15,8 @@ import {
   updateEvent,
   applyForSpot
 } from "./Endpoints";
+
+dotenv.config();
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
