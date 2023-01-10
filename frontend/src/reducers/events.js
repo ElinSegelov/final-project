@@ -20,7 +20,7 @@ const events = createSlice({
     selectDate: (store, action) => {
       store.selectedDate = action.payload
     },
-    setEvents: (store, action) => {
+    setPostedEvents: (store, action) => {
       store.postedEvents = action.payload
     },
     setSelectedEventForEdit: (store, action) => {
@@ -59,7 +59,7 @@ export const loadEvents = (accessToken) => {
       const response = await fetch(URL, options);
       const data = await response.json()
       console.log('fetched data', data)
-      dispatch(events.actions.setEvents(data.response))
+      dispatch(events.actions.setPostedEvents(data.response))
     } catch (error) {
       console.error(error);
     } finally {

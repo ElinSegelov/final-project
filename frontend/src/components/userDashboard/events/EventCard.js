@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import events from 'reducers/events';
 import { API_URL } from 'utils/utils';
 import Swal from 'sweetalert2';
-import { RiEdit2Fill } from 'react-icons/ri'
+import { RiEdit2Fill, RiWindowLine } from 'react-icons/ri'
 import { MdLocationOn, MdDelete } from 'react-icons/md'
 import { IoMdTime } from 'react-icons/io'
 import { GiCastle } from 'react-icons/gi'
@@ -88,6 +88,7 @@ const EventCard = ({
               'Your event has been deleted.',
               'success'
             )
+            window.location.reload()
           })
       }
     })

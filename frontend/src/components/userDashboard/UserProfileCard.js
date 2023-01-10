@@ -51,7 +51,7 @@ const ProfileSection = styled.section`
   gap: 1rem;
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 1;
 `
 
 const ProfileImg = styled.img`

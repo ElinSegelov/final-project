@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker';
 import events, { loadEvents } from 'reducers/events';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { parseISO } from 'date-fns';
 
 import { LoadingForGameSearch } from 'components/loaders/loadingAnimations';
@@ -27,12 +27,16 @@ const EventCalendar = () => {
     setStartDate(selectedDate);
   }
   useEffect(() => {
-    const todaysEvents = postedEvents.filter(
-      (event) => event.eventDate.slice(0, 10) === startDate.toISOString().slice(0, 10)
-    )
-    dispatch(events.actions.selectDate(startDate.toISOString()));
-    dispatch(events.actions.setEventsOfTheDay(todaysEvents));
-  }, [dispatch, startDate])
+    if (postedEvents) {
+      const todaysEvents = postedEvents.filter(
+        (event) => event.eventDate.slice(0, 10) === startDate.toISOString().slice(0, 10)
+      )
+      batch(() => {
+        dispatch(events.actions.selectDate(startDate.toISOString()));
+        dispatch(events.actions.setEventsOfTheDay(todaysEvents));
+      })
+    }
+  }, [dispatch, startDate, postedEvents])
 
   const daysWithEvents = postedEvents.map((activeEvent) => parseISO(activeEvent.eventDate))
 

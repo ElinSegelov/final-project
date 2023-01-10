@@ -45,12 +45,14 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
     if (editEvent) {
       swalBlurBackground(editEvent)
       setEditEvent(false)
+      window.location.reload()
       if (selectedEventForEdit === tempEventInfoForEdit) {
         Swal.fire('No changes were made')
       }
     } else {
       swalBlurBackground(editEvent)
       setHandleEvent(false)
+      window.location.reload()
     }
   }
 
