@@ -1,7 +1,7 @@
 import { User, Event } from './Models';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer'
-import { EMAIL, EMAIL_PASSWORD } from './secrets';
+//import { EMAIL, EMAIL_PASSWORD } from './secrets';
 
 const salt = bcrypt.genSaltSync()
 
