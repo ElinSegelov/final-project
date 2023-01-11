@@ -3,11 +3,9 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unneeded-ternary */
 /* eslint-disable no-underscore-dangle */ // Ignores _ in _id
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { StyledEventCardContainer } from 'styles/Containers'
-import { Link } from 'react-router-dom'
-import { Button1 } from 'styles/Button.styles'
 import styled from 'styled-components'
 import EventCard from './EventCard'
 
@@ -42,7 +40,6 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
     <ActiveEventSection>
       <InfoAndPrompt>
         {eventsOfTheDay.length > 0 ? <h3>Events on {selectedDate.slice(0, 10)}</h3> : null}
-        {eventsOfTheDay.length > 0 && !accessToken ? <Link to="/login"><Button1>Login for more info</Button1></Link> : null}
       </InfoAndPrompt>
       <StyledEventCardContainer>
         {allEvents}

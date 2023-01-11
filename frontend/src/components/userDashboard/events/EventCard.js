@@ -109,7 +109,7 @@ const EventCard = ({
           <p><GiCastle /> {host}</p>
           <p><MdLocationOn /> {venue}</p>
           <p><HiClock /> {eventTime}</p>
-          <p><HiUserGroup />{isFull ? 'Event is full' : ` ${openSpots} / ${totalSpots}`}</p>
+          <p><HiUserGroup />{isFull ? 'Event is full' : ` ${totalSpots - openSpots} / ${totalSpots}`}</p>
         </EventInfo>
         <DescriptionParagraph>{description}</DescriptionParagraph>
         {user.userId === hostId
@@ -124,9 +124,9 @@ const EventCard = ({
   } else {
     return (
       <EventCardWithBasicInfo key={id}>
-        <GameTitleWrapper>
+        <GameTitleWrapperLimited>
           <h3>{game}</h3>
-        </GameTitleWrapper>
+        </GameTitleWrapperLimited>
         <EventInfo>
           <p><MdLocationOn /> {venue}</p>
           <p><IoMdTime /> {eventTime}</p>
@@ -143,6 +143,11 @@ const GameTitleWrapper = styled.div`
   word-wrap: break-word;
   max-height: 3rem;
   overflow-y: auto;
+  `
+
+const GameTitleWrapperLimited = styled(GameTitleWrapper)`
+  max-height: 4rem;
+  overflow-y: hidden;
 `
 
 const StyledEventCard = styled.div`
@@ -180,9 +185,10 @@ const GameImage = styled.img`
 `
 const EventCardWithBasicInfo = styled(StyledEventCard)`
   grid-template-columns: 1fr 1fr;
-div {
-  grid-column: 2;
-}
+
+/*   div {
+    grid-column: 2;
+  } */
 `
 const EventInfo = styled.div`
   h3 {
@@ -194,7 +200,8 @@ const EventInfo = styled.div`
   }
 `
 const DescriptionParagraph = styled.p`
-  grid-column: 1 / 3;
+  grid-column: 1 / 4;
+  word-wrap: break-word;
 `
 
 const DeleteImg = styled.img`

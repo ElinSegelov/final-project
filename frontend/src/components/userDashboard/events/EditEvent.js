@@ -35,6 +35,7 @@ const EditEvent = ({
           <DatePicker
             selected={startDate}
             dateFormat="yyyy/MM/dd"
+            calendarStartDay={1}
             onSelect={handleTempDateSelection} />
           <p>Pick a date</p>
           <label htmlFor="eventTime">
@@ -100,6 +101,7 @@ const EditEvent = ({
               onChange={(event) => {
                 setTempEventInfoForEdit({ ...tempEventInfoForEdit, description: event.target.value })
               }}
+              maxLength={300}
               name="description"
               rows="4" />
           </label>
