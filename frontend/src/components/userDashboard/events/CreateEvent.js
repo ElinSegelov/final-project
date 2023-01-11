@@ -78,12 +78,13 @@ const CreateEvent = ({
         <label htmlFor="description">
           <TextArea
             placeholder="Describe the event"
+            maxLength={300}
             id="description"
             onChange={(event) => setDescription(event.target.value)}
             name="description"
             rows="4" />
         </label>
-        <Button1 type="submit">CREATE EVENT</Button1>
+        <Button1 type="submit">Create Event</Button1>
       </Form>
     </FormWrapper>
   )

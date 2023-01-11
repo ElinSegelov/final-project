@@ -2,12 +2,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Gotham-Book';
+  font-family: 'Gotham-Book', sans-serif;
 }
 
 :root {
   --orangeRed: #DE605B;
   --dark: #242931;
+  --darkOpacity: rgba(36, 41, 49, 0.85);
   --lightDark: #363c46;
   --light: #DDDDDD;
   --today: #6e8191;
@@ -18,7 +19,7 @@ body.swal2-shown > [aria-hidden='true'] {
   filter: blur(10px);
 }
 .swal2-title {
-  font-family: 'Helvetica';
+  font-family: 'Gotham-Book';
   font-size: 40px;
   padding: 0;
 }
@@ -45,13 +46,20 @@ body {
 h1 {
   font-family: 'Asgalt-Regular';
   font-size: 60px;
+}
 
+h2 {
+  font-size: 2rem;
 }
 
 a {
   text-decoration: none;
   color: #fff;
   cursor: pointer;
+  margin: 0;
+  padding: 0;
+  height: fit-content;
+
 }
 
 button {

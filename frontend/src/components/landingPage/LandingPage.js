@@ -9,35 +9,45 @@ import Footer from 'components/Footer';
 import EventCardContainer from 'components/userDashboard/events/EventCardContainer';
 import { useSelector } from 'react-redux';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
+import { Button1, ButtonReversed } from 'styles/Button.styles';
 import heroImage from '../../assets/images/hero.jpg';
 import Tutorial from './Tutorial';
 
 const LandingPage = () => {
+  const accessToken = useSelector((store) => store.user.userInfo.accessToken);
   return (
     <>
-      {/* <HeroImage src={heroImage} alt="Hero Octahedron" /> */}
       <Tutorial />
       <EventCalendar />
       <EventCardContainer />
-      <RegisterLink to="/register">Sign up</RegisterLink>
-      <LoginLink to="/login">Log in</LoginLink>
+      {!accessToken
+        ?
+        <RegisterLoginWrapper>
+          <Link to="/login"><LoginButton>Log in</LoginButton></Link>
+          <Link to="/register"><RegisterButton>Register</RegisterButton></Link>
+        </RegisterLoginWrapper> : null}
     </>
   )
 }
 
 export default LandingPage
 
-/* const HeroImage = styled.img`
-  width: 80%;
-` */
-
+const RegisterLoginWrapper = styled.div`
+  
+`
+const LoginButton = styled(ButtonReversed)`
+  width: 6rem;
+`
+const RegisterButton = styled(Button1)`
+  width: 6rem;
+`
 const StyledLink = styled(Link)`
-text-decoration: none;
-color: white;
+  text-decoration: none;
+  color: white;
 `
 
 const RegisterLink = styled(StyledLink)`
-color: red;
+  color: red;
 `
 const LoginLink = styled(StyledLink)`
 

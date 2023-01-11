@@ -4,10 +4,11 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { GiDiceEightFacesEight } from 'react-icons/gi';
-import hamburger from '../assets/icons/icon-hamburger.svg';
-import close from '../assets/icons/icon-close.svg';
-import profileIcon from '../assets/icons/profile-icon.svg'
+// import { AiOutlineCloseCircle } from 'react-icons/ai'
+import { SlMenu } from 'react-icons/sl'
+import { FaUser } from 'react-icons/fa'
+import { IoClose } from 'react-icons/io5'
+import logo from '../assets/images/logo.png';
 
 const Header = () => {
   const [navMenuActive, setNavMenuActive] = useState(false);
@@ -22,18 +23,18 @@ const Header = () => {
   return (
     <StyledHeader>
       <FlexDiv>
-
-      <Link to="/"><GiDiceEightFacesEight className="placeholder" /></Link>
-      <h1>octahedron</h1>
+        <Link to="/"><Logo src={logo} alt="Octahedron" /></Link>
+        <FlexDivUserAndHamburgare>
+          <Link to="/login"><FaUser fontSize={27} color="var(--light)" /></Link>
+          {!navMenuActive
+            ? <Hamburger onClick={showNavLinks}>
+              <SlMenu fontSize={30} />
+            </Hamburger>
+            : <Hamburger onClick={showNavLinks}>
+              <IoClose fontSize={45} />
+            </Hamburger>}
+        </FlexDivUserAndHamburgare>
       </FlexDiv>
-      <Link to="/login"><ProfileIcon src={profileIcon} alt="Login" /></Link>
-      {!navMenuActive
-        ? <Hamburger onClick={showNavLinks}>
-          <img src={hamburger} alt="Open navmenu" />
-        </Hamburger>
-        : <Hamburger onClick={showNavLinks}>
-          <img src={close} alt="Close navmenu" />
-        </Hamburger>}
       <NavLinkWrapper style={navMenuActive ? { display: 'flex' } : { display: 'none' }}>
         <NavLinks>
           <NavLink to="/" end><NavText>Home</NavText></NavLink>
@@ -49,39 +50,32 @@ const Header = () => {
 export default Header;
 
 const StyledHeader = styled.header`
-  position: relative;
   width: 100vw;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  height: 10vh;
+  height: 12vh;
   max-width: 100vw;
   border-bottom: 1px solid var(--orangeRed);
-
-  //! placeholder tillsammans med h1 är bara tillfälligt. Ska ersättas av logga.
-  .placeholder {
-    width: 3rem !important;
-    height: 3rem !important;
-    fill: var(--orangeRed) !important;
-  }
-
-  h1 {
-    margin-left: 0.5rem;
-  }
+  //background-image: url('../assets/images/hero1.png')
+`
+const Logo = styled.img`
+  width: 13rem;
 `
 
 const FlexDiv = styled.div`
   display: flex;
+  padding: 1rem;
+  justify-content: space-between;
+  height: 12vh;
+  align-items: center;
 `
-
-const ProfileIcon = styled.img`
-  width: 2rem;
-  position: relative;
-  right: 3rem;
-  
+const FlexDivUserAndHamburgare = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 5rem;
+  justify-content: space-between;
+  height: 12vh;
+  padding: 1rem 0 ;
+  align-items: center;
 `
-
 const NavLinkWrapper = styled.nav`
   position: absolute;
   top: 0;
@@ -126,14 +120,13 @@ const NavText = styled.li`
   font-family: 'Barlow Condensed', sans-serif;
   letter-spacing: 2.7px;
   text-transform: uppercase;
-  color: var(--secondary-text);
+  color: var(--light);
   margin: 1rem;
   
   @media (min-width: 600px) {
     margin: 0;
-    font-size: 16px;
-    
-    }
+    font-size: 16px;    
+  }
   span {
     @media (min-width: 600px) {
       display: none;
@@ -143,8 +136,6 @@ const NavText = styled.li`
 
 const Hamburger = styled.div`
   z-index: 2;
-  position: absolute;
-  right: 1rem;
 
   @media (min-width: 600px) {
     display: none;

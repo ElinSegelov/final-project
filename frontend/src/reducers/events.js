@@ -45,7 +45,6 @@ export const loadEvents = (accessToken) => {
   return async (dispatch) => {
     dispatch(ui.actions.setLoading(true))
     //! UPPDATERA TILL API SEN
-    // const URL = 'http://localhost:8080/event'
     const options = {
       method: 'GET',
       headers: {

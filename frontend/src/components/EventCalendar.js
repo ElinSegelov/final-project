@@ -7,9 +7,7 @@ import events, { loadEvents } from 'reducers/events';
 import 'react-datepicker/dist/react-datepicker.css';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { parseISO } from 'date-fns';
-
 import { LoadingForGameSearch } from 'components/loaders/loadingAnimations';
-
 import styled from 'styled-components';
 
 const EventCalendar = () => {
@@ -56,6 +54,7 @@ const EventCalendar = () => {
           onSelect={handleDateSelection}
           highlightDates={daysWithEvents}
           dateFormat="yyyy/MM/dd"
+          calendarStartDay={1}
           inline />}
     </div>
   );
