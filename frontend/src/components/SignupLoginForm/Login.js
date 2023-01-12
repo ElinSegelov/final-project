@@ -9,13 +9,14 @@ import user from 'reducers/user';
 import { useNavigate, Link } from 'react-router-dom';
 import { Form, FormWrapper, Input } from 'styles/Forms';
 import { FormWrapperContainer } from 'styles/Containers';
-
 import { Button1 } from 'styles/Button.styles';
 import Swal from 'sweetalert2';
 import ui from 'reducers/ui';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
 import events from 'reducers/events';
+import { swalBlurBackground } from 'utils/sweetAlerts';
 import styled from 'styled-components/macro';
+
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const Login = () => {
   const handleValidationErrors = (data) => {
     setEmail('')
     setPassword('')
-    Swal.fire(data.response)
+    swalBlurBackground(data.response)
   }
   const onFormSubmit = (event) => {
     dispatch(ui.actions.setLoading(true))

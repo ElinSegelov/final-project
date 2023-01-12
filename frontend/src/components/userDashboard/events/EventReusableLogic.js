@@ -5,7 +5,6 @@
 import React, { useEffect, useState } from 'react'
 import { API_URL } from 'utils/utils';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import Swal from 'sweetalert2';
 import { swalBlurBackground } from 'utils/sweetAlerts';
 import ui from 'reducers/ui';
 import events from 'reducers/events';
@@ -43,16 +42,16 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
   const handleEventValidation = () => {
     dispatch(ui.actions.setLoading(false))
     if (editEvent) {
-      swalBlurBackground(editEvent)
+      swalBlurBackground('Your event has been updated!')
       setEditEvent(false)
-      window.location.reload()
+      setTimeout(() => { window.location.reload() }, 1400)
       if (selectedEventForEdit === tempEventInfoForEdit) {
-        Swal.fire('No changes were made')
+        swalBlurBackground('No changes were made')
       }
     } else {
-      swalBlurBackground(editEvent)
+      swalBlurBackground('Your event has been created!')
       setHandleEvent(false)
-      window.location.reload()
+      setTimeout(() => { window.location.reload() }, 1400)
     }
   }
 

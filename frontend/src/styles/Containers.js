@@ -25,7 +25,6 @@ export const InnerWrapper = styled.section`
     align-items: flex-start;
   }
 `
-
 export const StyledEventCardContainer = styled.section`
   display: flex;
   flex-direction: column;
