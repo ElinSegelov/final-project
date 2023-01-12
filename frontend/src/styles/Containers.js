@@ -7,6 +7,7 @@ export const Main = styled.main`
   padding: 1rem;
   width: 100vw;
   min-height: 85vh;
+  
 `
 export const InnerWrapper = styled.section`
   width: 100%;
@@ -21,4 +22,7 @@ export const StyledEventCardContainer = styled.section`
   width: 90vw;
   align-items: center;
   gap: 1rem;
+  @media (min-width: 768px) {
+    width: 100%;
+  }
 `

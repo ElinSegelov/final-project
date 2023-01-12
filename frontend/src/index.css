@@ -6,11 +6,11 @@
 }
 
 :root {
-  --orangeRed: #DE605B;
+  --orangeRed: #de605b;
   --dark: #242931;
   --darkOpacity: rgba(36, 41, 49, 0.85);
   --lightDark: #363c46;
-  --light: #DDDDDD;
+  --light: #dddddd;
   --today: #6e8191;
 }
 /* SWEET ALERT */
@@ -22,6 +22,39 @@ body.swal2-shown > [aria-hidden='true'] {
   font-family: 'Gotham-Book';
   font-size: 40px;
   padding: 0;
+  color: '#DE605B';
+}
+.swal2-html-container {
+  color: var(--light) !important;
+}
+.swal2-icon-content {
+  color: var(--orangeRed);
+}
+.swal2-icon.swal2-warning {
+  border-color: var(--orangeRed) !important;
+}
+
+.swal2-styled.swal2-confirm {
+  background-color: transparent;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border: var(--orangeRed) 1px solid;
+  margin: 0.5rem;
+  background: transparent;
+  color: var(--light);
+}
+.swal2-styled.swal2-cancel {
+  background-color: var(--orangeRed);
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border: none;
+  margin: 0.5rem;
+}
+.swal2-icon {
+  color: var(--orangeRed);
+}
+.swal2-warning {
+  color: var(--orangeRed);
 }
 
 /* ---------------- */
@@ -59,7 +92,6 @@ a {
   margin: 0;
   padding: 0;
   height: fit-content;
-
 }
 
 button {
@@ -68,7 +100,9 @@ button {
   letter-spacing: 1.5px;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   border-radius: 5px;
   background-color: #e9e9f7;
   padding: 5px;
@@ -100,7 +134,6 @@ input::placeholder {
   color: #a1a1a2;
 }
 
-
 /* ----------- DATEPICKER ---------- */
 .react-datepicker-wrapper {
   width: fit-content;
@@ -115,10 +148,11 @@ input::placeholder {
   background: var(--dark);
 }
 
-.react-datepicker__current-month, .react-datepicker__day-name, .react-datepicker__day {
+.react-datepicker__current-month,
+.react-datepicker__day-name,
+.react-datepicker__day {
   color: var(--light);
   font-size: 1.1rem;
-
 }
 .react-datepicker__month-container {
   width: 100%;
@@ -134,7 +168,6 @@ input::placeholder {
   color: #000;
   background: var(--light);
   /* har den här färgen när on hover #1d5d90 */
-
 }
 .react-datepicker__day-name {
   margin: 0.25rem;
@@ -148,7 +181,20 @@ input::placeholder {
   color: #000;
 }
 
-.react-datepicker__input-container input{
+.react-datepicker__input-container input {
   width: 12rem;
 }
 
+@media (min-width: 768px) {
+  .react-datepicker {
+    margin: 2rem 0;
+    width: 100%;
+    /* display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 100vh;
+    border-right: 1px solid var(--orangeRed);
+    padding-right: 1rem;
+    border: 1px solid red; */
+  }
+}

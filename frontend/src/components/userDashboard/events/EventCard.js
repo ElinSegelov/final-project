@@ -67,8 +67,8 @@ const EventCard = ({
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      background: 'transparent',
+      color: '#DE605B',
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
@@ -118,7 +118,7 @@ const EventCard = ({
             <TransparentButton type="button" onClick={(handleDeleteEvent)}><MdDelete /></TransparentButton>
             <TransparentButton type="button" onClick={(handleEditEvent)}><RiEdit2Fill /></TransparentButton>
           </HandleEventContainer>
-          : <ApplyToEvent eventId={id} />}
+          : <ApplyToEvent eventId={id} eventHost={host} />}
       </StyledEventCard>
     )
   } else {

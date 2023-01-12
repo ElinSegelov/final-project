@@ -4,10 +4,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Button1 } from 'styles/Button.styles';
 import { API_URL } from 'utils/utils';
-import Swal from 'sweetalert2';
-import styled from 'styled-components';
 
-const ApplyToEvent = ({ eventId }) => {
+import styled from 'styled-components';
+import { swalBlurBackground } from 'utils/sweetAlerts';
+
+const ApplyToEvent = ({ eventId, eventHost }) => {
   const user = useSelector((store) => store.user.userInfo);
 
   const sendApplication = async () => {
@@ -28,29 +29,17 @@ const ApplyToEvent = ({ eventId }) => {
       const response = await fetch(API_URL('applyForSpot'), options);
       const data = await response.json();
       console.log(data)
-      Swal.fire({
-        title: `${data.message}`, // TODO ändra meddelande
-        timer: 5000,
-        color: '#DE605B',
-        timerProgressBar: true,
-        showConfirmButton: false
-      })
+      swalBlurBackground(`Nice! We sent an email to ${eventHost}!`)
     } catch (error) {
       console.error(error.message)
-      Swal.fire({
-        title: `${error.message}`,
-        timer: 1400,
-        color: '#DE605B',
-        timerProgressBar: true,
-        showConfirmButton: false
-      })
+      swalBlurBackground(error.message)
     }
   }
   return (
     <ApplyButton
       type="button"
       onClick={sendApplication}>
-          Apply for a spot
+      Apply for a spot
     </ApplyButton>
   )
 }

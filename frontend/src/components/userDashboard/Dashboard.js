@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import styled from 'styled-components/macro';
 import user from 'reducers/user';
 import events from 'reducers/events';
-import { InnerWrapper } from 'styles/Containers';
+// import { InnerWrapper } from 'styles/Containers';
 import EventSection from './events/EventSection';
 import UserProfileCard from './UserProfileCard';
 
@@ -37,7 +37,10 @@ const Dashboard = () => {
   }, [hostingEvents, userInfo])
   return (
     <DashboardWrapper>
-      <UserProfileCard />
+      <UserProfileWrapperDesktop>
+        <UserProfileCard />
+        <EventSection />
+      </UserProfileWrapperDesktop>
       <EventSection />
     </DashboardWrapper>
   )
@@ -45,6 +48,24 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-const DashboardWrapper = styled(InnerWrapper)`
+const DashboardWrapper = styled.section`
 /*   padding: 1rem; */
+  @media (min-width: 768px) {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+  }
+`
+
+const UserProfileWrapperDesktop = styled.section`
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 100vh;
+    border-right: 1px solid var(--orangeRed);
+    padding-right: 1rem;
+    /* border: 1px solid red; */
+  }
 `
