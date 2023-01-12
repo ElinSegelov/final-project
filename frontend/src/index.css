@@ -10,8 +10,10 @@
   --dark: #242931;
   --darkOpacity: rgba(36, 41, 49, 0.85);
   --lightDark: #363c46;
+  --lightDarkOpacity: rgba(54, 60, 70, 0.85);
   --light: #DDDDDD;
   --today: #6e8191;
+  --bigger: 768px;
 }
 /* SWEET ALERT */
 body.swal2-shown > [aria-hidden='true'] {
@@ -19,7 +21,7 @@ body.swal2-shown > [aria-hidden='true'] {
   filter: blur(10px);
 }
 .swal2-title {
-  font-family: 'Gotham-Book';
+  font-family: 'Gotham-Book', sans-serif;
   font-size: 40px;
   padding: 0;
 }
@@ -41,6 +43,7 @@ body.swal2-shown > [aria-hidden='true'] {
 body {
   background-color: #242931;
   color: var(--light);
+  width: 100vw;
 }
 
 h1 {
@@ -110,6 +113,13 @@ input::placeholder {
   margin: 2rem 0;
   width: 90vw;
 }
+@media(min-width: 1024px) {
+  .react-datepicker {
+    width: 30rem;
+
+  }
+  
+}
 
 .react-datepicker__header {
   background: var(--dark);
@@ -125,8 +135,8 @@ input::placeholder {
   background: var(--lightDark);
 }
 .react-datepicker__day {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.4rem;
+  height: 2.4rem;
   padding-top: 0.4rem;
   margin: 0.25rem;
 }

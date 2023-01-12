@@ -42,7 +42,7 @@ const EventCalendar = () => {
   const daysWithEvents = postedEvents.map((activeEvent) => parseISO(activeEvent.eventDate))
 
   return (
-    <div>
+    <EventCalendarWrapper>
       {isLoading
         ?
         <LoaderWrapper>
@@ -56,7 +56,7 @@ const EventCalendar = () => {
           dateFormat="yyyy/MM/dd"
           calendarStartDay={1}
           inline />}
-    </div>
+    </EventCalendarWrapper>
   );
 };
 
@@ -65,4 +65,8 @@ export default EventCalendar;
 const LoaderWrapper = styled.div`
   width: 6.25rem;
   height: 6.25rem;
+`
+
+const EventCalendarWrapper = styled.div`
+
 `

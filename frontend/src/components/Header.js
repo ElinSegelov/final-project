@@ -4,14 +4,15 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
-// import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { SlMenu } from 'react-icons/sl'
 import { FaUser } from 'react-icons/fa'
 import { IoClose } from 'react-icons/io5'
+import { useSelector } from 'react-redux';
 import logo from '../assets/images/logo.png';
 
 const Header = () => {
   const [navMenuActive, setNavMenuActive] = useState(false);
+  const accessToken = useSelector((store) => store.user.userInfo.accessToken)
 
   const showNavLinks = () => {
     if (navMenuActive === false) {
@@ -24,7 +25,16 @@ const Header = () => {
     <StyledHeader>
       <FlexDiv>
         <Link to="/"><Logo src={logo} alt="Octahedron" /></Link>
-        <FlexDivUserAndHamburgare>
+      <NavLinkWrapper style={navMenuActive ? { display: 'flex' } : { display: 'none' }}>
+        <NavLinks>
+          <NavLink to="/" end><NavText>Home</NavText></NavLink>
+          <NavLink to="/howItWorks"><NavText>How it works</NavText></NavLink>
+          <NavLink to="/aboutUs"><NavText>About us</NavText></NavLink>
+          <NavLink to="/login"><NavText>Profile</NavText></NavLink>
+          {!accessToken ? <NavLink to="/login"><NavText>Log in</NavText></NavLink> : null}
+        </NavLinks>
+      </NavLinkWrapper>
+        <FlexDivUserAndHamburger>
           <Link to="/login"><FaUser fontSize={27} color="var(--light)" /></Link>
           {!navMenuActive
             ? <Hamburger onClick={showNavLinks}>
@@ -33,16 +43,8 @@ const Header = () => {
             : <Hamburger onClick={showNavLinks}>
               <IoClose fontSize={45} />
             </Hamburger>}
-        </FlexDivUserAndHamburgare>
+        </FlexDivUserAndHamburger>
       </FlexDiv>
-      <NavLinkWrapper style={navMenuActive ? { display: 'flex' } : { display: 'none' }}>
-        <NavLinks>
-          <NavLink to="/" end><NavText>Home</NavText></NavLink>
-          <NavLink to="/aboutUs"><NavText>About us</NavText></NavLink>
-          <NavLink to="/howItWorks"><NavText>How it works</NavText></NavLink>
-          <NavLink to="/events"><NavText>Events</NavText></NavLink>
-        </NavLinks>
-      </NavLinkWrapper>
     </StyledHeader>
   )
 }
@@ -50,14 +52,17 @@ const Header = () => {
 export default Header;
 
 const StyledHeader = styled.header`
-  width: 100vw;
   height: 12vh;
-  max-width: 100vw;
+  max-width: 100%;
   border-bottom: 1px solid var(--orangeRed);
-  //background-image: url('../assets/images/hero1.png')
+  background: var(--dark);
+
 `
 const Logo = styled.img`
   width: 13rem;
+  @media (min-width: 1024px) {
+    width: 20rem;
+  }
 `
 
 const FlexDiv = styled.div`
@@ -66,8 +71,14 @@ const FlexDiv = styled.div`
   justify-content: space-between;
   height: 12vh;
   align-items: center;
+  margin: 0 auto;
+
+  /* @media (min-width: 1024px) {
+  width: 80%;
+  min-width: 1000px;
+} */
 `
-const FlexDivUserAndHamburgare = styled.div`
+const FlexDivUserAndHamburger = styled.div`
   display: flex;
   flex-direction: row;
   width: 5rem;
@@ -75,26 +86,31 @@ const FlexDivUserAndHamburgare = styled.div`
   height: 12vh;
   padding: 1rem 0 ;
   align-items: center;
+  @media (min-width: 1024px) {
+    justify-content: right;
+    display: none;
+  }
+
 `
 const NavLinkWrapper = styled.nav`
   position: absolute;
   top: 0;
   right: 0;
-  width: 70%;
-  height: 100vh;
-  backdrop-filter: blur(8px);
-  z-index: 1;
+  width: 100%;
+  height: 200%;
+  backdrop-filter: blur(13px);
+  background: var(--darkOpacity);
+  z-index: 2;
   
-  @media (min-width: 600px) {
+  @media (min-width: 1024px) {
     position: static;
     height: 6rem;
+    width: 100%;
     background-color: var(--bg-nav);
     backdrop-filter: none;
     display: flex !important;
     align-items: center;
-    justify-content: center;
-    width: auto;
-    
+    justify-content: right;
   }
 `
 const NavLinks = styled.ul`
@@ -102,44 +118,41 @@ const NavLinks = styled.ul`
   flex-direction: column;
   position: absolute;
   top: 8rem;
+  right: 1.5rem;
   list-style: none;
   padding-left: 1rem;
+  text-align: right;
+  gap: 3rem;
 
-  @media (min-width: 600px) {
+  @media (min-width: 1024px) {
     flex-direction: row;
     position: static;
     margin: 0;
     justify-content: space-around;
-    gap: 1rem;
+    gap: 2rem;
     padding: 0 1rem;
   }
 `
 
 const NavText = styled.li`
-  font-size: 20px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.6rem;
+  font-family: 'Gotham-Book', sans-serif;
   letter-spacing: 2.7px;
-  text-transform: uppercase;
   color: var(--light);
-  margin: 1rem;
   
-  @media (min-width: 600px) {
+  @media (min-width: 1024px) {
     margin: 0;
     font-size: 16px;    
   }
   span {
-    @media (min-width: 600px) {
+    @media (min-width: 1024px) {
       display: none;
     }
   }
 `
 
 const Hamburger = styled.div`
-  z-index: 2;
-
-  @media (min-width: 600px) {
-    display: none;
-  }
+  z-index: 3;
   
   img {
     width: 1.5rem;

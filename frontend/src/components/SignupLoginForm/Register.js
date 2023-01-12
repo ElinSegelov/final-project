@@ -10,6 +10,7 @@ import user from 'reducers/user';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { FormWrapper, Form, Input } from 'styles/Forms';
+import { FormWrapperContainer } from 'styles/Containers';
 import Swal from 'sweetalert2';
 import { Button1 } from 'styles/Button.styles';
 import ui from 'reducers/ui';
@@ -85,15 +86,23 @@ const Register = () => {
     }
   }
   return (
-    <div>
+    <FormWrapperContainer>
       {isLoading
         ? <LoadingBlurBackground />
         :
-        <FormWrapper>
+        <FormWrapperRegister>
           <Form onSubmit={onFormSubmit}>
-            <h2>Sign Up</h2>
+            <h2>Register</h2>
+            <label htmlFor="email" />
+            <Input
+              required
+              placeholder="Email Address*"
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} />
             <label htmlFor="username" />
-            <input
+            <Input
               required
               placeholder="Username*"
               type="text"
@@ -101,7 +110,7 @@ const Register = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)} />
             <label htmlFor="password" />
-            <input
+            <Input
               required
               placeholder="Password*"
               type="password"
@@ -109,30 +118,38 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)} />
             <label htmlFor="repeatePassword" />
-            <input
+            <Input
               required
               placeholder="Confirm your password*"
               type="password"
               id="repeatePassword"
               value={repeatePassword}
               onChange={(e) => setRepeatePassword(e.target.value)} />
-            <label htmlFor="email" />
-            <input
-              required
-              placeholder="Email Address*"
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)} />
             <div>
-              <Button1 type="submit">Sign Up!</Button1>
+              <RegisterButton type="submit">Register</RegisterButton>
             </div>
           </Form>
-          <Link to="/login">Already a user? Login here!</Link>
-        </FormWrapper>}
-    </div>
+          <Link to="/login"><p>Already a user? <span>Login here</span></p></Link>
+        </FormWrapperRegister>}
+    </FormWrapperContainer>
   )
 }
 
 export default Register;
+
+const RegisterButton = styled(Button1)`
+  width: 12rem;
+  margin: 0.5rem 0 0 0;
+`
+const FormWrapperRegister = styled(FormWrapper)`
+  p {
+    width: 12rem;
+    font-size: 14px; 
+    text-align: center;
+  }
+  span {
+    text-decoration: underline;
+    color: var(--orangeRed)
+  }
+`
 
