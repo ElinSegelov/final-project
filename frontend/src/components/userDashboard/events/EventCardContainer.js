@@ -38,9 +38,9 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
   console.log('user', accessToken)
   return (
     <ActiveEventSection>
-      <InfoAndPrompt>
+      <EventsHeading>
         {eventsOfTheDay.length > 0 ? <h3>Events on {selectedDate.slice(0, 10)}</h3> : null}
-      </InfoAndPrompt>
+      </EventsHeading>
       <StyledEventCardContainer>
         {allEvents}
       </StyledEventCardContainer>
@@ -55,9 +55,15 @@ export default EventCardContainer;
 
 const ActiveEventSection = styled.section`
   margin-bottom: 1rem;
+  
+
+  @media (min-width: 1024px) {
+    max-height: 25rem;
+    overflow-y: auto;
+  }
 `
 
-const InfoAndPrompt = styled.div`
+const EventsHeading = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
