@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 import ui from 'reducers/ui';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
 import events from 'reducers/events';
+import { swalBlurBackground } from 'utils/sweetAlerts';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const Login = () => {
   const handleValidationErrors = (data) => {
     setEmail('')
     setPassword('')
-    Swal.fire(data.response)
+    swalBlurBackground(data.response)
   }
   const onFormSubmit = (event) => {
     dispatch(ui.actions.setLoading(true))

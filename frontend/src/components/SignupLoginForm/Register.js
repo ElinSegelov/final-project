@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { Button1 } from 'styles/Button.styles';
 import ui from 'reducers/ui';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
+import { swalBlurBackground } from 'utils/sweetAlerts';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -35,19 +36,20 @@ const Register = () => {
 
   const handleValidationErrors = (data) => {
     if (password.length < 8) {
-      Swal.fire('Password must be at least 8 characters')
+      swalBlurBackground('Password must be at least 8 characters')
       setPassword('')
+      setRepeatePassword('')
     } else if (data.response.keyValue.username === username) {
-      Swal.fire('This username already exist')
+      swalBlurBackground('This username already exist')
       setUsername('')
     } else if (data.response.keyValue.email === email) {
-      Swal.fire('This email already exist')
+      swalBlurBackground('This email already exist')
       setEmail('')
     } else {
       setPassword('')
       setUsername('')
       setEmail('')
-      Swal.fire('Sorry, something went wrong')
+      swalBlurBackground('Sorry, something went wrong')
     }
   }
 
@@ -81,7 +83,8 @@ const Register = () => {
         })
         .finally(() => dispatch(ui.actions.setLoading(false)))
     } else if (password !== repeatePassword) {
-      Swal.fire('Passwords are not equal')
+      swalBlurBackground('Passwords are not equal')
+      dispatch(ui.actions.setLoading(false))
     }
   }
   return (
