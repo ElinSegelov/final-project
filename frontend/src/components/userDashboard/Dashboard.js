@@ -51,7 +51,7 @@ export default Dashboard;
 
 const DashboardWrapper = styled.section`
 /*   padding: 1rem; */
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     width: 100%;
     height: 100vh;
     display: flex;
@@ -60,7 +60,7 @@ const DashboardWrapper = styled.section`
 `
 
 const UserProfileWrapperDesktop = styled.section`
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     display: flex;
     flex-direction: column;
     width: 500px;
