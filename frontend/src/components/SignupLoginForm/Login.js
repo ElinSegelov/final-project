@@ -17,7 +17,6 @@ import events from 'reducers/events';
 import { swalBlurBackground } from 'utils/sweetAlerts';
 import styled from 'styled-components/macro';
 
-
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

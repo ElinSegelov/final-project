@@ -12,7 +12,6 @@ import EventCard from './EventCard'
 const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
   const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay)
   const selectedDate = useSelector((store) => store.events.selectedDate)
-  const accessToken = useSelector((store) => store.user.userInfo.accessToken);
 
   const allEvents = eventsOfTheDay.map((event) => {
     return (
@@ -35,7 +34,7 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
         eventTime={event.eventTime} />
     )
   })
-  console.log('user', accessToken)
+
   return (
     <ActiveEventSection>
       <EventsHeading>

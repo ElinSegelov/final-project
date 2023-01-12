@@ -7,6 +7,7 @@ import events from 'reducers/events';
 // import { InnerWrapper } from 'styles/Containers';
 import EventSection from './events/EventSection';
 import UserProfileCard from './UserProfileCard';
+import UserEvents from './UserEvents';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const Dashboard = () => {
     <DashboardWrapper>
       <UserProfileWrapperDesktop>
         <UserProfileCard />
-        <EventSection />
+        <UserEvents />
       </UserProfileWrapperDesktop>
       <EventSection />
     </DashboardWrapper>

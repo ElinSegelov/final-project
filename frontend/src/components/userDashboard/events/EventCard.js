@@ -21,6 +21,8 @@ import ApplyToEvent from './ApplyToEvent'
 
 const EventCard = ({
   id,
+  hostId,
+  eventId,
   game,
   host,
   venue,
@@ -30,11 +32,11 @@ const EventCard = ({
   description,
   eventName,
   eventTime,
+  eventDate,
   image,
-  hostId,
   setEditEvent,
-  eventId,
-  setHandleEvent
+  setHandleEvent,
+  isHost
 }) => {
   //! Om inget eventnamn, visa endast -game
   const dispatch = useDispatch();
@@ -95,7 +97,19 @@ const EventCard = ({
   }
 
   const loggedInUser = useSelector((store) => store.user.userInfo.accessToken)
-  if (loggedInUser) {
+  if (loggedInUser && isHost) {
+    return (
+      <EventCardWithBasicInfo key={id}>
+        <GameTitleWrapperLimited>
+          <h3>{game}</h3>
+        </GameTitleWrapperLimited>
+        <EventInfo>
+          <p><MdLocationOn /> {venue}</p>
+          <p><IoMdTime /> {eventDate}</p>
+        </EventInfo>
+      </EventCardWithBasicInfo>
+    )
+  } else if (loggedInUser) {
     return (
       <StyledEventCard key={id}>
         <GameImageContainer>
