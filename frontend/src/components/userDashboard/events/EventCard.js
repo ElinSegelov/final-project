@@ -162,6 +162,11 @@ const StyledEventCard = styled.div`
   column-gap: 0.5rem;
   row-gap: 0.25rem;
   position: relative;
+
+  @media (min-width: 1024px) {
+    width:30rem;
+    align-items: left;
+  }
 `
 const HandleEventContainer = styled.section`
   grid-column: 1 / 3;
@@ -186,9 +191,10 @@ const GameImage = styled.img`
 const EventCardWithBasicInfo = styled(StyledEventCard)`
   grid-template-columns: 1fr 1fr;
 
-/*   div {
-    grid-column: 2;
-  } */
+  @media(min-width: 1024px) {
+    display: block;
+    width: 100%;
+  }
 `
 const EventInfo = styled.div`
   h3 {
@@ -198,13 +204,10 @@ const EventInfo = styled.div`
   span, h3 {
     color: #DE605B;
   }
+
+  
 `
 const DescriptionParagraph = styled.p`
   grid-column: 1 / 4;
   word-wrap: break-word;
-`
-
-const DeleteImg = styled.img`
-  width: 24px;
-  height: 24px;
 `

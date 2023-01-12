@@ -5,24 +5,57 @@ export const Main = styled.main`
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  width: 100vw;
-  min-height: 85vh;
-  
+  width: 100%;
+  justify-content: center;
+  min-height: calc(100vh - 12vh);
+
+  @media (min-width: 1024px) {
+    position: relative;
+  }
 `
 export const InnerWrapper = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-`
 
+  @media (min-width: 1024px) {
+    width: 60%;
+    min-width: 1000px;
+    align-items: flex-start;
+  }
+`
 export const StyledEventCardContainer = styled.section`
   display: flex;
   flex-direction: column;
   width: 90vw;
   align-items: center;
   gap: 1rem;
-  @media (min-width: 768px) {
-    width: 100%;
+
+  @media (min-width: 1024px) {
+    width:30rem;
+    align-items: left;
+    display: grid;
+    grid-template-columns: repeat(2, 14.5rem);
+    grid-auto-flow: row;
+  }
+`
+export const FormWrapperContainer = styled.div`
+  display: flex;
+  align-items: center;
+  
+  p {
+    width: 12rem;
+    font-size: 14px; 
+    text-align: center;
+  }
+  span {
+    text-decoration: underline;
+    color: var(--orangeRed);
+  }
+  
+  @media (min-width: 1024px) {
+    width: 60%;
+    min-width: 1000px;
   }
 `

@@ -11,8 +11,10 @@ import LandingPage from 'components/landingPage/LandingPage';
 import Header from 'components/Header';
 import UserPage from 'components/userDashboard/Dashboard';
 import Login from 'components/SignupLoginForm/Login';
-import Footer from 'components/Footer';
+// import Footer from 'components/Footer';
+import styled from 'styled-components/macro';
 import { Main } from 'styles/Containers';
+import BackgroundImg from './assets/images/mini-logo-orange.png'
 
 const App = () => {
   const reducer = combineReducers({
@@ -28,6 +30,7 @@ const App = () => {
       <BrowserRouter>
         <Header />
         <Main>
+          <BackgroundImage src={BackgroundImg} alt="" />
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/register" element={<Register />} />
@@ -37,10 +40,21 @@ const App = () => {
             <Route path="*" element={<Navigate to="404" />} />
           </Routes>
         </Main>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </Provider>
   )
 }
 export default App;
 
+const BackgroundImage = styled.img`
+  position: fixed;
+  z-index: -1;
+  width: 150vw;
+  opacity: 0.15;
+  top: 5vh;
+  @media(min-width: 768px) {
+    width: 53rem;
+    top: 3rem;
+  }
+`

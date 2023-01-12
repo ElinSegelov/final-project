@@ -7,13 +7,16 @@ import { useDispatch, batch, useSelector } from 'react-redux';
 import { API_URL } from 'utils/utils';
 import user from 'reducers/user';
 import { useNavigate, Link } from 'react-router-dom';
-import { Form, FormWrapper } from 'styles/Forms';
+import { Form, FormWrapper, Input } from 'styles/Forms';
+import { FormWrapperContainer } from 'styles/Containers';
 import { Button1 } from 'styles/Button.styles';
 import Swal from 'sweetalert2';
 import ui from 'reducers/ui';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
 import events from 'reducers/events';
 import { swalBlurBackground } from 'utils/sweetAlerts';
+import styled from 'styled-components/macro';
+
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -66,7 +69,7 @@ const Login = () => {
       .finally(() => dispatch(ui.actions.setLoading(false)))
   }
   return (
-    <div>
+    <FormWrapperContainer>
       {isLoading
         ? <LoadingBlurBackground />
         :
@@ -74,7 +77,7 @@ const Login = () => {
           <Form onSubmit={onFormSubmit}>
             <h2>Login</h2>
             <label htmlFor="email" />
-            <input
+            <Input
               required
               placeholder="E-mail"
               type="text"
@@ -82,19 +85,24 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)} />
             <label htmlFor="password" />
-            <input
+            <Input
               required
               placeholder="Password"
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)} />
-            <Button1 type="submit">Log In</Button1>
+            <LoginButton type="submit">Log In</LoginButton>
           </Form>
-          <Link to="/register">Not a user yet? Register here!</Link>
+          <Link to="/register"><p>Not a user? <span>Register here</span></p></Link>
         </FormWrapper>}
-    </div>
+    </FormWrapperContainer>
   )
 }
 
-export default Login
+export default Login;
+
+const LoginButton = styled(Button1)`
+  width: 12rem;
+  margin: 0.5rem 0 0 0;
+`
