@@ -6,11 +6,12 @@ export const Main = styled.main`
   align-items: center;
   padding: 1rem;
   width: 100%;
-  justify-content: center;
+  justify-content: top;
   min-height: calc(100vh - 12vh);
 
   @media (min-width: 1024px) {
     position: relative;
+    
   }
 `
 export const InnerWrapper = styled.section`
@@ -21,7 +22,7 @@ export const InnerWrapper = styled.section`
 
   @media (min-width: 1024px) {
     width: 60%;
-    min-width: 1000px;
+    //min-width: 1000px;
     align-items: flex-start;
   }
 `
@@ -33,7 +34,7 @@ export const StyledEventCardContainer = styled.section`
   gap: 1rem;
 
   @media (min-width: 1024px) {
-    width:30rem;
+    width: 100%;
     align-items: left;
     display: grid;
     grid-template-columns: repeat(2, 14.5rem);
@@ -56,6 +57,6 @@ export const FormWrapperContainer = styled.div`
   
   @media (min-width: 1024px) {
     width: 60%;
-    min-width: 1000px;
+    //min-width: 1000px;
   }
 `

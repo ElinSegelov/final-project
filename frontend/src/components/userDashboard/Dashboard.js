@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-closing-tag-location */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -7,6 +8,7 @@ import events from 'reducers/events';
 // import { InnerWrapper } from 'styles/Containers';
 import EventSection from './events/EventSection';
 import UserProfileCard from './UserProfileCard';
+import UserEvents from './UserEvents';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -37,10 +39,12 @@ const Dashboard = () => {
   }, [hostingEvents, userInfo])
   return (
     <DashboardWrapper>
-      <UserProfileWrapperDesktop>
-        <UserProfileCard />
-        <EventSection />
-      </UserProfileWrapperDesktop>
+      {window.innerWidth < 1024
+        ? <UserProfileCard />
+        : <UserProfileWrapperDesktop>
+          <UserProfileCard />
+          <UserEvents />
+        </UserProfileWrapperDesktop>}
       <EventSection />
     </DashboardWrapper>
   )
@@ -49,23 +53,24 @@ const Dashboard = () => {
 export default Dashboard;
 
 const DashboardWrapper = styled.section`
-/*   padding: 1rem; */
-  @media (min-width: 768px) {
+  min-height: 100%;
+  @media (min-width: 1024px) {
     width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 26rem 1fr;
   }
 `
 
 const UserProfileWrapperDesktop = styled.section`
-  @media (min-width: 768px) {
+    display: none;
+  @media (min-width: 1024px) {
     display: flex;
     flex-direction: column;
-    width: 500px;
-    height: 100vh;
     border-right: 1px solid var(--orangeRed);
     padding-right: 1rem;
-    /* border: 1px solid red; */
+    max-height: 120vh;
+  }
+  @media (min-width: 1400px) {
+    max-width: 40rem
   }
 `
