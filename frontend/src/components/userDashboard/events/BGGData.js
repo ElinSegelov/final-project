@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import events from 'reducers/events';
 import ui from 'reducers/ui';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Form, Input } from 'styles/Forms';
 import { BGG_API_SEARCH_BY_NAME, BGG_API_SEARCH_BY_OBJECT_ID } from 'utils/utils';
 

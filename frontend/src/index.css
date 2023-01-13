@@ -16,11 +16,31 @@
   --bigger: 768px;
 }
 /* SWEET ALERT */
+
+/* .swal2-container {
+  display: grid;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+} 
+.swal2-popup {
+  display: grid;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+} */
+
+.swal2-shown {
+  width: 100vw;
+  overflow: hidden;
+}
 body.swal2-shown > [aria-hidden='true'] {
   transition: 0.1s filter;
   filter: blur(10px);
 }
 .swal2-title {
+  display: grid;
+  width: 100vw;
   font-family: 'Gotham-Book', sans-serif;
   font-size: 40px;
   padding: 0;
@@ -145,6 +165,7 @@ input::placeholder {
 .react-datepicker {
   margin: 2rem 0;
   width: 90vw;
+  margin: 0 auto;
 }
 @media(min-width: 1024px) {
   .react-datepicker {

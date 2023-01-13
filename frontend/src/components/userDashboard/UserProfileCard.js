@@ -54,11 +54,13 @@ const ProfileSection = styled.section`
   position: sticky;
   top: 0;
   z-index: 1;
+
   @media (min-width: 768px) { 
     display: flex;
     height: 10rem;
     width: 100%;
     justify-content: flex-start;
+    height: 6rem;
   }
 `
 
