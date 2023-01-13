@@ -8,12 +8,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { parseISO } from 'date-fns';
 import { LoadingForGameSearch } from 'components/loaders/loadingAnimations';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 const EventCalendar = () => {
   const [startDate, setStartDate] = useState(new Date());
   const dispatch = useDispatch();
-  const isLoading = useSelector((store) => store.ui.isLoading)
   const postedEvents = useSelector((store) => store.events.postedEvents)
   const accessToken = useSelector((store) => store.user.userInfo.accessToken)
 
@@ -43,30 +42,19 @@ const EventCalendar = () => {
 
   return (
     <EventCalendarWrapper>
-      {isLoading
-        ?
-        <LoaderWrapper>
-          <LoadingForGameSearch />
-        </LoaderWrapper>
-        :
-        <DatePicker
-          selected={startDate}
-          onSelect={handleDateSelection}
-          highlightDates={daysWithEvents}
-          dateFormat="yyyy/MM/dd"
-          calendarStartDay={1}
-          inline />}
+      <DatePicker
+        selected={startDate}
+        onSelect={handleDateSelection}
+        highlightDates={daysWithEvents}
+        dateFormat="yyyy/MM/dd"
+        calendarStartDay={1}
+        inline />
     </EventCalendarWrapper>
   );
 };
 
 export default EventCalendar;
 
-const LoaderWrapper = styled.div`
-  width: 6.25rem;
-  height: 6.25rem;
-`
-
 const EventCalendarWrapper = styled.div`
-
+  margin-bottom: 1rem;
 `

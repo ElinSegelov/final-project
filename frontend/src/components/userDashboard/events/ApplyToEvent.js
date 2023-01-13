@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Button1 } from 'styles/Button.styles';
 import { API_URL } from 'utils/utils';
 
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { swalBlurBackground } from 'utils/sweetAlerts';
 
 const ApplyToEvent = ({ eventId, eventHost }) => {

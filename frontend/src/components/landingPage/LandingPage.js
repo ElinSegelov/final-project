@@ -18,7 +18,7 @@ const LandingPage = () => {
       <Tutorial />
       <CalendarAndEvents>
         <EventCalendar />
-        <EventCardContainer />
+        <EventCardContainer unAutohrized />
       </CalendarAndEvents>
       {!accessToken
         ?
@@ -39,8 +39,7 @@ const LandingpageInnerWrapper = styled(InnerWrapper)`
 
 const CalendarAndEvents = styled.div`
 @media (min-width: 1024px) {
-    /* position: relative;
-    top: 4rem; */    
+    //max-width: 35rem;   
   }
 `
 const RegisterLoginWrapper = styled.div`

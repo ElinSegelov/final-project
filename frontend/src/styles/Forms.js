@@ -12,6 +12,11 @@ export const FormWrapper = styled.section`
   justify-content: center;
   row-gap: 1rem;
   margin-top: 0;
+  @media (min-width: 1024px) {
+    width: 100%;
+    max-width: 100vw;
+  }
+
 `
 
 export const Form = styled.form`

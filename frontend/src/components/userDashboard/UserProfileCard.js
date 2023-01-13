@@ -60,6 +60,7 @@ const ProfileSection = styled.section`
     height: 10rem;
     width: 100%;
     justify-content: flex-start;
+    height: 6rem;
   }
 `
 

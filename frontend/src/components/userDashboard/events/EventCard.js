@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 import { RiEdit2Fill, RiWindowLine } from 'react-icons/ri'
 import { MdLocationOn, MdDelete } from 'react-icons/md'
 import { IoMdTime } from 'react-icons/io'
-import { GiCastle } from 'react-icons/gi'
+import { GiCastle, GiClosedBarbute } from 'react-icons/gi'
 import { HiUserGroup, HiClock } from 'react-icons/hi'
 
 import { TransparentButton } from 'styles/Button.styles';
@@ -120,10 +120,12 @@ const EventCard = ({
           <GameTitleWrapper>
             <h3>{game}</h3>
           </GameTitleWrapper>
-          <p><GiCastle /> {host}</p>
-          <p><MdLocationOn /> {venue}</p>
-          <p><HiClock /> {eventTime}</p>
-          <p><HiUserGroup />{isFull ? 'Event is full' : ` ${totalSpots - openSpots} / ${totalSpots}`}</p>
+          <InfoWrapper>
+            <p><GiClosedBarbute /> {host}</p>
+            <p><MdLocationOn /> {venue}</p>
+            <p><HiClock /> {eventTime}</p>
+            <p><HiUserGroup />{isFull ? 'Event is full' : ` ${totalSpots - openSpots} / ${totalSpots}`}</p>
+          </InfoWrapper>
         </EventInfo>
         <DescriptionParagraph>{description}</DescriptionParagraph>
         {user.userId === hostId
@@ -152,6 +154,19 @@ const EventCard = ({
 
 export default EventCard;
 
+const InfoWrapper = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+row-gap: 0.1rem;
+
+  p {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem
+  }
+`
+
 const GameTitleWrapper = styled.div`
   max-width: 100%;
   word-wrap: break-word;
@@ -178,7 +193,7 @@ const StyledEventCard = styled.div`
   position: relative;
 
   @media (min-width: 1024px) {
-    width:30rem;
+    width:100%;
     align-items: left;
   }
 `
@@ -211,6 +226,7 @@ const EventCardWithBasicInfo = styled(StyledEventCard)`
   }
 `
 const EventInfo = styled.div`
+  
   h3 {
     vertical-align: text-top;
     

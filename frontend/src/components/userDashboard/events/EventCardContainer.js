@@ -1,15 +1,13 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable spaced-comment */
-/* eslint-disable max-len */
-/* eslint-disable no-unneeded-ternary */
+/* eslint-disable react/jsx-closing-tag-location */
+
 /* eslint-disable no-underscore-dangle */ // Ignores _ in _id
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { StyledEventCardContainer } from 'styles/Containers'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import EventCard from './EventCard'
 
-const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
+const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
   const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay)
   const selectedDate = useSelector((store) => store.events.selectedDate)
 
@@ -40,28 +38,55 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent }) => {
       <EventsHeading>
         {eventsOfTheDay.length > 0 ? <h3>Events on {selectedDate.slice(0, 10)}</h3> : null}
       </EventsHeading>
-      <StyledEventCardContainer>
-        {allEvents}
-      </StyledEventCardContainer>
+      {unAutohrized
+        ? <LandingpageEventContainer>
+          {allEvents}
+        </LandingpageEventContainer>
+        : <LogedInEventContainer>
+          {allEvents}
+        </LogedInEventContainer>}
     </ActiveEventSection>
   )
 }
 
 export default EventCardContainer;
 
-//! Vi borde inte ha en länk runt en knapp (rad 45). Jag har gjort så så länge för det strulade när jag
+//! Vi borde inte ha en länk runt en knapp (rad 45).
+//! Jag har gjort så så länge för det strulade när jag
 //! förökte lägga navigate på onclick
 
 const ActiveEventSection = styled.section`
   margin-bottom: 1rem;
-  
 
   @media (min-width: 1024px) {
-    max-height: 25rem;
     overflow-y: auto;
+    width: 100%;
+    max-width: 60rem;
+    max-height: 36rem;
   }
 `
+const LandingpageEventContainer = styled(StyledEventCardContainer)`
+  @media (min-width: 1024px) {
+    display: flex;
+    width: 30rem;
+    min-height: 100%;
+  }
+`
+const LogedInEventContainer = styled(StyledEventCardContainer)`
+  @media (min-width: 1024px) {
+    display: flex;
+    width: 100%
+  }
+  @media (min-width: 1400px) {
+    width: 57rem;
+    align-items: left;
+    display: grid;
+    grid-template-columns: repeat(2, 49%);
+    grid-auto-flow: row;
+    min-height: 100%;
+  }
 
+`
 const EventsHeading = styled.div`
   display: flex;
   flex-direction: column;

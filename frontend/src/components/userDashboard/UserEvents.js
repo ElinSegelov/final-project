@@ -26,23 +26,33 @@ const UserEvents = () => {
     hostingEvents.push(tempArrayForEvents)
   }
   return (
-    <ActiveEventSection>
-      <StyledEventCardContainer>
+    <UserEventSection>
+      <UsersEventCardsContainer>
         {hostingEvents}
-      </StyledEventCardContainer>
-    </ActiveEventSection>
+      </UsersEventCardsContainer>
+    </UserEventSection>
   )
 }
 
 export default UserEvents;
 
-const ActiveEventSection = styled.section`
+const UserEventSection = styled.section`
   display: none;  
 
   @media (min-width: 1024px) {
-    max-height: 25rem;
+    max-height: 100%;
     overflow-y: auto;
     display: block;
+
+  }
+`
+const UsersEventCardsContainer = styled(StyledEventCardContainer)`
+  @media (min-width: 1024px) {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    width:100%;
+
   }
 `
 

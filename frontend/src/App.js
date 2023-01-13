@@ -9,7 +9,7 @@ import Register from 'components/SignupLoginForm/Register';
 import NotFound from 'components/NotFound';
 import LandingPage from 'components/landingPage/LandingPage';
 import Header from 'components/Header';
-import UserPage from 'components/userDashboard/Dashboard';
+import Dashboard from 'components/userDashboard/Dashboard';
 import Login from 'components/SignupLoginForm/Login';
 // import Footer from 'components/Footer';
 import styled from 'styled-components/macro';
@@ -35,7 +35,7 @@ const App = () => {
             <Route path="/" element={<LandingPage />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/user/:id" element={<UserPage />} />
+            <Route path="/user/:id" element={<Dashboard />} />
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<Navigate to="404" />} />
           </Routes>

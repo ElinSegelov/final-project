@@ -18,7 +18,7 @@ const EventSection = () => {
 
   return (
     <>
-      <SectionWrapper hidden={editEvent}>
+      <SectionWrapper style={{ display: editEvent ? 'none' : 'flex' }}>
         {handleEvent
           ? <>
             <ToggleEditCreateButton type="button" onClick={() => setHandleEvent(false)}><RiDeleteBack2Fill /></ToggleEditCreateButton>
@@ -40,11 +40,11 @@ const EventSection = () => {
       <SectionWrapper>
         {editEvent
           ? <>
+            <ToggleEditCreateButton type="button" onClick={() => setEditEvent(false)}><RiDeleteBack2Fill /></ToggleEditCreateButton>
             <EventReusableLogic
               editEvent={editEvent}
               setEditEvent={setEditEvent}
               setHandleEvent={setHandleEvent} />
-            <ToggleEditCreateButton type="button" onClick={() => setEditEvent(false)}><RiDeleteBack2Fill /></ToggleEditCreateButton>
           </>
           : ''}
       </SectionWrapper>
@@ -57,23 +57,32 @@ export default EventSection;
 const ToggleEditCreateButton = styled(TransparentButton)`
   margin-top: 1rem;
   justify-self: right;
-`
-
-const SectionWrapper = styled.section`
-  @media (min-width: 768px) {
-    max-width: 500px;
-    /* display: flex;
-    flex-direction: column;
-    width: 500px;
-    height: 100vh;
-    border-right: 1px solid var(--orangeRed);
-    padding-right: 1rem;
-    border: 1px solid red; */
+  @media(min-width: 1024px) {
+    position: absolute;
+    left: 1rem;
   }
 `
 
+const SectionWrapper = styled.section`
+  @media (min-width: 1024px) {
+    max-width: 100%;
+    justify-content: center;
+    display: flex;
+    position: relative;
+  }
+`
+// const SectionWrapper1 = styled.section`
+//   @media (min-width: 1024px) {
+//     max-width: 100%;
+//     //display: flex;
+//     justify-content: center;
+//   }
+// `
+
 const CalenderAndCardWrapperDesktop = styled.div`
-  @media (min-width: 768px) {
-    max-width: 500px;
+  width: fit-content;
+  margin: 1rem auto;
+  @media (min-width: 1025px) {
+    //max-width: 500px;
   }
 `
