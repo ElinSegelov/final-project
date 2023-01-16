@@ -36,6 +36,7 @@ app.get("/", (_, res) => {
 });
 
 //! DUBBELCHECK STATUS CODES
+// Notes
 
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
