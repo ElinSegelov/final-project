@@ -4,7 +4,7 @@ import loaderOrange from 'assets/Loader/Loader_2.gif';
 export const swalBlurBackground = (text) => {
   Swal.fire({
     title: text,
-    color: '#DE605B',
+    color: '#dddddd',
     imageUrl: `${loaderOrange}`,
     imageWidth: 300,
     imageHeight: 300,
