@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, batch, useSelector } from 'react-redux';
 import user from 'reducers/user';
-import ui from 'reducers/ui';
 import { API_URL } from 'utils/utils';
 import { Form, FormWrapper, Input } from 'styles/Forms';
 import { FormWrapperContainer } from 'styles/Containers';
@@ -30,13 +29,12 @@ const Login = () => {
     }
   }, [loggedInUser, navigate, userId, accessToken])
 
-  const handleValidationErrors = (data) => {
+  const handleValidation = (data) => {
     setEmail('')
     setPassword('')
-    swalBlurBackground(data.response)
+    swalBlurBackground(data.response, 2000)
   }
   const onFormSubmit = (event) => {
-    dispatch(ui.actions.setLoading(true))
     event.preventDefault()
     const options = {
       method: 'POST',
@@ -58,11 +56,13 @@ const Login = () => {
           batch(() => {
             dispatch(user.actions.setUserInfo({}))
             dispatch(user.actions.setError(data.response))
-            handleValidationErrors(data)
+            handleValidation(data)
           });
         }
+      }).catch((error) => {
+        console.error(error)
+        swalBlurBackground('Something went wrong. Please try again later', 2200)
       })
-      .finally(() => dispatch(ui.actions.setLoading(false)))
   }
   return (
     <FormWrapperContainer>

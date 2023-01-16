@@ -45,7 +45,22 @@ const EventCard = ({
     setEditEvent(true)
     setHandleEvent(false)
   }
-
+  const handleValidation = (success) => {
+    if (success) {
+      Swal.fire(
+        'Deleted!',
+        'Your event has been deleted.',
+        'success'
+      )
+    } else {
+      Swal.fire(
+        'Something went wrong!',
+        'Event could not be deleted. Try again',
+        'error'
+      )
+    }
+    window.location.reload()
+  }
   const handleDeleteEvent = () => {
     const options = {
       method: 'DELETE',
@@ -73,17 +88,17 @@ const EventCard = ({
             if (data.success) {
               dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
               dispatch(events.actions.setError(null))
+              handleValidation(data.success)
             } else {
               dispatch(events.actions.setError(data.response))
+              handleValidation(data.success)
             }
           })
+          .catch((err) => {
+            console.error(err.stack)
+          })
           .finally(() => {
-            Swal.fire(
-              'Deleted!',
-              'Your event has been deleted.',
-              'success'
-            )
-            window.location.reload()
+            handleValidation()
           })
       }
     })

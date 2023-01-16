@@ -23,7 +23,7 @@ const EventCalendar = () => {
   }
   useEffect(() => {
     batch(() => {
-      dispatch(events.actions.selectDate(startDate.toISOString()));
+      dispatch(events.actions.setSelectDate(startDate.toISOString()));
     })
   }, [dispatch, startDate])
 

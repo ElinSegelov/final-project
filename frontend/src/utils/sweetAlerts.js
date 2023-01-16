@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import loaderOrange from 'assets/Loader/Loader_2.gif';
 
-export const swalBlurBackground = (text) => {
+export const swalBlurBackground = (text, time) => {
   Swal.fire({
     title: text,
     color: '#dddddd',
@@ -10,6 +10,8 @@ export const swalBlurBackground = (text) => {
     imageHeight: 300,
     background: 'transparent',
     showConfirmButton: false,
-    timer: 1500
+    timer: time
   })
 }
+
+// TODO: ta timer som parameter och ändra det beroende av länged av texten

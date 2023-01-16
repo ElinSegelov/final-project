@@ -31,27 +31,26 @@ const Register = () => {
     }
   }, [loggedInUser, accessToken, navigate, userId])
 
-  const handleValidationErrors = (data) => {
+  const handleValidation = (data) => {
     if (password.length < 8) {
-      swalBlurBackground('Password must be at least 8 characters')
+      swalBlurBackground('Password must be at least 8 characters', 2000)
       setPassword('')
       setRepeatePassword('')
     } else if (data.response.keyValue.username === username) {
-      swalBlurBackground('This username already exist')
+      swalBlurBackground('This username already exist', 1800)
       setUsername('')
     } else if (data.response.keyValue.email === email) {
-      swalBlurBackground('This email already exist')
+      swalBlurBackground('This email already exist', 1800)
       setEmail('')
     } else {
       setPassword('')
       setUsername('')
       setEmail('')
-      swalBlurBackground('Sorry, something went wrong')
+      swalBlurBackground('Something went wrong. Please try again later', 2000)
     }
   }
 
   const onFormSubmit = (event) => {
-    dispatch(ui.actions.setLoading(true))
     event.preventDefault()
     const options = {
       method: 'POST',
@@ -74,14 +73,16 @@ const Register = () => {
             batch(() => {
               dispatch(user.actions.setUserInfo({}))
               dispatch(user.actions.setError(data.response));
-              handleValidationErrors(data)
+              handleValidation(data)
             });
           }
+        }).catch((error) => {
+          console.error(error.stack)
+          swalBlurBackground('Something went wrong. Please, try again later', 2200)
         })
         .finally(() => dispatch(ui.actions.setLoading(false)))
     } else if (password !== repeatePassword) {
-      swalBlurBackground('Passwords are not equal')
-      dispatch(ui.actions.setLoading(false))
+      swalBlurBackground('Passwords are not equal', 1800)
     }
   }
   return (

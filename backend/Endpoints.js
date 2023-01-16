@@ -32,7 +32,7 @@ export const getEvents = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       success: false,
-      response: err
+      response: err.stack
     });
   }
 }
@@ -84,7 +84,7 @@ export const createEvent = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      response: err
+      response: err.stack
     });
   }
 };
@@ -144,7 +144,7 @@ export const deleteEvent = async (req, res) => {
 
     if (user.username === host.username) {
       if (eventToDelete) {
-        const updatedHostingEvents = await User.findOneAndUpdate({_id: eventToDelete.hostId },
+        const updatedHostingEvents = await User.findOneAndUpdate({ _id: eventToDelete.hostId },
           { $pull: { hostingEvents: { _id: eventToDelete._id } } }, { new: true })
         const deletedEventFromSchema = await Event.findByIdAndDelete({ _id: eventId })
         if (updatedHostingEvents && deletedEventFromSchema) {
@@ -246,11 +246,11 @@ export const applyForSpot = async (req, res) => {
             if (error) {
               console.error(error.stack)
               Event.findOneAndUpdate(selectedEvent._id, { $pop: { pendingPartyMembers: userEmail } });
-            } 
+            }
           })
           res.status(200).json({
             success: true,
-            message: 'User has been added to list of pendingPartyMembers and the host of the event has been notified' 
+            message: 'User has been added to list of pendingPartyMembers and the host of the event has been notified'
           })
         } catch (err) {
           res.status(400).json({
@@ -344,9 +344,9 @@ export const loginUser = async (req, res) => {
 /* ------------------------------ USER ------------------------------ */
 
 export const getUserInfo = async (req, res) => {
-  const allUserInfo = []; 
+  const allUserInfo = [];
   const selectedUser = await User.findOne({ accessToken: req.header("Authorization") });
-  allUserInfo.push(selectedUser); 
+  allUserInfo.push(selectedUser);
   const userInfo = allUserInfo.map((user) => {
     return ({
       username: user.username,
