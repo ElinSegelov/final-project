@@ -1,14 +1,12 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-import { swalBlurBackground } from 'utils/sweetAlerts'
-import loaderOrange from 'assets/Loader/Loader_2.gif'
-import { FormWrapper } from 'styles/Forms'
-import { InnerWrapper } from 'styles/Containers'
-import styled from 'styled-components/macro'
+import React from 'react';
+import { swalBlurBackground } from 'utils/sweetAlerts';
+import loaderOrange from 'assets/Loader/Loader_2.gif';
+import styled from 'styled-components/macro';
 
 export const LoadingForGameFetch = () => {
   return swalBlurBackground()
 }
+
 export const LoadingBlurBackground = () => {
   return (
     <LoaderWrapper>

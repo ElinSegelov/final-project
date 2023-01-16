@@ -7,7 +7,6 @@ const user = createSlice({
     error: null
   },
   reducers: {
-    //! gör den här och setLoggedInUser samma sak?
     setUserInfo: (store, action) => {
       store.userInfo = action.payload;
     },

@@ -1,15 +1,8 @@
-
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/self-closing-comp */
-import React from 'react'
-import styled from 'styled-components/macro'
-import { InnerWrapper } from 'styles/Containers'
-import lightDice from '../../assets/images/mini-logo-light-grey.png'
-import orangeDice from '../../assets/images/mini-logo-orange.png'
-// import rollingDice from '../../assets/Loader/loader-orange-small.gif'
-import rollingDice from '../../assets/Loader/loader-light-small.gif'
-import tutorialImage from '../../assets/images/tutorial-img.png'
+import React from 'react';
+import styled from 'styled-components/macro';
+import lightDice from '../../assets/images/mini-logo-light-grey.png';
+import rollingDice from '../../assets/Loader/loader-light-small.gif';
 
 const Tutorial = () => {
   return (
@@ -58,7 +51,6 @@ const HeadingWrapper = styled.div`
   width: 50%;
   position: relative;
 
-
   span {
     color: var(--orangeRed);
     font-size: 7rem;
@@ -102,7 +94,7 @@ const TutorialContainer = styled.div`
     position: absolute;
     top: 13vh;
   }
-  `
+`
 
 const PWrapper = styled.div`
   grid-column: 2;
@@ -110,8 +102,6 @@ const PWrapper = styled.div`
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  //line-height: 0.9;
-
 
   h3 {
     color: var(--orangeRed);
@@ -137,7 +127,6 @@ const PWrapper = styled.div`
 `
 const PWrapper1 = styled(PWrapper)`
   grid-row: 2;
-
 `
 const PWrapper2 = styled(PWrapper)`
   grid-row: 4;

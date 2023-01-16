@@ -5,7 +5,7 @@ export const Button1 = styled.button`
   border-radius: 1rem;
   border: none;
   margin: 0.5rem;
-  background: #DE605B;
+  background: var(--orangeRed);
 `
 export const ButtonReversed = styled.button`
   padding: 0.5rem;
@@ -13,7 +13,7 @@ export const ButtonReversed = styled.button`
   border: #DE605B 1px solid;
   margin: 0.5rem;
   background: transparent;
-  color: #fff;
+  color: var(--light);
 `
 export const TransparentButton = styled.button`
   width: 2rem;
@@ -22,6 +22,6 @@ export const TransparentButton = styled.button`
   grid-column: 3;
   background: transparent;
   border: none;
-  color: #fff;
+  color: var(--light);
   font-size: 1.5rem;
 `

@@ -1,14 +1,12 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
-import React, { useState } from 'react'
-import BGGData from 'components/userDashboard/events/BGGData'
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import BGGData from 'components/userDashboard/events/BGGData';
+import { useSelector } from 'react-redux';
+import { parseISO } from 'date-fns';
+import { Button1 } from 'styles/Button.styles';
 import styled from 'styled-components/macro';
 import { FormWrapper, Form } from 'styles/Forms';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Button1 } from 'styles/Button.styles';
-import { parseISO } from 'date-fns';
-import { useSelector } from 'react-redux';
 
 const EditEvent = ({
   editEvent,
@@ -58,7 +56,9 @@ const EditEvent = ({
                 type="number"
                 id="openSpots"
                 onChange={(event) => {
-                  setTempEventInfoForEdit({ ...tempEventInfoForEdit, openSpots: event.target.value })
+                  setTempEventInfoForEdit({
+                    ...tempEventInfoForEdit, openSpots: event.target.value
+                  })
                 }}
                 name="openSpots"
                 min="0"
@@ -72,7 +72,9 @@ const EditEvent = ({
                 type="number"
                 id="totalSpots"
                 onChange={(event) => {
-                  setTempEventInfoForEdit({ ...tempEventInfoForEdit, totalSpots: event.target.value })
+                  setTempEventInfoForEdit({
+                    ...tempEventInfoForEdit, totalSpots: event.target.value
+                  })
                 }}
                 name="totalSpots"
                 min="1"
@@ -110,7 +112,7 @@ const EditEvent = ({
   )
 }
 
-export default EditEvent
+export default EditEvent;
 
 const SpotsInformation = styled.div`
   legend {

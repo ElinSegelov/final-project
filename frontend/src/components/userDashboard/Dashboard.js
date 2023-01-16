@@ -2,10 +2,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import styled from 'styled-components/macro';
 import user from 'reducers/user';
 import events from 'reducers/events';
-// import { InnerWrapper } from 'styles/Containers';
+import styled from 'styled-components/macro';
 import EventSection from './events/EventSection';
 import UserProfileCard from './UserProfileCard';
 import UserEvents from './UserEvents';

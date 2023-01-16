@@ -1,19 +1,15 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Button1 } from 'styles/Button.styles';
 import { API_URL } from 'utils/utils';
-
-import styled from 'styled-components/macro';
 import { swalBlurBackground } from 'utils/sweetAlerts';
+import styled from 'styled-components/macro';
 
 const ApplyToEvent = ({ eventId, eventHost }) => {
   const user = useSelector((store) => store.user.userInfo);
 
   const sendApplication = async () => {
     try {
-      console.log('clicked to apply')
       const options = {
         method: 'POST',
         headers: {
@@ -26,12 +22,10 @@ const ApplyToEvent = ({ eventId, eventHost }) => {
           eventId
         })
       }
-      const response = await fetch(API_URL('applyForSpot'), options);
-      const data = await response.json();
-      console.log(data)
+      await fetch(API_URL('applyForSpot'), options);
       swalBlurBackground(`Nice! We sent an email to ${eventHost}!`)
     } catch (error) {
-      console.error(error.message)
+      console.error(error.stack)
       swalBlurBackground(error.message)
     }
   }

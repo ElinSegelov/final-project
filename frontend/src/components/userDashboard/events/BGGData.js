@@ -1,15 +1,13 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable react/jsx-closing-tag-location */
-/* eslint-disable react/jsx-no-useless-fragment */
-/* eslint-disable no-unused-vars */
-import { LoadingBlurBackground, LoadingForGameSearch } from 'components/loaders/loadingAnimations';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import events from 'reducers/events';
 import ui from 'reducers/ui';
-import styled from 'styled-components/macro';
-import { Form, Input } from 'styles/Forms';
+import { LoadingForGameSearch } from 'components/loaders/loadingAnimations';
 import { BGG_API_SEARCH_BY_NAME, BGG_API_SEARCH_BY_OBJECT_ID } from 'utils/utils';
+import { Form, Input } from 'styles/Forms';
+import styled from 'styled-components/macro';
 
 const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) => {
   const [searchParameter, setSearchParameter] = useState('');
@@ -43,7 +41,6 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
           }
         } else if (data.boardgames.boardgame) {
           info = data.boardgames.boardgame;
-          // TODO lägg in så att första alternativet är tomt!!!!
           const suggestedGames = info.map((game) => {
             return <option key={game.objectid} value={game.objectid}>{game.name.text}</option>
           })
@@ -104,7 +101,6 @@ const InputWrapper = styled.div`
   display: flex;
   margin-bottom: 1rem;
 `
-
 const LoaderWrapper = styled.div`
   width: 2rem;
   height: 2rem;

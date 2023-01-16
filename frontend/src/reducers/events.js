@@ -44,7 +44,6 @@ export default events;
 export const loadEvents = (accessToken) => {
   return async (dispatch) => {
     dispatch(ui.actions.setLoading(true))
-    //! UPPDATERA TILL API SEN
     const options = {
       method: 'GET',
       headers: {
@@ -55,13 +54,11 @@ export const loadEvents = (accessToken) => {
     try {
       const response = await fetch(API_URL('event'), options);
       const data = await response.json()
-      console.log('fetched data', data)
       dispatch(events.actions.setPostedEvents(data.response))
     } catch (error) {
       console.error(error.stack);
     } finally {
       dispatch(ui.actions.setLoading(false))
-      console.log('ready')
     }
   }
 }

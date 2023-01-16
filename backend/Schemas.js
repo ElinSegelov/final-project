@@ -16,7 +16,6 @@ export const UserSchema = new mongoose.Schema({
     minlength: 8
   },
   email: {
-    // glöm inte validation
     type: String,
     unique: true,
     required: true,
@@ -59,7 +58,7 @@ export const EventSchema = new mongoose.Schema({
     default: () => new Date()
   },
   eventDate: {
-    type: String, // When events are posted the date format must be new Date().toDateString(). (DATEPICKER)
+    type: String,
     required: true
   },
   eventTime: {

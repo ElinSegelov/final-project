@@ -11,7 +11,6 @@ export const Main = styled.main`
 
   @media (min-width: 1024px) {
     position: relative;
-    
   }
 `
 export const InnerWrapper = styled.section`
@@ -22,7 +21,6 @@ export const InnerWrapper = styled.section`
 
   @media (min-width: 1024px) {
     width: 60%;
-    //min-width: 1000px;
     align-items: flex-start;
   }
 `
@@ -57,6 +55,5 @@ export const FormWrapperContainer = styled.div`
   
   @media (min-width: 1024px) {
     width: 60%;
-    //min-width: 1000px;
   }
 `

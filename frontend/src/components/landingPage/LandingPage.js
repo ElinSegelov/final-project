@@ -1,13 +1,11 @@
 /* eslint-disable operator-linebreak */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/no-unknown-property */
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import EventCalendar from 'components/EventCalendar';
-import { Link } from 'react-router-dom';
 import EventCardContainer from 'components/userDashboard/events/EventCardContainer';
 import { InnerWrapper } from 'styles/Containers';
-import { useSelector } from 'react-redux';
 import { Button1, ButtonReversed } from 'styles/Button.styles';
 import Tutorial from './Tutorial';
 
@@ -39,7 +37,6 @@ const LandingpageInnerWrapper = styled(InnerWrapper)`
 
 const CalendarAndEvents = styled.div`
 @media (min-width: 1024px) {
-    //max-width: 35rem;   
   }
 `
 const RegisterLoginWrapper = styled.div`
@@ -56,8 +53,4 @@ const LoginButton = styled(ButtonReversed)`
 `
 const RegisterButton = styled(Button1)`
   width: 6rem;
-`
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: white;
 `

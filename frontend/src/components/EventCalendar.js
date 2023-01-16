@@ -1,13 +1,11 @@
 /* eslint-disable operator-linebreak */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import events, { loadEvents } from 'reducers/events';
 import 'react-datepicker/dist/react-datepicker.css';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { parseISO } from 'date-fns';
-import { LoadingForGameSearch } from 'components/loaders/loadingAnimations';
 import styled from 'styled-components/macro';
 
 const EventCalendar = () => {

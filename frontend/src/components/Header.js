@@ -1,13 +1,11 @@
 /* eslint-disable react/jsx-closing-tag-location */
-/* eslint-disable no-unused-vars */
-/* eslint-disable indent */
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import styled from 'styled-components/macro';
-import { SlMenu } from 'react-icons/sl'
-import { FaUser } from 'react-icons/fa'
-import { IoClose } from 'react-icons/io5'
 import { useSelector } from 'react-redux';
+import styled from 'styled-components/macro';
+import { SlMenu } from 'react-icons/sl';
+import { FaUser } from 'react-icons/fa';
+import { IoClose } from 'react-icons/io5';
 import logo from '../assets/images/logo.png';
 
 const Header = () => {
@@ -25,15 +23,15 @@ const Header = () => {
     <StyledHeader>
       <FlexDiv>
         <Link to="/"><Logo src={logo} alt="Octahedron" /></Link>
-      <NavLinkWrapper style={navMenuActive ? { display: 'flex' } : { display: 'none' }}>
-        <NavLinks>
-          <NavLink to="/" end><NavText>Home</NavText></NavLink>
-          <NavLink to="/howItWorks"><NavText>How it works</NavText></NavLink>
-          <NavLink to="/aboutUs"><NavText>About us</NavText></NavLink>
-          <NavLink to="/login"><NavText>Profile</NavText></NavLink>
-          {!accessToken ? <NavLink to="/login"><NavText>Log in</NavText></NavLink> : null}
-        </NavLinks>
-      </NavLinkWrapper>
+        <NavLinkWrapper style={navMenuActive ? { display: 'flex' } : { display: 'none' }}>
+          <NavLinks>
+            <NavLink to="/" end><NavText>Home</NavText></NavLink>
+            <NavLink to="/howItWorks"><NavText>How it works</NavText></NavLink>
+            <NavLink to="/aboutUs"><NavText>About us</NavText></NavLink>
+            <NavLink to="/login"><NavText>Profile</NavText></NavLink>
+            {!accessToken ? <NavLink to="/login"><NavText>Log in</NavText></NavLink> : null}
+          </NavLinks>
+        </NavLinkWrapper>
         <FlexDivUserAndHamburger>
           <Link to="/login"><FaUser fontSize={27} color="var(--light)" /></Link>
           {!navMenuActive
@@ -72,11 +70,6 @@ const FlexDiv = styled.div`
   height: 12vh;
   align-items: center;
   margin: 0 auto;
-
-  /* @media (min-width: 1024px) {
-  width: 80%;
-  min-width: 1000px;
-} */
 `
 const FlexDivUserAndHamburger = styled.div`
   display: flex;
