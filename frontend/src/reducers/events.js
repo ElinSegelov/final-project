@@ -1,5 +1,6 @@
 /* eslint-disable quote-props */
 import { createSlice } from '@reduxjs/toolkit';
+import { swalBlurBackground } from 'utils/sweetAlerts';
 import { API_URL } from 'utils/utils';
 import ui from './ui';
 
@@ -15,7 +16,7 @@ const events = createSlice({
     error: null
   },
   reducers: {
-    selectDate: (store, action) => {
+    setSelectDate: (store, action) => {
       store.selectedDate = action.payload
     },
     setPostedEvents: (store, action) => {
@@ -54,9 +55,14 @@ export const loadEvents = (accessToken) => {
     try {
       const response = await fetch(API_URL('event'), options);
       const data = await response.json()
-      dispatch(events.actions.setPostedEvents(data.response))
+      if (data.success) {
+        console.log('first', data.success)
+        dispatch(events.actions.setPostedEvents(data.response))
+      }
     } catch (error) {
       console.error(error.stack);
+      dispatch(events.actions.setError(error.message))
+      swalBlurBackground('Could not load any events. Try again later', 2500)
     } finally {
       dispatch(ui.actions.setLoading(false))
     }

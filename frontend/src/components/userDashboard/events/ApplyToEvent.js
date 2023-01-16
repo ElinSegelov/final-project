@@ -23,10 +23,10 @@ const ApplyToEvent = ({ eventId, eventHost }) => {
         })
       }
       await fetch(API_URL('applyForSpot'), options);
-      swalBlurBackground(`Nice! We sent an email to ${eventHost}!`)
+      swalBlurBackground(`Nice! We sent an email to ${eventHost}!`, 1800)
     } catch (error) {
       console.error(error.stack)
-      swalBlurBackground(error.message)
+      swalBlurBackground(error.message, 1800)
     }
   }
   return (

@@ -38,14 +38,14 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
   const handleEventValidation = () => {
     dispatch(ui.actions.setLoading(false))
     if (editEvent) {
-      swalBlurBackground('Your event has been updated!')
+      swalBlurBackground('Your event has been updated!', 1800)
       setEditEvent(false)
       setTimeout(() => { window.location.reload() }, 1400)
       if (selectedEventForEdit === tempEventInfoForEdit) {
         swalBlurBackground('No changes were made')
       }
     } else {
-      swalBlurBackground('Your event has been created!')
+      swalBlurBackground('Your event has been created!', 1800)
       setHandleEvent(false)
       setTimeout(() => { window.location.reload() }, 1400)
     }
