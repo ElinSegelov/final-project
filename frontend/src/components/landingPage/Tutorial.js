@@ -2,48 +2,33 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import lightDice from '../../assets/images/mini-logo-light-grey.png';
-import rollingDice from '../../assets/Loader/loader-light-small.gif';
 
 const Tutorial = () => {
   return (
-    <TutorialSection>
+    <>
       <HeadingWrapper>
         <h2>Looking</h2> <h2>for players<span>?</span></h2>
       </HeadingWrapper>
       <TutorialContainer>
         <HorizontalLine1> </HorizontalLine1>
-        <DiceBullet1 src={lightDice} alt="Bulletpoint" />
+        <DiceBullet1 src={lightDice} alt="" />
         <HorizontalLine2> </HorizontalLine2>
-        <DiceBullet2 src={lightDice} alt="Bulletpoint" />
+        <DiceBullet2 src={lightDice} alt="" />
         <HorizontalLine3> </HorizontalLine3>
-        <DiceBullet3 src={lightDice} alt="Bulletpoint" />
+        <DiceBullet3 src={lightDice} alt="" />
         <HorizontalLine4> </HorizontalLine4>
-        <RollingDice src={rollingDice} alt="Bulletpoint" />
+        <DiceBullet4 src={lightDice} alt="" />
         <HorizontalLine5> </HorizontalLine5>
         <PWrapper1><h3>Choose</h3><p>game</p></PWrapper1>
         <PWrapper2><h3>Create</h3><p>event</p></PWrapper2>
         <PWrapper3><h3>Find</h3><p>players</p></PWrapper3>
         <PWrapper4><h3>Roll</h3><p>dice!</p></PWrapper4>
       </TutorialContainer>
-    </TutorialSection>
+    </>
   )
 }
 export default Tutorial;
 
-const TutorialSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  align-items: center;
-  position: relative;
-  padding: 0;
-  
-  @media(min-width: 1024px) {
-    min-width: 1000px;
-    width: 60%;
-    align-items: flex-start;
-  }
-`
 const HeadingWrapper = styled.div`
   line-height: 1.5;
   font-size: 1.5rem;
@@ -84,6 +69,7 @@ const TutorialContainer = styled.div`
   align-items: center;
   column-gap: 1rem;
   width: 90%;
+  margin-bottom: 2rem;
   
   @media(min-width: 1024px) {
     grid-template-columns: calc(100% - 3rem) 3rem;
@@ -122,8 +108,7 @@ const PWrapper = styled.div`
   p {
     font-size: 24px;
   }
-}
-  
+} 
 `
 const PWrapper1 = styled(PWrapper)`
   grid-row: 2;
@@ -187,12 +172,6 @@ const DiceBullet2 = styled(DiceBullet)`
 const DiceBullet3 = styled(DiceBullet)`
   grid-row: 6;
 `
-const RollingDice = styled.img`
-  width: 2rem;
+const DiceBullet4 = styled(DiceBullet)`
   grid-row: 8;
-
-  @media(min-width: 1024px) {
-    grid-column: 2;
-    width: 3rem;
-  }
 `

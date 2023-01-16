@@ -13,17 +13,19 @@ const LandingPage = () => {
   const accessToken = useSelector((store) => store.user.userInfo.accessToken);
   return (
     <LandingpageInnerWrapper>
-      <Tutorial />
-      <CalendarAndEvents>
-        <EventCalendar />
-        <EventCardContainer unAutohrized />
-      </CalendarAndEvents>
-      {!accessToken
-        ?
-        <RegisterLoginWrapper>
-          <Link to="/login"><LoginButton>Log in</LoginButton></Link>
-          <Link to="/register"><RegisterButton>Register</RegisterButton></Link>
-        </RegisterLoginWrapper> : null}
+      <TutorialSection>
+        <Tutorial />
+        <CalendarAndEvents>
+          <EventCalendar />
+          <EventCardContainer unAutohrized />
+        </CalendarAndEvents>
+        {!accessToken
+          ?
+          <RegisterLoginWrapper>
+            <Link to="/login"><LoginButton>Log in</LoginButton></Link>
+            <Link to="/register"><RegisterButton>Register</RegisterButton></Link>
+          </RegisterLoginWrapper> : null}
+      </TutorialSection>
     </LandingpageInnerWrapper>
   )
 }
@@ -35,6 +37,21 @@ const LandingpageInnerWrapper = styled(InnerWrapper)`
   position: relative;
 `
 
+const TutorialSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  align-items: center;
+  position: relative;
+  padding: 0;
+  
+  @media(min-width: 1024px) {
+    min-width: 1000px;
+    width: 60%;
+    align-items: flex-start;
+  }
+`
+
 const CalendarAndEvents = styled.div`
 @media (min-width: 1024px) {
   }
@@ -44,6 +61,7 @@ const RegisterLoginWrapper = styled.div`
     position: absolute;
     bottom: 0rem;
     right: 0;
+    top: calc(14vh + 48rem);
     padding: 
     
   }
