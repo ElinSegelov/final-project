@@ -1,21 +1,17 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable operator-linebreak */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect, useState } from 'react'
+/* eslint-disable operator-linebreak */
+import React, { useEffect, useState } from 'react';
 import { useDispatch, batch, useSelector } from 'react-redux';
 import { API_URL } from 'utils/utils';
-import user from 'reducers/user';
 import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components/macro';
 import { FormWrapper, Form, Input } from 'styles/Forms';
 import { FormWrapperContainer } from 'styles/Containers';
-import Swal from 'sweetalert2';
 import { Button1 } from 'styles/Button.styles';
-import ui from 'reducers/ui';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
 import { swalBlurBackground } from 'utils/sweetAlerts';
+import user from 'reducers/user';
+import ui from 'reducers/ui';
+import styled from 'styled-components/macro';
 
 const Register = () => {
   const dispatch = useDispatch();

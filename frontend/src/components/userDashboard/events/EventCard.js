@@ -1,23 +1,19 @@
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable operator-linebreak */
 /* eslint-disable quote-props */
 /* eslint-disable no-underscore-dangle */
-import React from 'react'
-import styled from 'styled-components/macro'
+import React from 'react';
+import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux';
+import { RiEdit2Fill } from 'react-icons/ri';
+import { MdLocationOn, MdDelete } from 'react-icons/md';
+import { IoMdTime } from 'react-icons/io';
+import { GiClosedBarbute } from 'react-icons/gi';
+import { HiUserGroup, HiClock } from 'react-icons/hi';
 import events from 'reducers/events';
 import { API_URL } from 'utils/utils';
-import Swal from 'sweetalert2';
-import { RiEdit2Fill, RiWindowLine } from 'react-icons/ri'
-import { MdLocationOn, MdDelete } from 'react-icons/md'
-import { IoMdTime } from 'react-icons/io'
-import { GiCastle, GiClosedBarbute } from 'react-icons/gi'
-import { HiUserGroup, HiClock } from 'react-icons/hi'
-
 import { TransparentButton } from 'styles/Button.styles';
-import ApplyToEvent from './ApplyToEvent'
+import styled from 'styled-components/macro';
+import ApplyToEvent from './ApplyToEvent';
 
 const EventCard = ({
   id,
@@ -30,7 +26,6 @@ const EventCard = ({
   totalSpots,
   isFull,
   description,
-  eventName,
   eventTime,
   eventDate,
   image,
@@ -38,19 +33,17 @@ const EventCard = ({
   setHandleEvent,
   isHost
 }) => {
-  //! Om inget eventnamn, visa endast -game
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user.userInfo);
   const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay)
-  // This ⬇ compares the clicked event with the event id
+  // Compares the clicked event with the event id
   const selectedEventForEditOrRemove = eventsOfTheDay.find((event) => eventId === event._id)
 
-  // This ⬇ saves the filtered resulting event in event reducer
+  // Saves the filtered resulting event in event reducer
   const handleEditEvent = () => {
     dispatch(events.actions.setSelectedEventForEdit(selectedEventForEditOrRemove))
     setEditEvent(true)
     setHandleEvent(false)
-    console.log('selectedEventForEdit', selectedEventForEditOrRemove)
   }
 
   const handleDeleteEvent = () => {
@@ -116,7 +109,6 @@ const EventCard = ({
           <GameImage src={image} alt={game} />
         </GameImageContainer>
         <EventInfo>
-          {/* <h3>{eventName} - {game}</h3> */}
           <GameTitleWrapper>
             <h3>{game}</h3>
           </GameTitleWrapper>
@@ -229,13 +221,10 @@ const EventInfo = styled.div`
   
   h3 {
     vertical-align: text-top;
-    
   }
   span, h3 {
     color: #DE605B;
   }
-
-  
 `
 const DescriptionParagraph = styled.p`
   grid-column: 1 / 4;

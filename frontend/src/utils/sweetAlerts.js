@@ -1,6 +1,5 @@
-/* eslint-disable no-undef */
-import loaderOrange from 'assets/Loader/Loader_2.gif'
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import loaderOrange from 'assets/Loader/Loader_2.gif';
 
 export const swalBlurBackground = (text) => {
   Swal.fire({

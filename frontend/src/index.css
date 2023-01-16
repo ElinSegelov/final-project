@@ -13,73 +13,8 @@
   --light: #dddddd;
   --lightDarkOpacity: rgba(54, 60, 70, 0.85);
   --today: #6e8191;
-  --bigger: 768px;
-}
-/* SWEET ALERT */
-
-/* .swal2-container {
-  display: grid;
-  width: 100vw;
-  overflow: hidden;
-  display: flex;
-} 
-.swal2-popup {
-  display: grid;
-  width: 100vw;
-  overflow: hidden;
-  display: flex;
-} */
-
-.swal2-shown {
-  width: 100vw;
-  overflow: hidden;
-}
-body.swal2-shown > [aria-hidden='true'] {
-  transition: 0.1s filter;
-  filter: blur(10px);
-}
-.swal2-title {
-  display: grid;
-  width: 100vw;
-  font-family: 'Gotham-Book', sans-serif;
-  font-size: 40px;
-  padding: 0;
-  color: '#DE605B';
-}
-.swal2-html-container {
-  color: var(--light) !important;
-}
-.swal2-icon-content {
-  color: var(--orangeRed);
-}
-.swal2-icon.swal2-warning {
-  border-color: var(--orangeRed) !important;
 }
 
-.swal2-styled.swal2-confirm {
-  background-color: transparent;
-  padding: 0.5rem;
-  border-radius: 1rem;
-  border: var(--orangeRed) 1px solid;
-  margin: 0.5rem;
-  background: transparent;
-  color: var(--light);
-}
-.swal2-styled.swal2-cancel {
-  background-color: var(--orangeRed);
-  padding: 0.5rem;
-  border-radius: 1rem;
-  border: none;
-  margin: 0.5rem;
-}
-.swal2-icon {
-  color: var(--orangeRed);
-}
-.swal2-warning {
-  color: var(--orangeRed);
-}
-
-/* ---------------- */
 @font-face {
   font-family: 'Asgalt-Regular';
   src: url(./assets/fonts/Asgalt-Regular.ttf);
@@ -158,6 +93,7 @@ input::placeholder {
 }
 
 /* ----------- DATEPICKER ---------- */
+
 .react-datepicker-wrapper {
   width: fit-content;
 }
@@ -167,12 +103,11 @@ input::placeholder {
   width: 90vw;
   margin: 0 auto;
 }
+
 @media(min-width: 1024px) {
   .react-datepicker {
     width: 30rem;
-
   }
-  
 }
 
 .react-datepicker__header {
@@ -185,21 +120,24 @@ input::placeholder {
   color: var(--light);
   font-size: 1.1rem;
 }
+
 .react-datepicker__month-container {
   width: 100%;
   background: var(--lightDark);
 }
+
 .react-datepicker__day {
   width: 2.4rem;
   height: 2.4rem;
   padding-top: 0.4rem;
   margin: 0.25rem;
 }
+
 .react-datepicker__day--selected {
   color: #000;
   background: var(--light);
-  /* har den här färgen när on hover #1d5d90 */
 }
+
 .react-datepicker__day-name {
   margin: 0.25rem;
   width: 2.5rem;
@@ -220,12 +158,64 @@ input::placeholder {
   .react-datepicker {
     margin: 2rem 0;
     width: 100%;
-    /* display: flex;
-    flex-direction: column;
-    width: 500px;
-    height: 100vh;
-    border-right: 1px solid var(--orangeRed);
-    padding-right: 1rem;
-    border: 1px solid red; */
   }
+}
+
+/* ----------- DATE PICKER ---------- */
+
+.swal2-shown {
+  width: 100vw;
+  overflow: hidden;
+}
+
+body.swal2-shown > [aria-hidden='true'] {
+  transition: 0.1s filter;
+  filter: blur(10px);
+}
+
+.swal2-title {
+  display: grid;
+  width: 100vw;
+  font-family: 'Gotham-Book', sans-serif;
+  font-size: 40px;
+  padding: 0;
+  color: '#DE605B';
+}
+
+.swal2-html-container {
+  color: var(--light) !important;
+}
+
+.swal2-icon-content {
+  color: var(--orangeRed);
+}
+
+.swal2-icon.swal2-warning {
+  border-color: var(--orangeRed) !important;
+}
+
+.swal2-styled.swal2-confirm {
+  background-color: transparent;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border: var(--orangeRed) 1px solid;
+  margin: 0.5rem;
+  background: transparent;
+  color: var(--light);
+}
+
+.swal2-styled.swal2-cancel {
+  background-color: var(--orangeRed);
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border: none;
+  margin: 0.5rem;
+}
+
+.swal2-icon {
+  color: var(--orangeRed);
+}
+
+.swal2-warning {
+  color: var(--orangeRed);
 }

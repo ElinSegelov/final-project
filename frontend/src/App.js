@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import events from 'reducers/events';
@@ -11,10 +11,9 @@ import LandingPage from 'components/landingPage/LandingPage';
 import Header from 'components/Header';
 import Dashboard from 'components/userDashboard/Dashboard';
 import Login from 'components/SignupLoginForm/Login';
-// import Footer from 'components/Footer';
 import styled from 'styled-components/macro';
 import { Main } from 'styles/Containers';
-import BackgroundImg from './assets/images/mini-logo-orange.png'
+import BackgroundImg from './assets/images/mini-logo-orange.png';
 
 const App = () => {
   const reducer = combineReducers({
@@ -40,7 +39,6 @@ const App = () => {
             <Route path="*" element={<Navigate to="404" />} />
           </Routes>
         </Main>
-        {/* <Footer /> */}
       </BrowserRouter>
     </Provider>
   )
@@ -53,6 +51,7 @@ const BackgroundImage = styled.img`
   width: 150vw;
   opacity: 0.15;
   top: 5vh;
+
   @media(min-width: 768px) {
     width: 53rem;
     top: 3rem;

@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { StyledEventCardContainer } from 'styles/Containers'
-import styled from 'styled-components/macro'
-import EventCard from './events/EventCard'
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { StyledEventCardContainer } from 'styles/Containers';
+import styled from 'styled-components/macro';
+import EventCard from './events/EventCard';
 
 const UserEvents = () => {
   const userHostingEvents = useSelector((store) => store.user.userInfo.hostingEvents)
@@ -52,7 +51,6 @@ const UsersEventCardsContainer = styled(StyledEventCardContainer)`
     display: flex;
     flex-direction: column;
     width:100%;
-
   }
 `
 

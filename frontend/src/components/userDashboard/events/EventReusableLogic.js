@@ -1,13 +1,11 @@
-/* eslint-disable max-len */
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable quote-props */
-
-import React, { useEffect, useState } from 'react'
-import { API_URL } from 'utils/utils';
+import React, { useEffect, useState } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { swalBlurBackground } from 'utils/sweetAlerts';
-import ui from 'reducers/ui';
 import events from 'reducers/events';
+import ui from 'reducers/ui';
+import { swalBlurBackground } from 'utils/sweetAlerts';
+import { API_URL } from 'utils/utils';
 import { InnerWrapper } from 'styles/Containers';
 import EditEvent from './EditEvent';
 import CreateEvent from './CreateEvent';
@@ -15,7 +13,6 @@ import CreateEvent from './CreateEvent';
 const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
   const [eventDate, setEventDate] = useState(new Date())
   const [eventTime, setEventTime] = useState('');
-  const [eventName, setEventName] = useState(''); //! Saknas value / input
   const [venue, setVenue] = useState('');
   const [openSpots, setOpenSpots] = useState('');
   const [totalSpots, setTotalSpots] = useState('');
@@ -27,7 +24,6 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
 
   let gameName;
   const dispatch = useDispatch()
-  console.log(tempEventInfoForEdit)
 
   useEffect(() => {
     if (editEvent) {
@@ -75,7 +71,6 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
           if (data.success) {
             batch(() => {
               dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
-              console.log(data.response.hostingEvents)
               dispatch(events.actions.setError(null))
             })
           } else {
@@ -106,7 +101,6 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
           host: user.username,
           eventDate: eventDate.toISOString(),
           eventTime,
-          eventName, // Saknas input
           venue,
           game: gameName,
           openSpots,
@@ -141,7 +135,6 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
           totalSpots={totalSpots}
           eventDate={eventDate}
           setEventTime={setEventTime}
-          setEventName={setEventName}
           setVenue={setVenue}
           setOpenSpots={setOpenSpots}
           setTotalSpots={setTotalSpots}

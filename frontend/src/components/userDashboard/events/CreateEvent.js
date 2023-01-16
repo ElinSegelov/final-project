@@ -1,16 +1,14 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react'
-import BGGData from 'components/userDashboard/events/BGGData'
+import React from 'react';
+import BGGData from 'components/userDashboard/events/BGGData';
 import styled from 'styled-components/macro';
 import { FormWrapper, Form, Input } from 'styles/Forms';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import { Button1 } from 'styles/Button.styles';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CreateEvent = ({
   setEventTime,
-  setEventName, //! No value / input
   setVenue,
   setOpenSpots,
   setTotalSpots,
@@ -29,7 +27,6 @@ const CreateEvent = ({
           selected={eventDate}
           dateFormat="yyyy/MM/dd"
           onSelect={handleDateSelection} />
-        {/* <p>Pick a date</p> */}
         <label htmlFor="eventTime">
           <input
             type="time"

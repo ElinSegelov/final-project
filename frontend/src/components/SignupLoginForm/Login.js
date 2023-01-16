@@ -1,20 +1,17 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect, useState } from 'react'
-import { useDispatch, batch, useSelector } from 'react-redux';
-import { API_URL } from 'utils/utils';
-import user from 'reducers/user';
+/* eslint-disable operator-linebreak */
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useDispatch, batch, useSelector } from 'react-redux';
+import user from 'reducers/user';
+import ui from 'reducers/ui';
+import { API_URL } from 'utils/utils';
 import { Form, FormWrapper, Input } from 'styles/Forms';
 import { FormWrapperContainer } from 'styles/Containers';
 import { Button1 } from 'styles/Button.styles';
-import Swal from 'sweetalert2';
-import ui from 'reducers/ui';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
-import events from 'reducers/events';
 import { swalBlurBackground } from 'utils/sweetAlerts';
+import events from 'reducers/events';
 import styled from 'styled-components/macro';
 
 const Login = () => {
