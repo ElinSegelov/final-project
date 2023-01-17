@@ -1,5 +1,5 @@
 <div align="center">
-      <h1> <img src="https://i.postimg.cc/zB7dcS2v/logo.png" width="80px"><br/>Final project - Octahedron LFP</h1>
+      <h1> <img src="https://i.postimg.cc/zB7dcS2v/logo.png" width="2000px"><br/>Final project</h1>
      </div>
 <p align="center"> <a href="https://octahedron.netlify.app/" target="_blank"><img alt="" src="https://img.shields.io/badge/Website-EA4C89?style=normal&logo=dribbble&logoColor=white" style="vertical-align:center" /></a> <a href="}" target="_blank"><img alt="" src="https://img.shields.io/badge/LinkedIn-0077B5?style=normal&logo=linkedin&logoColor=white" style="vertical-align:center" /></a> </p>
 
@@ -14,6 +14,7 @@ At the current state, users are able to create events and apply for a spot at po
 If we had more time we would like to add functionality for users to add each other as friends, invite friends to events and make it possible for all communication to take place within the application. 
 # Screenshots
  <img src="https://i.postimg.cc/fbdk9nVd/Ska-rmavbild-2023-01-16-kl-16-38-28.png">
+ 
 # Tech Used
 <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" alt="JavaScript">
 <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React">
