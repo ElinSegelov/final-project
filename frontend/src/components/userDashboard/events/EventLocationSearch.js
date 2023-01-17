@@ -1,6 +1,6 @@
 import React from 'react';
 import countys from 'utils/countys';
-import { Select, Label } from 'styles/Forms';
+import { Select } from 'styles/Forms';
 import { useDispatch } from 'react-redux';
 import events from 'reducers/events';
 import styled from 'styled-components/macro';
@@ -15,12 +15,13 @@ const EventLocationSearch = () => {
   }
   return (
     <CountySearchForm>
-      <Label htmlFor="countySearch"> Filter events by county </Label>
-      <Select id="countySearch" onChange={(event) => handleOnChange(event.target.value)}>
-        <option value="All">All Swedish countys</option>
-        {countyOptions}
-        <option value="Other">Other</option>
-      </Select>
+      <label htmlFor="county-search">Filter events by county
+        <Select id="county-search" onChange={(event) => handleOnChange(event.target.value)}>
+          <option value="All">All Swedish countys</option>
+          {countyOptions}
+          <option value="Other">Other</option>
+        </Select>
+      </label>
     </CountySearchForm>
   )
 }
@@ -28,5 +29,14 @@ const EventLocationSearch = () => {
 export default EventLocationSearch;
 
 const CountySearchForm = styled.form`
-  margin: 0 1rem;
+  height: fit-content;
+  display: flex;
+  width: 100%;
+  grid-column: 2 / 3;
+  label {
+    width: 100%;
+  }
+  @media(min-width: 768px) {
+    width: 30rem;
+  }
 `

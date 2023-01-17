@@ -8,7 +8,6 @@ import styled from 'styled-components/macro';
 import EventSection from './events/EventSection';
 import UserProfileCard from './UserProfileCard';
 import UserEvents from './UserEvents';
-import EventLocationSearch from './events/EventLocationSearch';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -45,7 +44,6 @@ const Dashboard = () => {
           <UserProfileCard />
           <UserEvents />
         </UserProfileWrapperDesktop>}
-      <EventLocationSearch />
       <EventSection />
     </DashboardWrapper>
   )
@@ -58,7 +56,8 @@ const DashboardWrapper = styled.section`
   @media (min-width: 1024px) {
     width: 100%;
     display: grid;
-    grid-template-columns: 26rem 1fr;
+    grid-template-columns: 28rem 1fr;
+    grid-template-rows: 3rem 1fr
   }
 `
 
@@ -69,7 +68,9 @@ const UserProfileWrapperDesktop = styled.section`
     flex-direction: column;
     border-right: 1px solid var(--orangeRed);
     padding-right: 1rem;
+    min-height: calc(100vh - 15vh);
     max-height: 120vh;
+    grid-row: 1 / 3;
   }
   @media (min-width: 1400px) {
     max-width: 40rem

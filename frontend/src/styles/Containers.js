@@ -24,6 +24,18 @@ export const InnerWrapper = styled.section`
     align-items: flex-start;
   }
 `
+
+export const CalenderAndCardWrapper = styled.div`
+  width: fit-content;
+  margin: 1rem auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+
+  @media (min-width: 1024px) {
+  }
+`
 export const StyledEventCardContainer = styled.section`
   display: flex;
   flex-direction: column;
@@ -31,8 +43,11 @@ export const StyledEventCardContainer = styled.section`
   align-items: center;
   gap: 1rem;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     width: 100%;
+  }
+
+  @media (min-width: 1024px) {
     align-items: left;
     display: grid;
     grid-template-columns: repeat(2, 14.5rem);

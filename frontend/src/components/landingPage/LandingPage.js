@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import EventCalendar from 'components/EventCalendar';
 import EventCardContainer from 'components/userDashboard/events/EventCardContainer';
-import { InnerWrapper } from 'styles/Containers';
+import { CalenderAndCardWrapper, InnerWrapper } from 'styles/Containers';
 import { Button1, ButtonReversed } from 'styles/Button.styles';
 import Tutorial from './Tutorial';
 
@@ -35,6 +35,7 @@ export default LandingPage
 const LandingpageInnerWrapper = styled(InnerWrapper)`
   min-height: 100vh;
   position: relative;
+  width: fit-content;
 `
 
 const TutorialSection = styled.section`
@@ -52,8 +53,9 @@ const TutorialSection = styled.section`
   }
 `
 
-const CalendarAndEvents = styled.div`
-@media (min-width: 1024px) {
+const CalendarAndEvents = styled(CalenderAndCardWrapper)`
+@media (min-width: 768px) {
+  width: 30rem;
   }
 `
 const RegisterLoginWrapper = styled.div`

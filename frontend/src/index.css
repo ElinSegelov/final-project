@@ -103,7 +103,12 @@ input::placeholder {
   width: 90vw;
   margin: 0 auto;
 }
-
+@media (min-width: 768px) {
+  .react-datepicker {
+    margin: 0;
+    width: 30rem;
+  }
+}
 @media(min-width: 1024px) {
   .react-datepicker {
     width: 30rem;
@@ -154,12 +159,7 @@ input::placeholder {
   width: 12rem;
 }
 
-@media (min-width: 768px) {
-  .react-datepicker {
-    margin: 2rem 0;
-    width: 100%;
-  }
-}
+
 
 /* ----------- DATE PICKER ---------- */
 

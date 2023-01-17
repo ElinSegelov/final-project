@@ -75,5 +75,15 @@ const EventCalendar = () => {
 export default EventCalendar;
 
 const EventCalendarWrapper = styled.div`
-  margin-bottom: 1rem;
+  width: 100%;
+  @media(min-width: 768px) {
+    width: 30rem;
+  }
+  @media(min-width: 1024px) {
+    width: 100%;
+  }
+  @media(min-width: 1400px) {
+    width: 30rem;
+  }
+  
 `
