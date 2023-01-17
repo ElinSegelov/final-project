@@ -102,8 +102,14 @@ input::placeholder {
   margin: 2rem 0;
   width: 90vw;
   margin: 0 auto;
+  border-radius: 0.6rem;
 }
-
+@media (min-width: 768px) {
+  .react-datepicker {
+    margin: 0;
+    width: 30rem;
+  }
+}
 @media(min-width: 1024px) {
   .react-datepicker {
     width: 30rem;
@@ -112,6 +118,11 @@ input::placeholder {
 
 .react-datepicker__header {
   background: var(--dark);
+}
+
+.react-datepicker__header:not(.react-datepicker__header--has-time-select) {
+  border-top-left-radius: 0.6rem;
+  border-top-right-radius: 0.6rem;
 }
 
 .react-datepicker__current-month,
@@ -124,6 +135,7 @@ input::placeholder {
 .react-datepicker__month-container {
   width: 100%;
   background: var(--lightDark);
+  border-radius: 0.6rem;
 }
 
 .react-datepicker__day {
@@ -154,12 +166,7 @@ input::placeholder {
   width: 12rem;
 }
 
-@media (min-width: 768px) {
-  .react-datepicker {
-    margin: 2rem 0;
-    width: 100%;
-  }
-}
+
 
 /* ----------- DATE PICKER ---------- */
 

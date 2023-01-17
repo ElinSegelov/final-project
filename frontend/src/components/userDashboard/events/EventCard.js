@@ -202,6 +202,9 @@ const StyledEventCard = styled.div`
   row-gap: 0.25rem;
   position: relative;
 
+  @media (min-width: 768px) {
+    width:30rem;
+  }
   @media (min-width: 1024px) {
     width:100%;
     align-items: left;

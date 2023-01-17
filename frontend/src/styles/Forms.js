@@ -34,9 +34,12 @@ export const Select = styled.select`
   //width: 12rem;
   width: 100%;
   height: 2rem;
+  margin-top: 0.5rem;
 `
 
 export const Label = styled.label`
   visibility: hidden;
   font-size: 1px;
+  height: fit-content;
+  position: absolute;
 `

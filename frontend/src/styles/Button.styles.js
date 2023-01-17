@@ -11,9 +11,10 @@ export const ButtonReversed = styled.button`
   padding: 0.5rem;
   border-radius: 1rem;
   border: #DE605B 1px solid;
-  margin: 0.5rem;
-  background: transparent;
+  background: var(--dark);
   color: var(--light);
+  width: 100%;
+  max-width: 30rem;
 `
 export const TransparentButton = styled.button`
   width: 2rem;

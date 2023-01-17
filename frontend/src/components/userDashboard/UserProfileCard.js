@@ -18,26 +18,33 @@ const UserProfileCard = () => {
     dispatch(user.actions.setLoggedInUser([]))
   }
   return (
-    <ProfileSection>
-      <GiClosedBarbute fontSize="5rem" />
-      <div>
-        <UserName>{loggedInUser.username}</UserName>
-        <p>Hosting {hostingEventsForDisplaying
-          ? hostingEventsForDisplaying.length : null} events
-        </p>
-      </div>
-      <ButtonReversed type="button" onClick={handleLogout}>Log Out</ButtonReversed>
-    </ProfileSection>
+    <ProfileCard>
+      <ImageAndUserInfoWapper>
+        <GiClosedBarbute fontSize="5rem" />
+        <UserInfoWapper>
+          <UserName>{loggedInUser.username}</UserName>
+          <p>Hosting {hostingEventsForDisplaying
+            ? hostingEventsForDisplaying.length : null} events
+          </p>
+        </UserInfoWapper>
+      </ImageAndUserInfoWapper>
+      <LogOutButton type="button" onClick={handleLogout}>Log Out</LogOutButton>
+    </ProfileCard>
   )
 }
 
 export default UserProfileCard;
 
-const ProfileSection = styled.section`
+const LogOutButton = styled(ButtonReversed)`
+  width: 7rem;
+`
+
+const ProfileCard = styled.section`
   display: flex;
+  justify-content: space-between;
   background: var(--dark);
   border: 1px solid var(--orangeRed);
-  width: 100vw;
+  width: 100%;
   padding: 0.5rem;
   border-radius: 10px;
   align-items: center;
@@ -47,12 +54,19 @@ const ProfileSection = styled.section`
   z-index: 1;
 
   @media (min-width: 768px) { 
-    display: flex;
     height: 10rem;
-    width: 100%;
-    justify-content: flex-start;
     height: 6rem;
+    padding: 1rem;
   }
+`
+const ImageAndUserInfoWapper = styled.div`
+  display: flex;
+  gap: 1rem;
+`
+const UserInfoWapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `
 
 const UserName = styled.h2`
