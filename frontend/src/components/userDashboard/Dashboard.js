@@ -8,6 +8,7 @@ import styled from 'styled-components/macro';
 import EventSection from './events/EventSection';
 import UserProfileCard from './UserProfileCard';
 import UserEvents from './UserEvents';
+import EventLocationSearch from './events/EventLocationSearch';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const Dashboard = () => {
           <UserProfileCard />
           <UserEvents />
         </UserProfileWrapperDesktop>}
+      <EventLocationSearch />
       <EventSection />
     </DashboardWrapper>
   )

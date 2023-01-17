@@ -13,6 +13,7 @@ const events = createSlice({
     selectedEventForEdit: [],
     selectedDate: (new Date().toISOString()),
     hostingEvents: [],
+    countyFilter: 'All',
     error: null
   },
   reducers: {
@@ -33,6 +34,9 @@ const events = createSlice({
     },
     setHostingEvents: (store, action) => {
       store.hostingEvents = action.payload
+    },
+    setCountyFilter: (store, action) => {
+      store.countyFilter = action.payload
     },
     setError: (store, action) => {
       store.error = action.payload;
@@ -56,7 +60,6 @@ export const loadEvents = (accessToken) => {
       const response = await fetch(API_URL('event'), options);
       const data = await response.json()
       if (data.success) {
-        console.log('first', data.success)
         dispatch(events.actions.setPostedEvents(data.response))
       }
     } catch (error) {

@@ -2,14 +2,16 @@
 import React from 'react';
 import BGGData from 'components/userDashboard/events/BGGData';
 import styled from 'styled-components/macro';
-import { FormWrapper, Form, Input } from 'styles/Forms';
+import { FormWrapper, Form, Input, Select } from 'styles/Forms';
 import DatePicker from 'react-datepicker';
 import { Button1 } from 'styles/Button.styles';
 import 'react-datepicker/dist/react-datepicker.css';
+import countys from 'utils/countys';
 
 const CreateEvent = ({
   setEventTime,
   setVenue,
+  setCounty,
   setOpenSpots,
   setTotalSpots,
   setDescription,
@@ -18,6 +20,10 @@ const CreateEvent = ({
   eventDate,
   totalSpots
 }) => {
+  const countyOptions = countys.map((county) => {
+    return <option key={county} value={county}>{county}</option>
+  })
+
   return (
     <FormWrapper>
       <h2>Create Event</h2>
@@ -63,6 +69,11 @@ const CreateEvent = ({
             </label>
           </legend>
         </SpotsInformation>
+        <Select onChange={(event) => setCounty(event.target.value)}>
+          <option value={null}>Select county</option>
+          {countyOptions}
+          <option value="Other">Rest of world</option>
+        </Select>
         <label htmlFor="venue">
           <Input
             placeholder="Where will you play?"

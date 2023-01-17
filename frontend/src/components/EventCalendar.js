@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable operator-linebreak */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
@@ -10,9 +11,11 @@ import styled from 'styled-components/macro';
 
 const EventCalendar = () => {
   const [startDate, setStartDate] = useState(new Date());
+  const [daysWithEvents, setDaysWithEvents] = useState([]);
   const dispatch = useDispatch();
   const postedEvents = useSelector((store) => store.events.postedEvents)
   const accessToken = useSelector((store) => store.user.userInfo.accessToken)
+  const countyFilter = useSelector((store) => store.events.countyFilter)
 
   useEffect(() => {
     dispatch(loadEvents(accessToken));
@@ -29,14 +32,32 @@ const EventCalendar = () => {
 
   useEffect(() => {
     if (postedEvents) {
-      const todaysEvents = postedEvents.filter(
+      // Filtering posted events' dates with date for selected day (startDate).
+      // These are dispatched to the store as eventsOfTheDay.
+      const selectedDayEvents = postedEvents.filter(
         (event) => event.eventDate.slice(0, 10) === startDate.toISOString().slice(0, 10)
       )
-      dispatch(events.actions.setEventsOfTheDay(todaysEvents));
+      dispatch(events.actions.setEventsOfTheDay(selectedDayEvents));
+      // For the datepicker to show whether the selected day has posted events,
+      // the dates stored in the reducer needs to be paresed back to ISO
+      if (countyFilter === 'All') {
+        const postedEventsWithISODate = postedEvents.map(
+          (activeEvent) => parseISO(activeEvent.eventDate)
+        )
+        setDaysWithEvents(postedEventsWithISODate)
+      } else {
+        // Filtering events based on selected county.
+        // Updating daysWithEvents to have datepicker highlight days with events in the selected county.
+        const filteredEventsBasedOnCounty = postedEvents.filter(
+          (event) => event.county === countyFilter
+        )
+        const filteredEventsBasedOnCountyWithISODate = filteredEventsBasedOnCounty.map(
+          (activeEvent) => parseISO(activeEvent.eventDate)
+        )
+        setDaysWithEvents(filteredEventsBasedOnCountyWithISODate)
+      }
     }
-  }, [postedEvents, startDate])
-
-  const daysWithEvents = postedEvents.map((activeEvent) => parseISO(activeEvent.eventDate))
+  }, [postedEvents, startDate, countyFilter])
 
   return (
     <EventCalendarWrapper>

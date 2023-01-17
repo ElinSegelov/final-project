@@ -6,7 +6,7 @@ import events from 'reducers/events';
 import ui from 'reducers/ui';
 import { LoadingForGameSearch } from 'components/loaders/loadingAnimations';
 import { BGG_API_SEARCH_BY_NAME, BGG_API_SEARCH_BY_OBJECT_ID } from 'utils/utils';
-import { Form, Input } from 'styles/Forms';
+import { Form, Input, Select } from 'styles/Forms';
 import styled from 'styled-components/macro';
 
 const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) => {
@@ -107,11 +107,9 @@ const LoaderWrapper = styled.div`
   position: absolute;
   right: 0;
 `
-const GameSelect = styled.select`
-  width: 12rem;
+const GameSelect = styled(Select)`
   position: absolute;
   top: 2rem;
-  height: 2rem;
 `
 const BGGFetchForm = styled(Form)`
   width: 12rem;
