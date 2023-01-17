@@ -1,7 +1,7 @@
 <div align="center">
       <h1> <img src="https://i.postimg.cc/zB7dcS2v/logo.png" width="500px"><br/>Final project</h1>
      </div>
-<p align="center"> <a href="https://octahedron.netlify.app/" target="_blank"><img alt="" src="https://img.shields.io/badge/Website-EA4C89?style=normal&logo=dribbble&logoColor=white" style="vertical-align:center" /></a> <a href="}" target="_blank"><img alt="" src="https://img.shields.io/badge/LinkedIn-0077B5?style=normal&logo=linkedin&logoColor=white" style="vertical-align:center" /></a> </p>
+<p align="center"> <a href="https://octahedron.netlify.app/" target="_blank"><img alt="" src="https://img.shields.io/badge/Website-EA4C89?style=normal&logo=dribbble&logoColor=white" style="vertical-align:center" /></a> </p>
 
 # Description
 For the final project of the Technigo frontend developer boot camp we (Elin Segelöv and David Ballester Font) have made a fullstack web application where users can post board game events in order to find party members for their game sessions
