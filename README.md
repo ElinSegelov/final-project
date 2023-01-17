@@ -4,9 +4,9 @@
 <p align="center"> <a href="https://octahedron.netlify.app/" target="_blank"><img alt="" src="https://img.shields.io/badge/Website-EA4C89?style=normal&logo=dribbble&logoColor=white" style="vertical-align:center" /></a> </p>
 
 # Description
-For the final project of the Technigo frontend developer boot camp we (Elin Segelöv and David Ballester Font) have made a fullstack web application where users can post board game events in order to find party members for their game sessions
+For the final project of the frontend developer boot camp at Technigo we (Elin Segelöv and David Ballester Font) have made a fullstack web application where users can post board game events in order to find party members for their game sessions.
 
-# Features
+# The Problem
 The time scope for this project was set to three weeks of part time (50%) work. We have spent significantly more time than that. The project was planed with an MVP and stretch goals. We have fulfilled the MVP but we haven't had enought time to take on the stretch goals. The frontend is built using React, Redux and Styled Components and the backend is built with Node.js, Express, MongoDB and Mongoose.
 
 At the current state, users are able to create events and apply for a spot at posted events. When an application is sent the host of the event receives a e-mail with the applicants e-mail address. All contact between the applicant and the host occurs outside the application. 
@@ -24,5 +24,8 @@ If we had more time we would like to add functionality for users to add each oth
 <img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js">
 <img src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB" alt="Expess.js">
 <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB">
-      
+
+# View it live
+Frontend: https://octahedron.netlify.app/
+Backend: https://final-project-dthe36jxxa-lz.a.run.app/
 <!-- </> with 💛 by readMD (https://readmd.itsvg.in) -->
