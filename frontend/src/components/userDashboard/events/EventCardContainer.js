@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable no-underscore-dangle */ // Ignores _ in _id
 import React from 'react';
@@ -9,32 +10,64 @@ import EventCard from './EventCard';
 const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
   const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay)
   const selectedDate = useSelector((store) => store.events.selectedDate)
+  const countyFilter = useSelector((store) => store.events.countyFilter)
+  const allEvents = [];
 
-  const allEvents = eventsOfTheDay.map((event) => {
-    return (
-      <EventCard
-        key={event._id}
-        id={event._id}
-        image={event.image}
-        eventId={event._id}
-        setEditEvent={setEditEvent}
-        hostId={event.hostId}
-        setHandleEvent={setHandleEvent}
-        game={event.game}
-        host={event.host}
-        venue={event.venue}
-        openSpots={event.openSpots}
-        totalSpots={event.totalSpots}
-        isFull={event.isFull}
-        description={event.description}
-        eventName={event.eventName}
-        eventTime={event.eventTime} />
-    )
-  })
+  const eventsOfTheDayInSelectedCounty = eventsOfTheDay.filter((event) => event.county === countyFilter)
+  // If no specific county is selected, allEvents is replaced with previous value of eventsOfTheDay
+  if (countyFilter === 'All') {
+    allEvents.push(...allEvents, eventsOfTheDay.map((event) => {
+      return (
+        <EventCard
+          key={event._id}
+          id={event._id}
+          image={event.image}
+          eventId={event._id}
+          setEditEvent={setEditEvent}
+          hostId={event.hostId}
+          setHandleEvent={setHandleEvent}
+          game={event.game}
+          host={event.host}
+          county={event.county}
+          venue={event.venue}
+          openSpots={event.openSpots}
+          totalSpots={event.totalSpots}
+          isFull={event.isFull}
+          description={event.description}
+          eventName={event.eventName}
+          eventTime={event.eventTime} />
+      )
+    }))
+  } else {
+    // If a specific county is selected, allEvents is replaced with eventsFilterdByCounty
+    const eventsFilterdByCounty = eventsOfTheDay.filter((event) => event.county === countyFilter)
+    allEvents.push(...allEvents, eventsFilterdByCounty.map((event) => {
+      return (
+        <EventCard
+          key={event._id}
+          id={event._id}
+          image={event.image}
+          eventId={event._id}
+          setEditEvent={setEditEvent}
+          hostId={event.hostId}
+          setHandleEvent={setHandleEvent}
+          game={event.game}
+          host={event.host}
+          county={event.county}
+          venue={event.venue}
+          openSpots={event.openSpots}
+          totalSpots={event.totalSpots}
+          isFull={event.isFull}
+          description={event.description}
+          eventName={event.eventName}
+          eventTime={event.eventTime} />
+      )
+    }))
+  }
   return (
     <ActiveEventSection>
       <EventsHeading>
-        {eventsOfTheDay.length > 0 ? <h3>Events on {selectedDate.slice(0, 10)}</h3> : null}
+        {eventsOfTheDayInSelectedCounty.length > 0 ? <h3>Events on {selectedDate.slice(0, 10)}</h3> : null}
       </EventsHeading>
       {unAutohrized
         ? <LandingpageEventContainer>

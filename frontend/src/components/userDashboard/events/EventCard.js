@@ -5,10 +5,11 @@ import React from 'react';
 import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux';
 import { RiEdit2Fill } from 'react-icons/ri';
-import { MdLocationOn, MdDelete } from 'react-icons/md';
 import { IoMdTime } from 'react-icons/io';
+import { MdLocationOn, MdDelete } from 'react-icons/md';
 import { GiClosedBarbute } from 'react-icons/gi';
 import { HiUserGroup, HiClock } from 'react-icons/hi';
+import { BsHouseFill } from 'react-icons/bs'
 import events from 'reducers/events';
 import { API_URL } from 'utils/utils';
 import { TransparentButton } from 'styles/Button.styles';
@@ -21,6 +22,7 @@ const EventCard = ({
   eventId,
   game,
   host,
+  county,
   venue,
   openSpots,
   totalSpots,
@@ -112,7 +114,7 @@ const EventCard = ({
           <h3>{game}</h3>
         </GameTitleWrapperLimited>
         <EventInfo>
-          <p><MdLocationOn /> {venue}</p>
+          <p><BsHouseFill /> {venue}</p>
           <p><IoMdTime /> {eventDate}</p>
         </EventInfo>
       </EventCardWithBasicInfo>
@@ -129,7 +131,8 @@ const EventCard = ({
           </GameTitleWrapper>
           <InfoWrapper>
             <p><GiClosedBarbute /> {host}</p>
-            <p><MdLocationOn /> {venue}</p>
+            <p><MdLocationOn /> {county}</p>
+            <p><BsHouseFill /> {venue}</p>
             <p><HiClock /> {eventTime}</p>
             <p><HiUserGroup />{isFull ? 'Event is full' : ` ${totalSpots - openSpots} / ${totalSpots}`}</p>
           </InfoWrapper>
@@ -151,7 +154,7 @@ const EventCard = ({
           <h3>{game}</h3>
         </GameTitleWrapperLimited>
         <EventInfo>
-          <p><MdLocationOn /> {venue}</p>
+          <p><MdLocationOn /> {county}</p>
           <p><IoMdTime /> {eventTime}</p>
         </EventInfo>
       </EventCardWithBasicInfo>

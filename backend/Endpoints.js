@@ -10,7 +10,7 @@ export const getEvents = async (req, res) => {
   const allEvents = await Event.find().sort({ createdAt: "desc" });
   const basicEventInfo = allEvents.map((singleEvent) => {
     return ({
-      venue: singleEvent.venue,
+      county: singleEvent.county,
       game: singleEvent.game,
       eventDate: singleEvent.eventDate,
       eventTime: singleEvent.eventTime,
@@ -40,6 +40,7 @@ export const getEvents = async (req, res) => {
 export const createEvent = async (req, res) => {
   const {
     venue,
+    county,
     eventDate,
     eventTime,
     game,
@@ -57,6 +58,7 @@ export const createEvent = async (req, res) => {
       hostId,
       host,
       venue,
+      county,
       eventDate,
       eventTime,
       game,
@@ -72,6 +74,7 @@ export const createEvent = async (req, res) => {
         success: true,
         response: {
           venue: newEvent.venue,
+          county: newEvent.county,
           eventDate: newEvent.eventDate,
           eventTime: newEvent.eventTime,
           game: newEvent.game,
@@ -93,6 +96,7 @@ export const updateEvent = async (req, res) => {
   const {
     _id,
     venue,
+    county,
     game,
     openSpots,
     totalSpots,
@@ -107,7 +111,7 @@ export const updateEvent = async (req, res) => {
   try {
     if (selectedEvent) {
       const eventUpdated = await Event.findOneAndUpdate(selectedEvent._id,
-        { $set: { venue, game, openSpots, totalSpots, description, eventDate, eventTime, eventName, image } });
+        { $set: { venue, county, game, openSpots, totalSpots, description, eventDate, eventTime, eventName, image } });
       if (eventUpdated) {
         const host = await User.findOne({ _id: selectedEvent.hostId })
         res.status(200).json({
@@ -234,7 +238,7 @@ export const applyForSpot = async (req, res) => {
 
                 <h3 style="color: #DE605B;">${selectedEvent.game}</h3>
                 <img style="width: 10rem;" src=${selectedEvent.image} alt="game" />
-                <p><span style="color: #DE605B;">Location:</span> ${selectedEvent.venue}</p>
+                <p><span style="color: #DE605B;">Location:</span> ${selectedEvent.county}, ${selectedEvent.venue}</p>
                 <p><span style="color: #DE605B;">Time:</span> ${selectedEvent.eventTime}</p>
                 <p>
                   <span style="color: #DE605B;">Open spots:</span> ${selectedEvent.openSpots} / ${selectedEvent.totalSpots}

@@ -29,3 +29,14 @@ export const Input = styled.input`
   width: 100%;
   height: 2.5rem;
 `
+
+export const Select = styled.select`
+  //width: 12rem;
+  width: 100%;
+  height: 2rem;
+`
+
+export const Label = styled.label`
+  visibility: hidden;
+  font-size: 1px;
+`

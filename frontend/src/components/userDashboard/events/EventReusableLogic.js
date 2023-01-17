@@ -18,6 +18,7 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
   const [totalSpots, setTotalSpots] = useState('');
   const [description, setDescription] = useState('');
   const [tempEventInfoForEdit, setTempEventInfoForEdit] = useState({})
+  const [county, setCounty] = useState('')
   const user = useSelector((store) => store.user.userInfo);
   const selectedGame = useSelector((store) => store.events.selectedGameWithDataFromAPI);
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
@@ -102,6 +103,7 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
           eventDate: eventDate.toISOString(),
           eventTime,
           venue,
+          county,
           game: gameName,
           openSpots,
           totalSpots,
@@ -136,6 +138,7 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
           eventDate={eventDate}
           setEventTime={setEventTime}
           setVenue={setVenue}
+          setCounty={setCounty}
           setOpenSpots={setOpenSpots}
           setTotalSpots={setTotalSpots}
           setDescription={setDescription}

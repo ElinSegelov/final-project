@@ -58,6 +58,10 @@ export const EventSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  county: {
+    type: String,
+    required: true
+  },
   createdAt: {
     type: Date,
     default: () => new Date()
