@@ -57,6 +57,9 @@ const CalendarAndEvents = styled(CalenderAndCardWrapper)`
 @media (min-width: 768px) {
   width: 30rem;
   }
+@media (min-width: 1024px) {
+  margin: 0;
+}
 `
 const RegisterLoginWrapper = styled.div`
   @media (min-width: 1024px) {
