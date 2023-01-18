@@ -46,12 +46,12 @@ const ProfileCard = styled.section`
   border: 1px solid var(--orangeRed);
   width: 100%;
   padding: 0.5rem;
-  border-radius: 10px;
+  border-radius: 0.6rem;
   align-items: center;
   gap: 1rem;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
 
   @media (min-width: 768px) { 
     height: 10rem;

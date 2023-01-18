@@ -21,7 +21,7 @@ export const InnerWrapper = styled.section`
 
   @media (min-width: 1024px) {
     width: 60%;
-    align-items: flex-start;
+    align-items: center;
   }
 `
 
@@ -32,8 +32,8 @@ export const CalenderAndCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 2rem;
-
   @media (min-width: 1024px) {
+    min-height: calc(100vh - 15vh);
   }
 `
 export const StyledEventCardContainer = styled.section`

@@ -1,18 +1,23 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import BGGData from 'components/userDashboard/events/BGGData';
 import { useSelector } from 'react-redux';
 import { parseISO } from 'date-fns';
-import { Button1 } from 'styles/Button.styles';
-import styled from 'styled-components/macro';
-import { FormWrapper, Form } from 'styles/Forms';
+import { FilledButton, GoBackFromCreateOrEditButton } from 'styles/Button.styles';
+import { FormWrapper, Form, Select, TextArea, SpotsInformation, Input } from 'styles/Forms';
 import 'react-datepicker/dist/react-datepicker.css';
+import { FaArrowLeft } from 'react-icons/fa'
+import countys from 'utils/countys';
+import styled from 'styled-components/macro';
 
 const EditEvent = ({
   editEvent,
   onFormSubmit,
   tempEventInfoForEdit,
-  setTempEventInfoForEdit
+  setTempEventInfoForEdit,
+  setEditEvent,
+  setCounty
 }) => {
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
   const [startDate, setStartDate] = useState(parseISO(selectedEventForEdit.eventDate));
@@ -21,9 +26,14 @@ const EditEvent = ({
     setStartDate(date)
     setTempEventInfoForEdit({ ...tempEventInfoForEdit, eventDate: date.toISOString() })
   }
+
+  const countyOptions = countys.map((county) => {
+    return <option key={county} value={county}>{county}</option>
+  })
   return (
     <FormWrapper>
-      <h2>Edit Event</h2>
+      <GoBackFromCreateOrEditButton type="button" onClick={() => setEditEvent(false)}><FaArrowLeft /></GoBackFromCreateOrEditButton>
+      <h2>Edit event</h2>
       <BGGData
         tempEventInfoForEdit={tempEventInfoForEdit}
         editEvent={editEvent}
@@ -34,9 +44,8 @@ const EditEvent = ({
           dateFormat="yyyy/MM/dd"
           calendarStartDay={1}
           onSelect={handleTempDateSelection} />
-        <p>Pick a date</p>
         <label htmlFor="eventTime">
-          <input
+          <Input
             value={tempEventInfoForEdit.eventTime || ''}
             type="time"
             required
@@ -47,11 +56,11 @@ const EditEvent = ({
             name="eventTime" />
         </label>
         <SpotsInformation>
-          <p>Open spots</p>
+          <p>Players missing</p>
           <legend>
             <label htmlFor="openSpots">
-              <input
-                placeholder="Open"
+              <Input
+                placeholder="Missing"
                 value={tempEventInfoForEdit.openSpots || ''}
                 type="number"
                 id="openSpots"
@@ -66,7 +75,7 @@ const EditEvent = ({
             </label>
             <p>of</p>
             <label htmlFor="totalSpots">
-              <input
+              <Input
                 placeholder="Total"
                 value={tempEventInfoForEdit.totalSpots || ''}
                 type="number"
@@ -82,8 +91,13 @@ const EditEvent = ({
             </label>
           </legend>
         </SpotsInformation>
+        <Select onChange={(event) => setCounty(event.target.value)}>
+          <option value={null}>Select county</option>
+          {countyOptions}
+          <option value="Other">Rest of world</option>
+        </Select>
         <label htmlFor="venue">
-          <input
+          <Input
             placeholder="Where will you play?"
             value={tempEventInfoForEdit.venue || ''}
             required
@@ -95,7 +109,7 @@ const EditEvent = ({
             name="venue" />
         </label>
         <label htmlFor="description">
-          <textarea
+          <TextArea
             placeholder="Describe the event"
             value={tempEventInfoForEdit.description || ''}
             id="description"
@@ -106,7 +120,7 @@ const EditEvent = ({
             name="description"
             rows="4" />
         </label>
-        <Button1 type="submit">EDIT EVENT</Button1>
+        <SubmitEditButton type="submit">Edit event</SubmitEditButton>
       </Form>
     </FormWrapper>
   )
@@ -114,9 +128,6 @@ const EditEvent = ({
 
 export default EditEvent;
 
-const SpotsInformation = styled.div`
-  legend {
-    display: flex;
-    gap: 0.5rem;
-  }
+const SubmitEditButton = styled(FilledButton)`
+  margin: 0
 `

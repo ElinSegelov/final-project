@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Button1 } from 'styles/Button.styles';
+import { FilledButton } from 'styles/Button.styles';
 import { API_URL } from 'utils/utils';
 import { swalBlurBackground } from 'utils/sweetAlerts';
 import styled from 'styled-components/macro';
@@ -39,7 +39,7 @@ const ApplyToEvent = ({ eventId, eventHost }) => {
 }
 export default ApplyToEvent;
 
-const ApplyButton = styled(Button1)`
+const ApplyButton = styled(FilledButton)`
   margin: 0.5rem auto 0;
   grid-column: 1 / 4;
   width: 100%

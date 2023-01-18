@@ -128,12 +128,15 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
     <InnerWrapper>
       {editEvent
         ? <EditEvent
+          setEditEvent={setEditEvent}
           editEvent={editEvent}
           eventDate={eventDate}
+          setCounty={setCounty}
           setTempEventInfoForEdit={setTempEventInfoForEdit}
           tempEventInfoForEdit={tempEventInfoForEdit}
           onFormSubmit={onFormSubmit} />
         : <CreateEvent
+          setHandleEvent={setHandleEvent}
           totalSpots={totalSpots}
           eventDate={eventDate}
           setEventTime={setEventTime}

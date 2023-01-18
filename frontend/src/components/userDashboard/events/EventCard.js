@@ -193,7 +193,7 @@ const StyledEventCard = styled.div`
   width: 100%;
   padding: 1rem;
   display: grid;
-  grid-template-columns: 40% 50% 5%;
+  grid-template-columns: 40% 50% 6.5%;
   align-items: center;
   line-height: 1.2;
   background-color: #363c46;
@@ -203,12 +203,12 @@ const StyledEventCard = styled.div`
   position: relative;
 
   @media (min-width: 768px) {
-    width:30rem;
+    width: 30rem;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 1400px) {
     width:100%;
-    align-items: left;
   }
+
 `
 const HandleEventContainer = styled.section`
   grid-column: 1 / 3;
@@ -224,7 +224,6 @@ const GameImageContainer = styled.div`
   width: 8rem;
   height: 8rem;
   display: flex;
-
   `
 const GameImage = styled.img`
   object-fit: contain;

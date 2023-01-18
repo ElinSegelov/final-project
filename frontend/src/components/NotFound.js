@@ -15,6 +15,7 @@ export default NotFound
 
 const NotFoundWrapper = styled(FormWrapper)`
   min-height: calc(100vh - 17vh);
+  min-width: 100%;
   h1 {
     color: var(--orangeRed);
     font-size: 150px;

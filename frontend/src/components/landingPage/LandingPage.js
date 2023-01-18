@@ -6,7 +6,7 @@ import styled from 'styled-components/macro';
 import EventCalendar from 'components/EventCalendar';
 import EventCardContainer from 'components/userDashboard/events/EventCardContainer';
 import { CalenderAndCardWrapper, InnerWrapper } from 'styles/Containers';
-import { Button1, ButtonReversed } from 'styles/Button.styles';
+import { FilledButton, ButtonReversed } from 'styles/Button.styles';
 import Tutorial from './Tutorial';
 
 const LandingPage = () => {
@@ -74,6 +74,6 @@ const RegisterLoginWrapper = styled.div`
 const LoginButton = styled(ButtonReversed)`
   width: 6rem;
 `
-const RegisterButton = styled(Button1)`
+const RegisterButton = styled(FilledButton)`
   width: 6rem;
 `

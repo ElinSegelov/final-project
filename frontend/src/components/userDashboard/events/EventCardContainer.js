@@ -67,7 +67,9 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
   return (
     <ActiveEventSection>
       <EventsHeading>
-        {eventsOfTheDayInSelectedCounty.length > 0 ? <h3>Events on {selectedDate.slice(0, 10)}</h3> : null}
+        {(countyFilter === 'All' && eventsOfTheDay.length > 0) || (eventsOfTheDayInSelectedCounty.length > 0)
+          ? <h3>Events on {selectedDate.slice(0, 10)}</h3>
+          : null}
       </EventsHeading>
       {unAutohrized
         ? <LandingpageEventContainer>
@@ -86,7 +88,6 @@ const ActiveEventSection = styled.section`
   margin-bottom: 1rem;
 
   @media (min-width: 1024px) {
-    overflow-y: auto;
     width: 100%;
     max-width: 60rem;
     max-height: 36rem;
