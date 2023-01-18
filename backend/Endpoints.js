@@ -253,6 +253,8 @@ export const applyForSpot = async (req, res) => {
             if (error) {
               console.error(error.stack)
               Event.findOneAndUpdate(selectedEvent._id, { $pop: { pendingPartyMembers: userEmail } });
+            } else {
+              console.log('Sent:', info.response)
             }
           })
           res.status(200).json({
