@@ -6,7 +6,7 @@ import { API_URL } from 'utils/utils';
 import { Link, useNavigate } from 'react-router-dom';
 import { FormWrapper, Form, Input } from 'styles/Forms';
 import { FormWrapperContainer } from 'styles/Containers';
-import { Button1 } from 'styles/Button.styles';
+import { FilledButton } from 'styles/Button.styles';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
 import { swalBlurBackground } from 'utils/sweetAlerts';
 import user from 'reducers/user';
@@ -137,7 +137,7 @@ const Register = () => {
 
 export default Register;
 
-const RegisterButton = styled(Button1)`
+const RegisterButton = styled(FilledButton)`
   width: 12rem;
   margin: 0.5rem 0 0 0;
 `

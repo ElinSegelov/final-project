@@ -19,10 +19,7 @@
   font-family: 'Asgalt-Regular';
   src: url(./assets/fonts/Asgalt-Regular.ttf);
 }
-@font-face {
-  font-family: 'Gotham';
-  src: url(./assets/fonts/Gotham-Medium.otf);
-}
+
 @font-face {
   font-family: 'Gotham-Book';
   src: url(./assets/fonts/Gotham-Book.otf);
@@ -31,7 +28,7 @@
 body {
   background-color: #242931;
   color: var(--light);
-  width: 100vw;
+  width: 100%;
 }
 
 h1 {
@@ -61,7 +58,7 @@ button {
 input,
 select,
 textarea {
-  border-radius: 5px;
+  border-radius: 0.6rem;
   background-color: #e9e9f7;
   padding: 5px;
   color: #363c46;
@@ -98,20 +95,23 @@ input::placeholder {
   width: fit-content;
 }
 
+/* .react-datepicker-popper {
+  transform: translate3d(0px, 155px, 0px) !important;
+} */
+
 .react-datepicker {
   margin: 2rem 0;
   width: 90vw;
   margin: 0 auto;
   border-radius: 0.6rem;
 }
+.react-datepicker__input-container input {
+  height: 2.5rem;
+}
+
 @media (min-width: 768px) {
   .react-datepicker {
     margin: 0;
-    width: 30rem;
-  }
-}
-@media(min-width: 1024px) {
-  .react-datepicker {
     width: 30rem;
   }
 }
@@ -166,7 +166,9 @@ input::placeholder {
   width: 12rem;
 }
 
-
+.react-datepicker-ignore-onclickoutside {
+  height: 2.5rem;
+}
 
 /* ----------- DATE PICKER ---------- */
 

@@ -2,11 +2,12 @@
 import React from 'react';
 import BGGData from 'components/userDashboard/events/BGGData';
 import styled from 'styled-components/macro';
-import { FormWrapper, Form, Input, Select } from 'styles/Forms';
+import { FormWrapper, Form, Input, Select, SpotsInformation, TextArea } from 'styles/Forms';
 import DatePicker from 'react-datepicker';
-import { Button1 } from 'styles/Button.styles';
+import { FilledButton, GoBackFromCreateOrEditButton } from 'styles/Button.styles';
 import 'react-datepicker/dist/react-datepicker.css';
 import countys from 'utils/countys';
+import { FaArrowLeft } from 'react-icons/fa'
 
 const CreateEvent = ({
   setEventTime,
@@ -18,7 +19,8 @@ const CreateEvent = ({
   handleDateSelection,
   onFormSubmit,
   eventDate,
-  totalSpots
+  totalSpots,
+  setHandleEvent
 }) => {
   const countyOptions = countys.map((county) => {
     return <option key={county} value={county}>{county}</option>
@@ -26,7 +28,8 @@ const CreateEvent = ({
 
   return (
     <FormWrapper>
-      <h2>Create Event</h2>
+      <GoBackFromCreateOrEditButton type="button" onClick={() => setHandleEvent(false)}><FaArrowLeft /></GoBackFromCreateOrEditButton>
+      <h2>Create event</h2>
       <BGGData />
       <Form onSubmit={onFormSubmit}>
         <DatePicker
@@ -34,7 +37,7 @@ const CreateEvent = ({
           dateFormat="yyyy/MM/dd"
           onSelect={handleDateSelection} />
         <label htmlFor="eventTime">
-          <input
+          <Input
             type="time"
             required
             onChange={(event) => setEventTime(event.target.value)}
@@ -42,13 +45,13 @@ const CreateEvent = ({
             name="eventTime" />
         </label>
         <SpotsInformation>
-          <p>Open spots</p>
+          <p>Players missing</p>
           <legend>
             <label htmlFor="openSpots">
-              <input
+              <Input
                 required
                 type="number"
-                placeholder="Open"
+                placeholder="Missing"
                 id="openSpots"
                 onChange={(event) => setOpenSpots(event.target.value)}
                 name="openSpots"
@@ -57,7 +60,7 @@ const CreateEvent = ({
             </label>
             <p>of</p>
             <label htmlFor="totalSpots">
-              <input
+              <Input
                 required
                 placeholder="Total"
                 type="number"
@@ -92,7 +95,7 @@ const CreateEvent = ({
             name="description"
             rows="4" />
         </label>
-        <Button1 type="submit">Create Event</Button1>
+        <CreateButton type="submit">Create event</CreateButton>
       </Form>
     </FormWrapper>
   )
@@ -100,21 +103,6 @@ const CreateEvent = ({
 
 export default CreateEvent
 
-const SpotsInformation = styled.div`
-  text-align: center;
-  legend {
-    width: 12rem;
-    display: flex;
-    gap: 0.5rem;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
-
-  input {
-    width: 5rem;
-    margin-top: 0.5rem;
-  }
-`
-const TextArea = styled.textarea`
-  width: 12rem;
+const CreateButton = styled(FilledButton)`
+  margin: 0;
 `

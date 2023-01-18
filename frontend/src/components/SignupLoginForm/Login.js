@@ -7,7 +7,7 @@ import user from 'reducers/user';
 import { API_URL } from 'utils/utils';
 import { Form, FormWrapper, Input } from 'styles/Forms';
 import { FormWrapperContainer } from 'styles/Containers';
-import { Button1 } from 'styles/Button.styles';
+import { FilledButton } from 'styles/Button.styles';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
 import { swalBlurBackground } from 'utils/sweetAlerts';
 import events from 'reducers/events';
@@ -98,7 +98,7 @@ const Login = () => {
 
 export default Login;
 
-const LoginButton = styled(Button1)`
+const LoginButton = styled(FilledButton)`
   width: 12rem;
   margin: 0.5rem 0 0 0;
 `

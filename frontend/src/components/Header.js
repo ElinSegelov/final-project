@@ -93,7 +93,7 @@ const NavLinkWrapper = styled.nav`
   height: 200%;
   backdrop-filter: blur(13px);
   background: var(--darkOpacity);
-  z-index: 2;
+  z-index: 3;
   
   @media (min-width: 1024px) {
     position: static;
@@ -145,7 +145,7 @@ const NavText = styled.li`
 `
 
 const Hamburger = styled.div`
-  z-index: 3;
+  z-index: 4;
   
   img {
     width: 1.5rem;

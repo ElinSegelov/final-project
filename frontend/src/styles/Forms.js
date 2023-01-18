@@ -8,14 +8,21 @@ export const FormWrapper = styled.section`
   min-height: 70vh;
   align-items: center;
   background-color: var(--lightDarkOpacity);
-  border-radius: 10px;
+  border-radius: 0.6rem;
   justify-content: center;
   row-gap: 1rem;
-  margin-top: 0;
-  
+  margin-top: 1rem;
+  position: relative;
+  padding: 2rem 0;
+  @media (min-width: 768px) {
+    min-width: 25rem;
+    padding: 2rem;
+    margin-top: 0;
+  }
   @media (min-width: 1024px) {
-    width: 100%;
-    max-width: 100vw;
+    width: 80%;
+    min-height: 60vh;
+    max-width: 27rem;
   }
 `
 export const Form = styled.form`
@@ -33,7 +40,7 @@ export const Input = styled.input`
 export const Select = styled.select`
   //width: 12rem;
   width: 100%;
-  height: 2rem;
+  height: 2.5rem;
   margin-top: 0.5rem;
 `
 
@@ -42,4 +49,27 @@ export const Label = styled.label`
   font-size: 1px;
   height: fit-content;
   position: absolute;
+`
+
+export const SpotsInformation = styled.div`
+  text-align: center;
+  legend {
+    width: 12rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  p {
+    margin-top: 0.5rem;
+  }
+
+  input {
+    width: 5rem;
+    margin-top: 0.5rem;
+  }
+`
+export const TextArea = styled.textarea`
+  width: 12rem;
 `

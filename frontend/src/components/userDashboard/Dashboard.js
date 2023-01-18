@@ -57,7 +57,6 @@ const DashboardWrapper = styled.section`
     width: 100%;
     display: grid;
     grid-template-columns: 28rem 1fr;
-    grid-template-rows: 3rem 1fr
   }
 `
 

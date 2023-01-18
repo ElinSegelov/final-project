@@ -232,7 +232,7 @@ export const applyForSpot = async (req, res) => {
               </p>
               <div style="
                 padding: 1rem 2rem;
-                border-radius: 0.5rem;
+                border-radius: 0.6rem;
                 color: #FFF;
                 background-color: #363c46;">
 
