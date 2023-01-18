@@ -4,7 +4,8 @@ import nodemailer from 'nodemailer';
 
 const salt = bcrypt.genSaltSync()
 
-/* ------------------------------ EVENTS ------------------------------ */
+/* ------------------------------------------ EVENTS ------------------------------------------ */
+/* -------------------------------- getEvents -------------------------------- */
 export const getEvents = async (req, res) => {
   const accessToken = req.header("Authorization");
   const allEvents = await Event.find().sort({ createdAt: "desc" });
@@ -37,6 +38,7 @@ export const getEvents = async (req, res) => {
   }
 }
 
+/* -------------------------------- createEvent -------------------------------- */
 export const createEvent = async (req, res) => {
   const {
     venue,
@@ -92,6 +94,7 @@ export const createEvent = async (req, res) => {
   }
 };
 
+/* -------------------------------- updateEvent -------------------------------- */
 export const updateEvent = async (req, res) => {
   const {
     _id,
@@ -139,6 +142,7 @@ export const updateEvent = async (req, res) => {
   }
 };
 
+/* -------------------------------- deleteEvent -------------------------------- */
 export const deleteEvent = async (req, res) => {
   try {
     const { eventId } = req.body
@@ -195,8 +199,7 @@ export const deleteEvent = async (req, res) => {
   }
 }
 
-/* ------------------------------ EMAIL  ------------------------------ */
-
+/* -------------------------------- applyForSpot -------------------------------- */
 export const applyForSpot = async (req, res) => {
   const { userEmail, username, eventId } = req.body;
 
@@ -273,8 +276,9 @@ export const applyForSpot = async (req, res) => {
   }
 }
 
-/* ------------------------------ REGISTER ------------------------------ */
+/* ------------------------------------------ USER ------------------------------------------ */
 
+/* -------------------------------- registerUser -------------------------------- */
 export const registerUser = async (req, res) => {
   const { username, password, email } = req.body;
   try {
@@ -310,8 +314,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
-/* ------------------------------ LOGIN ------------------------------ */
-
+/* -------------------------------- loginUser -------------------------------- */
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -345,8 +348,7 @@ export const loginUser = async (req, res) => {
   }
 }
 
-/* ------------------------------ USER ------------------------------ */
-
+/* -------------------------------- getUserInfo -------------------------------- */
 export const getUserInfo = async (req, res) => {
   const allUserInfo = [];
   const selectedUser = await User.findOne({ accessToken: req.header("Authorization") });
@@ -372,6 +374,7 @@ export const getUserInfo = async (req, res) => {
   }
 };
 
+/* -------------------------------- updateUserInfo -------------------------------- */
 export const updateUserInfo = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -409,6 +412,7 @@ export const updateUserInfo = async (req, res) => {
   }
 }
 
+/* -------------------------------- deleteUser -------------------------------- */
 export const deleteUser = async (req, res) => {
   try {
     const deletedUser = await User.findOneAndDelete({ accessToken: req.header("Authorization") })

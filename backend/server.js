@@ -3,7 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import { User } from "./Models";
 import dotenv from "dotenv";
-import {
+/* import {
   createEvent,
   getEvents,
   getUserInfo,
@@ -14,7 +14,17 @@ import {
   deleteEvent,
   updateEvent,
   applyForSpot
-} from "./Endpoints";
+} from "./Endpoints"; */
+import { applyForSpot } from "./Endpoints/Events/ApplyForSpot";
+import { createEvent } from "./Endpoints/Events/CreateEvent";
+import { deleteEvent } from "./Endpoints/Events/DeleteEvent";
+import { getEvents } from "./Endpoints/Events/GetEvents";
+import { updateEvent } from "./Endpoints/Events/UpdateEvent";
+import { deleteUser } from "./Endpoints/User/DeleteUser";
+import { getUserInfo } from "./Endpoints/User/GetUserInfo";
+import { loginUser } from "./Endpoints/User/LoginUser";
+import { registerUser } from "./Endpoints/User/RegisterUser";
+import { updateUserInfo } from "./Endpoints/User/UpdateUserInfo";
 
 dotenv.config();
 
