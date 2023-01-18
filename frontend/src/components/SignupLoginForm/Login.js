@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, batch, useSelector } from 'react-redux';
 import user from 'reducers/user';
 import { API_URL } from 'utils/utils';
-import { Form, FormWrapper, Input } from 'styles/Forms';
+import { Form, FormWrapper, Input, ScreenReaderLabel } from 'styles/Forms';
 import { FormWrapperContainer } from 'styles/Containers';
 import { FilledButton } from 'styles/Button.styles';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
@@ -72,7 +72,7 @@ const Login = () => {
         <FormWrapper>
           <Form onSubmit={onFormSubmit}>
             <h2>Login</h2>
-            <label htmlFor="email" />
+            <ScreenReaderLabel htmlFor="email">E-mail</ScreenReaderLabel>
             <Input
               required
               placeholder="E-mail"
@@ -80,7 +80,7 @@ const Login = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)} />
-            <label htmlFor="password" />
+            <ScreenReaderLabel htmlFor="password">Password</ScreenReaderLabel>
             <Input
               required
               placeholder="Password"

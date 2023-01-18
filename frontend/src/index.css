@@ -47,12 +47,28 @@ a {
   margin: 0;
   padding: 0;
   height: fit-content;
+  transition: 0.3s;
+}
+@media(min-width: 1024px) { 
+  a:hover {
+    transform: scale(1.2)
+  }
+
+input:hover, 
+select:hover,
+textarea:hover {
+  background: var(--lightDark);
+  color: var(--light);
+}
 }
 
 button {
   border: none;
   font-size: 16px;
   letter-spacing: 1.5px;
+  height: 2.25rem;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 input,
@@ -65,8 +81,11 @@ textarea {
   border: 1px solid #dadaf7;
 }
 
-input:focus-visible {
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
   outline: 1px solid #aeaed6;
+  transform:scale(1.05);
 }
 
 input::-webkit-input-placeholder {
@@ -95,15 +114,11 @@ input::placeholder {
   width: fit-content;
 }
 
-/* .react-datepicker-popper {
-  transform: translate3d(0px, 155px, 0px) !important;
-} */
-
 .react-datepicker {
   margin: 2rem 0;
-  width: 90vw;
   margin: 0 auto;
   border-radius: 0.6rem;
+  width: 100%;
 }
 .react-datepicker__input-container input {
   height: 2.5rem;
@@ -143,11 +158,24 @@ input::placeholder {
   height: 2.4rem;
   padding-top: 0.4rem;
   margin: 0.25rem;
+  transition: 0.3s;
+}
+.react-datepicker__day:hover {
+  background: var(--dark);
+  color: var(--light);
 }
 
+.react-datepicker__day--today {
+  border: 1px solid var(--light);
+  
+}
 .react-datepicker__day--selected {
   color: #000;
-  background: var(--light);
+  background: var(--light) !important;
+}
+.react-datepicker__day--selected:hover {
+  border: 1px solid var(--light);
+  background: var(--dark) !important;
 }
 
 .react-datepicker__day-name {
@@ -170,7 +198,7 @@ input::placeholder {
   height: 2.5rem;
 }
 
-/* ----------- DATE PICKER ---------- */
+/* ----------- Sweet Alerts ---------- */
 
 .swal2-shown {
   width: 100vw;

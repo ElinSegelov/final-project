@@ -51,6 +51,7 @@ export default Header;
 
 const StyledHeader = styled.header`
   height: 12vh;
+  min-height: 4rem;
   max-width: 100%;
   border-bottom: 1px solid var(--orangeRed);
   background: var(--dark);

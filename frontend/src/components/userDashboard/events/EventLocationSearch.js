@@ -18,8 +18,12 @@ const EventLocationSearch = () => {
       <label htmlFor="county-search">Filter events by county
         <Select id="county-search" onChange={(event) => handleOnChange(event.target.value)}>
           <option value="All">All Swedish countys</option>
-          {countyOptions}
-          <option value="Other">Other</option>
+          <optgroup>
+            {countyOptions}
+          </optgroup>
+          <optgroup>
+            <option value="Other">Rest of world</option>
+          </optgroup>
         </Select>
       </label>
     </CountySearchForm>

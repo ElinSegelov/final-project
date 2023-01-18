@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable operator-linebreak */
 /* eslint-disable react/jsx-closing-tag-location */
 import React, { useState } from 'react';
@@ -6,7 +7,7 @@ import events from 'reducers/events';
 import ui from 'reducers/ui';
 import { LoadingForGameSearch } from 'components/loaders/loadingAnimations';
 import { BGG_API_SEARCH_BY_NAME, BGG_API_SEARCH_BY_OBJECT_ID } from 'utils/utils';
-import { Form, Input, Select } from 'styles/Forms';
+import { Form, Input, ScreenReaderLabel, Select } from 'styles/Forms';
 import styled from 'styled-components/macro';
 
 const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) => {
@@ -83,13 +84,15 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
       </InputWrapper>
       {suggestions.length
         ?
-        <label htmlFor="suggestions">
+        <>
+          <ScreenReaderLabel htmlFor="suggestions">Suggestions based on search</ScreenReaderLabel>
           <GameSelect
             id="suggestions"
             onChange={(event) => selectInputSubmit(event.target.value)}>
             {suggestions}
           </GameSelect>
-        </label>
+        </>
+
         : null}
     </BGGFetchForm>
   )
@@ -99,17 +102,18 @@ export default BGGData;
 const InputWrapper = styled.div`
   position: relative;
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: 2.5rem;
 `
 const LoaderWrapper = styled.div`
   width: 2rem;
   height: 2rem;
   position: absolute;
   right: 0;
+  top: 0.25rem;
 `
 const GameSelect = styled(Select)`
   position: absolute;
-  top: 2rem;
+  top: 2.5rem;
 `
 const BGGFetchForm = styled(Form)`
   width: 12rem;

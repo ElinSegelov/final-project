@@ -69,6 +69,7 @@ export const FormWrapperContainer = styled.div`
   }
   
   @media (min-width: 1024px) {
-    width: 60%;
+    //width: 60%;
+    margin: auto 0;
   }
 `

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, batch, useSelector } from 'react-redux';
 import { API_URL } from 'utils/utils';
 import { Link, useNavigate } from 'react-router-dom';
-import { FormWrapper, Form, Input } from 'styles/Forms';
+import { FormWrapper, Form, Input, ScreenReaderLabel } from 'styles/Forms';
 import { FormWrapperContainer } from 'styles/Containers';
 import { FilledButton } from 'styles/Button.styles';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
@@ -93,36 +93,36 @@ const Register = () => {
         <FormWrapperRegister>
           <Form onSubmit={onFormSubmit}>
             <h2>Register</h2>
-            <label htmlFor="email" />
+            <ScreenReaderLabel htmlFor="email">E-mail</ScreenReaderLabel>
             <Input
               required
-              placeholder="Email Address*"
+              placeholder="Email Address *"
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)} />
-            <label htmlFor="username" />
+            <ScreenReaderLabel htmlFor="username">Username</ScreenReaderLabel>
             <Input
               required
-              placeholder="Username*"
+              placeholder="Username *"
               type="text"
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)} />
-            <label htmlFor="password" />
+            <ScreenReaderLabel htmlFor="password">Password</ScreenReaderLabel>
             <Input
               required
-              placeholder="Password*"
+              placeholder="Password *"
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)} />
-            <label htmlFor="repeatePassword" />
+            <ScreenReaderLabel htmlFor="confirm-password">Confirm password</ScreenReaderLabel>
             <Input
               required
-              placeholder="Confirm your password*"
+              placeholder="Confirm your password *"
               type="password"
-              id="repeatePassword"
+              id="confirm-password"
               value={repeatePassword}
               onChange={(e) => setRepeatePassword(e.target.value)} />
             <div>

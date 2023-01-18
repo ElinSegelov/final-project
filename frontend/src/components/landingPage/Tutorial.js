@@ -25,8 +25,9 @@ const Tutorial = () => {
         <PWrapper4><h3>Roll</h3><p>dice!</p></PWrapper4>
       </TutorialContainer>
     </>
-  )
-}
+  );
+};
+
 export default Tutorial;
 
 const HeadingWrapper = styled.div`
