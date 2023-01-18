@@ -7,7 +7,7 @@ const Tutorial = () => {
   return (
     <>
       <HeadingWrapper>
-        <h2>Looking</h2> <h2>for players<span>?</span></h2>
+        <h2>Looking for</h2><h2>players<span>?</span></h2>
       </HeadingWrapper>
       <TutorialContainer>
         <HorizontalLine1> </HorizontalLine1>
@@ -33,17 +33,22 @@ const HeadingWrapper = styled.div`
   line-height: 1.5;
   font-size: 1.5rem;
   margin: 4vh 0;
-  width: 50%;
   position: relative;
 
   span {
     color: var(--orangeRed);
-    font-size: 7rem;
+    font-size: 6rem;
     position: absolute;
-    top: -1rem;
+    top: 0.5rem;
+    left: 32vw;
   }
 
   @media(min-width: 768px) {
+    span {
+      font-size: 7rem;
+      top: 4.5vh;
+      left: 30vw;
+    }
     h2 {
       font-size: 4rem;
       margin: 0;
@@ -57,9 +62,11 @@ const HeadingWrapper = styled.div`
     width: 60%;
     justify-content: left;
     align-items: flex-end;
-
+    
     span {
       top: 3rem;
+      font-size: 7rem;
+      left: 15rem;
     }
   }
 `
@@ -70,7 +77,9 @@ const TutorialContainer = styled.div`
   column-gap: 1rem;
   width: 90%;
   margin-bottom: 2rem;
-  
+  @media(min-width: 768px) {
+   width: 30rem
+  }
   @media(min-width: 1024px) {
     grid-template-columns: calc(100% - 3rem) 3rem;
     justify-content: right;
@@ -129,15 +138,17 @@ const PWrapper4 = styled(PWrapper)`
   }
 `
 const HorizontalLine = styled.div`
-  border: 1px solid var(--light);
-  width: 2px;
+  visibility: hidden;
   height: 2rem;
   grid-column: 1;
-  margin: 0.5rem auto;
 
   @media(min-width: 1024px) {
+    border: 1px solid var(--light);
+    width: 2px;
+    margin: 0.5rem auto;
     grid-column: 2;
     height: 3rem;
+    visibility: visible;
   }
 `
 const HorizontalLine1 = styled(HorizontalLine)`
