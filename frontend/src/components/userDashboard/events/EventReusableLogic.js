@@ -3,25 +3,24 @@
 import React, { useEffect, useState } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import events from 'reducers/events';
-import ui from 'reducers/ui';
-import { swalBlurBackground } from 'utils/sweetAlerts';
+import { swalInformation } from 'utils/sweetAlerts';
 import { API_URL } from 'utils/utils';
 import { InnerWrapper } from 'styles/Containers';
 import EditEvent from './EditEvent';
 import CreateEvent from './CreateEvent';
 
-const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
-  const [eventDate, setEventDate] = useState(new Date())
+const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEvent }) => {
+  const [eventDate, setEventDate] = useState(new Date());
   const [eventTime, setEventTime] = useState('');
   const [venue, setVenue] = useState('');
   const [openSpots, setOpenSpots] = useState('');
   const [totalSpots, setTotalSpots] = useState('');
   const [description, setDescription] = useState('');
-  const [tempEventInfoForEdit, setTempEventInfoForEdit] = useState({})
-  const [county, setCounty] = useState('')
+  const [tempEventInfoForEdit, setTempEventInfoForEdit] = useState({});
+  const [county, setCounty] = useState('');
   const user = useSelector((store) => store.user.userInfo);
   const selectedGame = useSelector((store) => store.events.selectedGameWithDataFromAPI);
-  const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit)
+  const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit);
 
   let gameName;
   const dispatch = useDispatch()
@@ -36,51 +35,59 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
     setEventDate(date)
   }
 
-  const handleEventValidation = () => {
-    dispatch(ui.actions.setLoading(false))
-    if (editEvent) {
-      swalBlurBackground('Your event has been updated!', 1800)
+  const handleEventValidation = (success) => {
+    if (selectedEventForEdit === tempEventInfoForEdit) {
+      swalInformation('No changes were made', '', 'warning', 2000)
+    } else if (editEvent && success) {
+      swalInformation('Your event has been updated!', '', 'success', 2000)
       setEditEvent(false)
-      setTimeout(() => { window.location.reload() }, 1400)
-      if (selectedEventForEdit === tempEventInfoForEdit) {
-        swalBlurBackground('No changes were made')
-      }
-    } else {
-      swalBlurBackground('Your event has been created!', 1800)
+      setTimeout(() => { window.location.reload() }, 2000)
+    } else if (handleEvent) {
+      swalInformation('Your event has been created!', '', 'success', 2000)
       setHandleEvent(false)
-      setTimeout(() => { window.location.reload() }, 1400)
+      setTimeout(() => { window.location.reload() }, 2000)
+    } else {
+      swalInformation('Your event has been created!', '', 'success', 2000)
+      setHandleEvent(false)
+      setEditEvent(false)
+      setTimeout(() => { window.location.reload() }, 2000)
     }
   }
 
   const onFormSubmit = (event) => {
     event.preventDefault()
-    dispatch(ui.actions.setLoading(true))
     if (editEvent) {
-      const options = {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': user.accessToken
-        },
-        body: JSON.stringify(
-          tempEventInfoForEdit
-        )
+      if (selectedEventForEdit !== tempEventInfoForEdit) {
+        const options = {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': user.accessToken
+          },
+          body: JSON.stringify(
+            tempEventInfoForEdit
+          )
+        }
+        fetch(API_URL('event'), options)
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              batch(() => {
+                dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
+                dispatch(events.actions.setError(null))
+                handleEventValidation(data.success)
+              })
+            } else {
+              batch(() => {
+                dispatch(events.actions.setError(data.response))
+                handleEventValidation(data.success)
+              })
+            }
+          })
+          .catch((error) => console.error(error.stack))
+      } else {
+        handleEventValidation()
       }
-      fetch(API_URL('event'), options)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.success) {
-            batch(() => {
-              dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
-              dispatch(events.actions.setError(null))
-            })
-          } else {
-            batch(() => {
-              dispatch(events.actions.setError(data.response))
-            })
-          }
-        })
-        .finally(() => handleEventValidation())
     } else {
       // The games sometimes have several titles. We check if there are more than one title, if so,
       // we find the primary one.
@@ -117,11 +124,15 @@ const EventReusableLogic = ({ setHandleEvent, editEvent, setEditEvent }) => {
           if (data.success) {
             dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
             dispatch(events.actions.setError(null))
+            handleEventValidation(data.success)
           } else {
             dispatch(events.actions.setError(data.response))
+            handleEventValidation(data.success)
           }
         })
-        .finally(() => handleEventValidation())
+        .catch((err) => {
+          console.error(err.stack)
+        })
     }
   }
   return (

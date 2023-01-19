@@ -1,8 +1,7 @@
 /* eslint-disable quote-props */
 import { createSlice } from '@reduxjs/toolkit';
-import { swalBlurBackground } from 'utils/sweetAlerts';
+import { swalInformation } from 'utils/sweetAlerts';
 import { API_URL } from 'utils/utils';
-import ui from './ui';
 
 const events = createSlice({
   name: 'events',
@@ -48,7 +47,6 @@ export default events;
 
 export const loadEvents = (accessToken) => {
   return async (dispatch) => {
-    dispatch(ui.actions.setLoading(true))
     const options = {
       method: 'GET',
       headers: {
@@ -65,9 +63,7 @@ export const loadEvents = (accessToken) => {
     } catch (error) {
       console.error(error.stack);
       dispatch(events.actions.setError(error.message))
-      swalBlurBackground('Could not load any events. Try again later', 2500)
-    } finally {
-      dispatch(ui.actions.setLoading(false))
+      swalInformation('Could not load any events.', 'Try again later', 'error', 3000)
     }
   }
 }

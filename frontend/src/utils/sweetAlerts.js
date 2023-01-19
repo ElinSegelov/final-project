@@ -14,4 +14,16 @@ export const swalBlurBackground = (text, time) => {
   })
 }
 
+export const swalInformation = (title, text, icon, timer) => {
+  Swal.fire({
+    title,
+    text,
+    icon,
+    color: '#dddddd',
+    background: 'transparent',
+    showConfirmButton: false,
+    timer
+  })
+}
+
 // TODO: ta timer som parameter och ändra det beroende av länged av texten

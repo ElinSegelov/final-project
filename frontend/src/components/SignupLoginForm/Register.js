@@ -4,11 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, batch, useSelector } from 'react-redux';
 import { API_URL } from 'utils/utils';
 import { Link, useNavigate } from 'react-router-dom';
-import { FormWrapper, Form, Input } from 'styles/Forms';
+import { FormWrapper, Form, Input, ScreenReaderLabel } from 'styles/Forms';
 import { FormWrapperContainer } from 'styles/Containers';
 import { FilledButton } from 'styles/Button.styles';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
-import { swalBlurBackground } from 'utils/sweetAlerts';
+import { swalBlurBackground, swalInformation } from 'utils/sweetAlerts';
 import user from 'reducers/user';
 import ui from 'reducers/ui';
 import styled from 'styled-components/macro';
@@ -18,7 +18,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [repeatePassword, setRepeatePassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
   const [email, setEmail] = useState('');
   const userId = useSelector((store) => store.user.userInfo.userId);
   const accessToken = useSelector((store) => store.user.userInfo.accessToken);
@@ -35,7 +35,7 @@ const Register = () => {
     if (password.length < 8) {
       swalBlurBackground('Password must be at least 8 characters', 2000)
       setPassword('')
-      setRepeatePassword('')
+      setRepeatPassword('')
     } else if (data.response.keyValue.username === username) {
       swalBlurBackground('This username already exist', 1800)
       setUsername('')
@@ -51,6 +51,7 @@ const Register = () => {
   }
 
   const onFormSubmit = (event) => {
+    dispatch(ui.actions.setLoading(true))
     event.preventDefault()
     const options = {
       method: 'POST',
@@ -59,7 +60,7 @@ const Register = () => {
       },
       body: JSON.stringify({ username, password, email })
     }
-    if (password === repeatePassword) {
+    if (password === repeatPassword) {
       fetch(API_URL('register'), options)
         .then((res) => res.json())
         .then((data) => {
@@ -76,13 +77,14 @@ const Register = () => {
               handleValidation(data)
             });
           }
-        }).catch((error) => {
+        })
+        .catch((error) => {
           console.error(error.stack)
-          swalBlurBackground('Something went wrong. Please, try again later', 2200)
+          swalBlurBackground('Something went wrong. Please, try again later', 2000)
         })
         .finally(() => dispatch(ui.actions.setLoading(false)))
-    } else if (password !== repeatePassword) {
-      swalBlurBackground('Passwords are not equal', 1800)
+    } else if (password !== repeatPassword) {
+      swalInformation('Passwords are not equal', '', 'warning', 2000)
     }
   }
   return (
@@ -93,38 +95,38 @@ const Register = () => {
         <FormWrapperRegister>
           <Form onSubmit={onFormSubmit}>
             <h2>Register</h2>
-            <label htmlFor="email" />
+            <ScreenReaderLabel htmlFor="email">E-mail</ScreenReaderLabel>
             <Input
               required
-              placeholder="Email Address*"
+              placeholder="Email Address *"
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)} />
-            <label htmlFor="username" />
+            <ScreenReaderLabel htmlFor="username">Username</ScreenReaderLabel>
             <Input
               required
-              placeholder="Username*"
+              placeholder="Username *"
               type="text"
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)} />
-            <label htmlFor="password" />
+            <ScreenReaderLabel htmlFor="password">Password</ScreenReaderLabel>
             <Input
               required
-              placeholder="Password*"
+              placeholder="Password *"
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)} />
-            <label htmlFor="repeatePassword" />
+            <ScreenReaderLabel htmlFor="confirm-password">Confirm password</ScreenReaderLabel>
             <Input
               required
-              placeholder="Confirm your password*"
+              placeholder="Confirm your password *"
               type="password"
-              id="repeatePassword"
-              value={repeatePassword}
-              onChange={(e) => setRepeatePassword(e.target.value)} />
+              id="confirm-password"
+              value={repeatPassword}
+              onChange={(e) => setRepeatPassword(e.target.value)} />
             <div>
               <RegisterButton type="submit">Register</RegisterButton>
             </div>

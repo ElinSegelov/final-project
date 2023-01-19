@@ -7,6 +7,13 @@ export const FilledButton = styled.button`
   margin: 0.5rem;
   background: var(--orangeRed);
   color: #000;
+  @media(min-width: 1024px) { 
+    &:hover {
+      background: var(--dark);
+      color: var(--light);
+      border: #DE605B 1px solid;
+    }
+  }
 `
 export const ButtonReversed = styled.button`
   padding: 0.5rem;
@@ -16,6 +23,13 @@ export const ButtonReversed = styled.button`
   color: var(--light);
   width: 100%;
   max-width: 30rem;
+
+  @media(min-width: 1024px) {
+    &:hover {
+      background: var(--orangeRed);
+      color: #000;
+    }
+  }
 `
 export const TransparentButton = styled.button`
   width: 2rem;
@@ -26,7 +40,12 @@ export const TransparentButton = styled.button`
   border: none;
   color: var(--light);
   font-size: 1.5rem;
-`
+  @media(min-width: 1024px) { 
+    &:hover {
+      transform: scale(1.2)
+    }
+  }
+  `
 
 export const GoBackFromCreateOrEditButton = styled(TransparentButton)`
   position: absolute;

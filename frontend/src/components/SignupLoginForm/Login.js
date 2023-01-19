@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, batch, useSelector } from 'react-redux';
 import user from 'reducers/user';
+import ui from 'reducers/ui';
 import { API_URL } from 'utils/utils';
-import { Form, FormWrapper, Input } from 'styles/Forms';
+import { Form, FormWrapper, Input, ScreenReaderLabel } from 'styles/Forms';
 import { FormWrapperContainer } from 'styles/Containers';
 import { FilledButton } from 'styles/Button.styles';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
@@ -35,6 +36,7 @@ const Login = () => {
     swalBlurBackground(data.response, 2000)
   }
   const onFormSubmit = (event) => {
+    dispatch(ui.actions.setLoading(true))
     event.preventDefault()
     const options = {
       method: 'POST',
@@ -59,10 +61,12 @@ const Login = () => {
             handleValidation(data)
           });
         }
-      }).catch((error) => {
-        console.error(error)
-        swalBlurBackground('Something went wrong. Please try again later', 2200)
       })
+      .catch((error) => {
+        console.error(error)
+        swalBlurBackground('Something went wrong. Please try again later', 2000)
+      })
+      .finally(() => dispatch(ui.actions.setLoading(false)))
   }
   return (
     <FormWrapperContainer>
@@ -72,7 +76,7 @@ const Login = () => {
         <FormWrapper>
           <Form onSubmit={onFormSubmit}>
             <h2>Login</h2>
-            <label htmlFor="email" />
+            <ScreenReaderLabel htmlFor="email">E-mail</ScreenReaderLabel>
             <Input
               required
               placeholder="E-mail"
@@ -80,7 +84,7 @@ const Login = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)} />
-            <label htmlFor="password" />
+            <ScreenReaderLabel htmlFor="password">Password</ScreenReaderLabel>
             <Input
               required
               placeholder="Password"

@@ -3,6 +3,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import Swal from 'sweetalert2';
+import { swalInformation } from 'utils/sweetAlerts';
 import { useDispatch, useSelector } from 'react-redux';
 import { RiEdit2Fill } from 'react-icons/ri';
 import { IoMdTime } from 'react-icons/io';
@@ -32,7 +33,7 @@ const EventCard = ({
   eventDate,
   image,
   setEditEvent,
-  setHandleEvent,
+  // setHandleEvent,
   isHost
 }) => {
   const dispatch = useDispatch();
@@ -45,23 +46,17 @@ const EventCard = ({
   const handleEditEvent = () => {
     dispatch(events.actions.setSelectedEventForEdit(selectedEventForEditOrRemove))
     setEditEvent(true)
-    setHandleEvent(false)
+    // setHandleEvent(false)
   }
   const handleValidation = (success) => {
     if (success) {
-      Swal.fire(
-        'Deleted!',
-        'Your event has been deleted.',
-        'success'
-      )
+      console.log('if success', success)
+      swalInformation('Deleted!', 'Your event has been deleted.', 'success', 2000)
     } else {
-      Swal.fire(
-        'Something went wrong!',
-        'Event could not be deleted. Try again',
-        'error'
-      )
+      console.log('else success', success)
+      swalInformation('Something went wrong!', 'Event could not be deleted. Try again', 'error', 2000)
     }
-    window.location.reload()
+    setTimeout(() => { window.location.reload() }, 2000)
   }
   const handleDeleteEvent = () => {
     const options = {
@@ -77,7 +72,7 @@ const EventCard = ({
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: 'question',
       showCancelButton: true,
       background: 'transparent',
       color: '#DE605B',
@@ -98,9 +93,6 @@ const EventCard = ({
           })
           .catch((err) => {
             console.error(err.stack)
-          })
-          .finally(() => {
-            handleValidation()
           })
       }
     })

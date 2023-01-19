@@ -1,22 +1,21 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import { User } from "./Models";
 import dotenv from "dotenv";
-import {
-  createEvent,
-  getEvents,
-  getUserInfo,
-  loginUser,
-  registerUser,
-  updateUserInfo,
-  deleteUser,
-  deleteEvent,
-  updateEvent,
-  applyForSpot
-} from "./Endpoints";
+import { User } from "./Models";
+import { applyForSpot } from "./Endpoints/Events/ApplyForSpot";
+import { createEvent } from "./Endpoints/Events/CreateEvent";
+import { deleteEvent } from "./Endpoints/Events/DeleteEvent";
+import { getEvents } from "./Endpoints/Events/GetEvents";
+import { updateEvent } from "./Endpoints/Events/UpdateEvent";
+import { deleteUser } from "./Endpoints/User/DeleteUser";
+import { getUserInfo } from "./Endpoints/User/GetUserInfo";
+import { loginUser } from "./Endpoints/User/LoginUser";
+import { registerUser } from "./Endpoints/User/RegisterUser";
+import { updateUserInfo } from "./Endpoints/User/UpdateUserInfo";
 
 dotenv.config();
+mongoose.set('strictQuery', true);
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -27,7 +26,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
 
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
@@ -69,7 +67,7 @@ app.patch("/user", updateUserInfo);
 app.delete("/user", authenticateUser);
 app.delete("/user", deleteUser);
 
-// -------------------------------- EVENTS --------------------------------
+// -------------------------------- EVENTS ------------------------------
 app.post("/event", authenticateUser);
 app.post("/event", createEvent);
 
@@ -86,7 +84,6 @@ app.patch("/event", updateEvent);
 
 app.post("/applyForSpot", authenticateUser);
 app.post("/applyForSpot", applyForSpot);
-
 
 // Start the server
 app.listen(port, () => {

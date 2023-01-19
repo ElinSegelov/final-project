@@ -44,7 +44,7 @@ export const Select = styled.select`
   margin-top: 0.5rem;
 `
 
-export const Label = styled.label`
+export const ScreenReaderLabel = styled.label`
   visibility: hidden;
   font-size: 1px;
   height: fit-content;

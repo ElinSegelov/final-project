@@ -27,10 +27,10 @@ const LandingPage = () => {
           </RegisterLoginWrapper> : null}
       </TutorialSection>
     </LandingpageInnerWrapper>
-  )
-}
+  );
+};
 
-export default LandingPage
+export default LandingPage;
 
 const LandingpageInnerWrapper = styled(InnerWrapper)`
   min-height: 100vh;

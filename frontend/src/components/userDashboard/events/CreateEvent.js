@@ -2,7 +2,7 @@
 import React from 'react';
 import BGGData from 'components/userDashboard/events/BGGData';
 import styled from 'styled-components/macro';
-import { FormWrapper, Form, Input, Select, SpotsInformation, TextArea } from 'styles/Forms';
+import { FormWrapper, Form, Input, Select, SpotsInformation, TextArea, ScreenReaderLabel } from 'styles/Forms';
 import DatePicker from 'react-datepicker';
 import { FilledButton, GoBackFromCreateOrEditButton } from 'styles/Button.styles';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -36,65 +36,60 @@ const CreateEvent = ({
           selected={eventDate}
           dateFormat="yyyy/MM/dd"
           onSelect={handleDateSelection} />
-        <label htmlFor="eventTime">
-          <Input
-            type="time"
-            required
-            onChange={(event) => setEventTime(event.target.value)}
-            id="eventTime"
-            name="eventTime" />
-        </label>
+        <ScreenReaderLabel htmlFor="eventTime">Event time</ScreenReaderLabel>
+        <Input
+          type="time"
+          required
+          onChange={(event) => setEventTime(event.target.value)}
+          id="eventTime" />
+
         <SpotsInformation>
           <p>Players missing</p>
           <legend>
-            <label htmlFor="openSpots">
-              <Input
-                required
-                type="number"
-                placeholder="Missing"
-                id="openSpots"
-                onChange={(event) => setOpenSpots(event.target.value)}
-                name="openSpots"
-                min="1"
-                max={totalSpots} />
-            </label>
+            <ScreenReaderLabel htmlFor="openSpots">Number of players missing</ScreenReaderLabel>
+            <Input
+              required
+              type="number"
+              placeholder="Missing"
+              id="openSpots"
+              onChange={(event) => setOpenSpots(event.target.value)}
+              min="1"
+              max={totalSpots} />
+
             <p>of</p>
-            <label htmlFor="totalSpots">
-              <Input
-                required
-                placeholder="Total"
-                type="number"
-                id="totalSpots"
-                onChange={(event) => setTotalSpots(event.target.value)}
-                name="totalSpots"
-                min="1"
-                max="8" />
-            </label>
+            <ScreenReaderLabel htmlFor="totalSpots">Number of players when party is full</ScreenReaderLabel>
+            <Input
+              required
+              placeholder="Total"
+              type="number"
+              id="totalSpots"
+              onChange={(event) => setTotalSpots(event.target.value)}
+              min="1"
+              max="8" />
           </legend>
         </SpotsInformation>
-        <Select onChange={(event) => setCounty(event.target.value)}>
+        <ScreenReaderLabel htmlFor="countySelect">Select county</ScreenReaderLabel>
+        <Select id="countySelect" onChange={(event) => setCounty(event.target.value)}>
           <option value={null}>Select county</option>
           {countyOptions}
           <option value="Other">Rest of world</option>
         </Select>
-        <label htmlFor="venue">
-          <Input
-            placeholder="Where will you play?"
-            required
-            onChange={(event) => setVenue(event.target.value)}
-            type="text"
-            id="venue"
-            name="venue" />
-        </label>
-        <label htmlFor="description">
-          <TextArea
-            placeholder="Describe the event"
-            maxLength={300}
-            id="description"
-            onChange={(event) => setDescription(event.target.value)}
-            name="description"
-            rows="4" />
-        </label>
+        <ScreenReaderLabel htmlFor="venue">In what town/municipality is the event?</ScreenReaderLabel>
+        <Input
+          placeholder="City/Town/Municipality"
+          required
+          onChange={(event) => setVenue(event.target.value)}
+          type="text"
+          id="venue" />
+
+        <ScreenReaderLabel htmlFor="description">Describe the event (optional)</ScreenReaderLabel>
+        <TextArea
+          placeholder="Describe the event"
+          maxLength={300}
+          id="description"
+          onChange={(event) => setDescription(event.target.value)}
+          rows="4" />
+
         <CreateButton type="submit">Create event</CreateButton>
       </Form>
     </FormWrapper>
