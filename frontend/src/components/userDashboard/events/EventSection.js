@@ -19,8 +19,9 @@ const EventSection = () => {
     <SectionWrapper>
       {handleEvent
         ? <EventReusableLogic
-            editEvent={editEvent}
-            setHandleEvent={setHandleEvent} />
+            handleEvent={handleEvent}
+            setHandleEvent={setHandleEvent}
+            editEvent={editEvent} />
         : editEvent
           ? <EventReusableLogic
               editEvent={editEvent}

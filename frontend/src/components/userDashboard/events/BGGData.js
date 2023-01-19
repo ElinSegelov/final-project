@@ -87,8 +87,11 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
         <>
           <ScreenReaderLabel htmlFor="suggestions">Suggestions based on search</ScreenReaderLabel>
           <GameSelect
+            required
+            defaultValue=""
             id="suggestions"
             onChange={(event) => selectInputSubmit(event.target.value)}>
+            <option value="" disabled>Select game</option>
             {suggestions}
           </GameSelect>
         </>
