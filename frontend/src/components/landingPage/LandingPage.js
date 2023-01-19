@@ -37,7 +37,6 @@ const LandingpageInnerWrapper = styled(InnerWrapper)`
   position: relative;
   width: fit-content;
 `
-
 const TutorialSection = styled.section`
   display: flex;
   flex-direction: column;
@@ -52,14 +51,13 @@ const TutorialSection = styled.section`
     align-items: flex-start;
   }
 `
-
 const CalendarAndEvents = styled(CalenderAndCardWrapper)`
-@media (min-width: 768px) {
-  width: 30rem;
+  @media (min-width: 768px) {
+    width: 30rem;
+    }
+  @media (min-width: 1024px) {
+    margin: 0;
   }
-@media (min-width: 1024px) {
-  margin: 0;
-}
 `
 const RegisterLoginWrapper = styled.div`
   @media (min-width: 1024px) {
@@ -67,8 +65,6 @@ const RegisterLoginWrapper = styled.div`
     bottom: 0rem;
     right: 0;
     top: calc(14vh + 48rem);
-    padding: 
-    
   }
 `
 const LoginButton = styled(ButtonReversed)`

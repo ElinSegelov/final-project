@@ -7,7 +7,7 @@ import DatePicker from 'react-datepicker';
 import { FilledButton, GoBackFromCreateOrEditButton } from 'styles/Button.styles';
 import 'react-datepicker/dist/react-datepicker.css';
 import countys from 'utils/countys';
-import { FaArrowLeft } from 'react-icons/fa'
+import { FaArrowLeft } from 'react-icons/fa';
 
 const CreateEvent = ({
   setEventTime,
@@ -24,7 +24,7 @@ const CreateEvent = ({
 }) => {
   const countyOptions = countys.map((county) => {
     return <option key={county} value={county}>{county}</option>
-  })
+  });
 
   return (
     <FormWrapper>
@@ -93,10 +93,10 @@ const CreateEvent = ({
         <CreateButton type="submit">Create event</CreateButton>
       </Form>
     </FormWrapper>
-  )
-}
+  );
+};
 
-export default CreateEvent
+export default CreateEvent;
 
 const CreateButton = styled(FilledButton)`
   margin: 0;

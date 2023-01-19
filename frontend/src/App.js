@@ -7,6 +7,7 @@ import user from 'reducers/user';
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import Register from 'components/SignupLoginForm/Register';
 import NotFound from 'components/NotFound';
+import UnderConstruction from 'components/UnderConstruction'
 import LandingPage from 'components/landingPage/LandingPage';
 import Header from 'components/Header';
 import Dashboard from 'components/userDashboard/Dashboard';
@@ -20,10 +21,10 @@ const App = () => {
     events: events.reducer,
     ui: ui.reducer,
     user: user.reducer
-  })
-  const store = configureStore({
-    reducer
-  })
+  });
+
+  const store = configureStore({ reducer });
+
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -32,6 +33,7 @@ const App = () => {
           <BackgroundImage src={BackgroundImg} alt="" />
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/underConstruction" element={<UnderConstruction />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/user/:id" element={<Dashboard />} />
@@ -41,8 +43,9 @@ const App = () => {
         </Main>
       </BrowserRouter>
     </Provider>
-  )
-}
+  );
+};
+
 export default App;
 
 const BackgroundImage = styled.img`

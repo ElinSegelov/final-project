@@ -2,16 +2,16 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { FormWrapper } from 'styles/Forms';
 
-const NotFound = () => {
+const UnderConstruction = () => {
   return (
     <NotFoundWrapper>
-      <h1>404</h1>
-      <p>Page not found</p>
+      <h1>Under construction</h1>
+      <p>Stay tuned!</p>
     </NotFoundWrapper>
   );
 };
 
-export default NotFound;
+export default UnderConstruction;
 
 const NotFoundWrapper = styled(FormWrapper)`
   min-height: calc(100vh - 17vh);

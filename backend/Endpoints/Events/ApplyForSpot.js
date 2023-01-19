@@ -8,22 +8,22 @@ export const applyForSpot = async (req, res) => {
     res.status(400).json({
       success: false,
       message: 'Request requires "userEmail", "username" and "eventId". At least one of these are missing'
-    })
+    });
   } else {
     try {
-      const selectedEvent = await Event.findOne({ _id: eventId })
+      const selectedEvent = await Event.findOne({ _id: eventId });
       if (selectedEvent) {
         try {
           await Event.findOneAndUpdate(selectedEvent._id, { $push: { pendingPartyMembers: userEmail } });
-          const host = await User.findOne({ _id: selectedEvent.hostId })
+          const host = await User.findOne({ _id: selectedEvent.hostId });
 
           let transporter = nodemailer.createTransport({
             service: "hotmail",
             auth: {
               user: process.env.EMAIL,
               pass: process.env.EMAIL_PASSWORD,
-            },
-          })
+            }
+          });
 
           const messageToHost = {
             from: process.env.EMAIL,
@@ -49,32 +49,32 @@ export const applyForSpot = async (req, res) => {
                 </p>
               </div>
             `
-          }
+          };
           transporter.sendMail(messageToHost, (error, info) => {
             if (error) {
               console.error(error.stack)
               Event.findOneAndUpdate(selectedEvent._id, { $pop: { pendingPartyMembers: userEmail } });
             } else {
               console.log('Sent:', info.response)
-            }
-          })
+            };
+          });
           res.status(200).json({
             success: true,
             message: 'User has been added to list of pendingPartyMembers and the host of the event has been notified'
-          })
+          });
         } catch (err) {
           res.status(400).json({
             success: false,
             error: err.stack,
             response: 'Could not add user to list of pendingPartyMembers'
-          })
-        }
-      }
+          });
+        };
+      };
     } catch (err) {
       res.status(500).json({
         success: false,
         response: err.message
-      })
-    }
-  }
-}
+      });
+    };
+  };
+};

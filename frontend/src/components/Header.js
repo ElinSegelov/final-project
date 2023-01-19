@@ -10,7 +10,7 @@ import logo from '../assets/images/logo.png';
 
 const Header = () => {
   const [navMenuActive, setNavMenuActive] = useState(false);
-  const accessToken = useSelector((store) => store.user.userInfo.accessToken)
+  const accessToken = useSelector((store) => store.user.userInfo.accessToken);
 
   const showNavLinks = () => {
     if (navMenuActive === false) {
@@ -18,7 +18,7 @@ const Header = () => {
     } else {
       setNavMenuActive(false);
     }
-  }
+  };
   return (
     <StyledHeader>
       <FlexDiv>
@@ -26,8 +26,8 @@ const Header = () => {
         <NavLinkWrapper style={navMenuActive ? { display: 'flex' } : { display: 'none' }}>
           <NavLinks>
             <NavLink to="/" end><NavText>Home</NavText></NavLink>
-            <NavLink to="/howItWorks"><NavText>How it works</NavText></NavLink>
-            <NavLink to="/aboutUs"><NavText>About us</NavText></NavLink>
+            <NavLink to="/underConstruction"><NavText>How it works</NavText></NavLink>
+            <NavLink to="/underConstruction"><NavText>About us</NavText></NavLink>
             <NavLink to="/login"><NavText>Profile</NavText></NavLink>
             {!accessToken ? <NavLink to="/login"><NavText>Log in</NavText></NavLink> : null}
           </NavLinks>
@@ -55,7 +55,6 @@ const StyledHeader = styled.header`
   max-width: 100%;
   border-bottom: 1px solid var(--orangeRed);
   background: var(--dark);
-
 `
 const Logo = styled.img`
   width: 13rem;
@@ -63,7 +62,6 @@ const Logo = styled.img`
     width: 20rem;
   }
 `
-
 const FlexDiv = styled.div`
   display: flex;
   padding: 1rem;
@@ -80,6 +78,7 @@ const FlexDivUserAndHamburger = styled.div`
   height: 12vh;
   padding: 1rem 0 ;
   align-items: center;
+  
   @media (min-width: 1024px) {
     justify-content: right;
     display: none;
@@ -127,7 +126,6 @@ const NavLinks = styled.ul`
     padding: 0 1rem;
   }
 `
-
 const NavText = styled.li`
   font-size: 1.6rem;
   font-family: 'Gotham-Book', sans-serif;
@@ -138,13 +136,7 @@ const NavText = styled.li`
     margin: 0;
     font-size: 16px;    
   }
-  span {
-    @media (min-width: 1024px) {
-      display: none;
-    }
-  }
 `
-
 const Hamburger = styled.div`
   z-index: 4;
   

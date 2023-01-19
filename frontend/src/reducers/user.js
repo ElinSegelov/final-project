@@ -14,7 +14,7 @@ const user = createSlice({
       store.error = action.payload;
     },
     setLoggedInUser: (store, action) => {
-      store.userInfo = action.payload
+      store.userInfo = action.payload;
     }
   }
 });

@@ -10,17 +10,17 @@ export const getUserInfo = async (req, res) => {
       email: user.email,
       hostingEvents: user.hostingEvents,
       attendingEvent: user.attendingEvents
-    })
-  })
+    });
+  });
   try {
     res.status(200).json({
       success: true,
       response: userInfo
-    })
+    });
   } catch (err) {
     res.status(400).json({
       success: false,
       response: err
-    })
-  }
+    });
+  };
 };

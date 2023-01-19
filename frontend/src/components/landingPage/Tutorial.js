@@ -58,6 +58,7 @@ const HeadingWrapper = styled.div`
       font-size: 3rem;
     }
   }
+
   @media(min-width: 1024px) {
     min-width: 1000px;
     width: 60%;
@@ -78,9 +79,11 @@ const TutorialContainer = styled.div`
   column-gap: 1rem;
   width: 90%;
   margin-bottom: 2rem;
+
   @media(min-width: 768px) {
    width: 30rem
   }
+  
   @media(min-width: 1024px) {
     grid-template-columns: calc(100% - 3rem) 3rem;
     justify-content: right;
@@ -91,7 +94,6 @@ const TutorialContainer = styled.div`
     top: 13vh;
   }
 `
-
 const PWrapper = styled.div`
   grid-column: 2;
   font-size: 1.25rem;
@@ -106,18 +108,20 @@ const PWrapper = styled.div`
   p {
    padding-top: 0.16rem;
   }
+
   @media(min-width: 1024px) {
     grid-column: 1;
     display: block;
     line-height: 0.9;
   
     h3 {
-    font-size: 50px;
-    font-weight: bold;
-  }
-  p {
-    font-size: 24px;
-  }
+      font-size: 50px;
+      font-weight: bold;
+    }
+  
+    p {
+      font-size: 24px;
+    }
 } 
 `
 const PWrapper1 = styled(PWrapper)`

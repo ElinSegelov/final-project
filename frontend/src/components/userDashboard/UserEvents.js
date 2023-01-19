@@ -6,8 +6,8 @@ import styled from 'styled-components/macro';
 import EventCard from './events/EventCard';
 
 const UserEvents = () => {
-  const userHostingEvents = useSelector((store) => store.user.userInfo.hostingEvents)
-  const hostingEvents = []
+  const userHostingEvents = useSelector((store) => store.user.userInfo.hostingEvents);
+  const hostingEvents = [];
 
   if (userHostingEvents) {
     const tempArrayForEvents = userHostingEvents.map((event) => {
@@ -20,9 +20,9 @@ const UserEvents = () => {
           totalSpots={event.totalSpots}
           eventDate={event.eventDate.slice(0, 10)}
           isHost />
-      )
-    })
-    hostingEvents.push(tempArrayForEvents)
+      );
+    });
+    hostingEvents.push(tempArrayForEvents);
   }
   return (
     <UserEventSection>
@@ -30,8 +30,8 @@ const UserEvents = () => {
         {hostingEvents}
       </UsersEventCardsContainer>
     </UserEventSection>
-  )
-}
+  );
+};
 
 export default UserEvents;
 
@@ -42,7 +42,6 @@ const UserEventSection = styled.section`
     max-height: 100%;
     overflow-y: auto;
     display: block;
-
   }
 `
 const UsersEventCardsContainer = styled(StyledEventCardContainer)`

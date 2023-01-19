@@ -30,7 +30,7 @@ export const createEvent = async (req, res) => {
       description,
       image
     }).save();
-    const savedEventInUserSchema = await User.findByIdAndUpdate(user._id, { $addToSet: { hostingEvents: newEvent } })
+    const savedEventInUserSchema = await User.findByIdAndUpdate(user._id, { $addToSet: { hostingEvents: newEvent } });
     if (savedEventInUserSchema) {
       const host = await User.findOne({ _id: newEvent.hostId })
       res.status(201).json({
@@ -46,11 +46,11 @@ export const createEvent = async (req, res) => {
           message: "Event created"
         }
       });
-    }
+    };
   } catch (err) {
     res.status(500).json({
       success: false,
       response: err.stack
     });
-  }
+  };
 };

@@ -7,20 +7,19 @@ export const LoadingBlurBackground = () => {
     <LoaderWrapper>
       <GifLoader src={loaderOrange} alt="loader" />
     </LoaderWrapper>
-  )
-}
+  );
+};
 
 export const LoadingForGameSearch = () => {
   return (
     <GifLoader src={loaderOrange} alt="loader" />
-  )
-}
+  );
+};
 
 const GifLoader = styled.img`
   width: 100%;
   height: auto;
 `
-
 const LoaderWrapper = styled.div`
   display: flex;
   align-items:center;

@@ -2,7 +2,7 @@
 /* eslint-disable operator-linebreak */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, batch, useSelector } from 'react-redux';
-import { API_URL } from 'utils/utils';
+import { API_URL } from 'utils/urls';
 import { Link, useNavigate } from 'react-router-dom';
 import { FormWrapper, Form, Input, ScreenReaderLabel } from 'styles/Forms';
 import { FormWrapperContainer } from 'styles/Containers';
@@ -22,59 +22,59 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const userId = useSelector((store) => store.user.userInfo.userId);
   const accessToken = useSelector((store) => store.user.userInfo.accessToken);
-  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
-  const isLoading = useSelector((store) => store.ui.isLoading)
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+  const isLoading = useSelector((store) => store.ui.isLoading);
 
   useEffect(() => {
     if (loggedInUser || accessToken) {
       navigate(`/user/${userId}`);
     }
-  }, [loggedInUser, accessToken, navigate, userId])
+  }, [loggedInUser, accessToken, navigate, userId]);
 
   const handleValidation = (data) => {
     if (password.length < 8) {
-      swalBlurBackground('Password must be at least 8 characters', 2000)
-      setPassword('')
-      setRepeatPassword('')
+      swalBlurBackground('Password must be at least 8 characters', 2000);
+      setPassword('');
+      setRepeatPassword('');
     } else if (data.response.keyValue.username === username) {
-      swalBlurBackground('This username already exist', 1800)
-      setUsername('')
+      swalBlurBackground('This username already exist', 2000);
+      setUsername('');
     } else if (data.response.keyValue.email === email) {
-      swalBlurBackground('This email already exist', 1800)
-      setEmail('')
+      swalBlurBackground('This email already exist', 2000);
+      setEmail('');
     } else {
-      setPassword('')
-      setUsername('')
-      setEmail('')
-      swalBlurBackground('Something went wrong. Please try again later', 2000)
+      setPassword('');
+      setUsername('');
+      setEmail('');
+      swalBlurBackground('Something went wrong. Please try again later', 2000);
     }
-  }
+  };
 
   const onFormSubmit = (event) => {
     dispatch(ui.actions.setLoading(true))
-    event.preventDefault()
+    event.preventDefault();
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ username, password, email })
-    }
+    };
     if (password === repeatPassword) {
       fetch(API_URL('register'), options)
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
             batch(() => {
-              dispatch(user.actions.setUserInfo(data.response))
+              dispatch(user.actions.setUserInfo(data.response));
               dispatch(user.actions.setError(null));
             });
-            navigate(`/user/${userId}`)
+            navigate(`/user/${userId}`);
           } else {
             batch(() => {
-              dispatch(user.actions.setUserInfo({}))
+              dispatch(user.actions.setUserInfo({}));
               dispatch(user.actions.setError(data.response));
-              handleValidation(data)
+              handleValidation(data);
             });
           }
         })
@@ -84,9 +84,10 @@ const Register = () => {
         })
         .finally(() => dispatch(ui.actions.setLoading(false)))
     } else if (password !== repeatPassword) {
-      swalInformation('Passwords are not equal', '', 'warning', 2000)
+      swalInformation('Passwords are not equal', '', 'warning', 2000);
+      dispatch(ui.actions.setLoading(false));
     }
-  }
+  };
   return (
     <FormWrapperContainer>
       {isLoading
@@ -134,8 +135,8 @@ const Register = () => {
           <Link to="/login"><p>Already a user? <span>Login here</span></p></Link>
         </FormWrapperRegister>}
     </FormWrapperContainer>
-  )
-}
+  );
+};
 
 export default Register;
 
@@ -149,6 +150,7 @@ const FormWrapperRegister = styled(FormWrapper)`
     font-size: 14px; 
     text-align: center;
   }
+
   span {
     text-decoration: underline;
     color: var(--orangeRed)

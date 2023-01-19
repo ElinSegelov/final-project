@@ -10,9 +10,9 @@ import { IoMdTime } from 'react-icons/io';
 import { MdLocationOn, MdDelete } from 'react-icons/md';
 import { GiClosedBarbute } from 'react-icons/gi';
 import { HiUserGroup, HiClock } from 'react-icons/hi';
-import { BsHouseFill } from 'react-icons/bs'
+import { BsHouseFill } from 'react-icons/bs';
 import events from 'reducers/events';
-import { API_URL } from 'utils/utils';
+import { API_URL } from 'utils/urls';
 import { TransparentButton } from 'styles/Button.styles';
 import styled from 'styled-components/macro';
 import ApplyToEvent from './ApplyToEvent';
@@ -33,30 +33,28 @@ const EventCard = ({
   eventDate,
   image,
   setEditEvent,
-  // setHandleEvent,
   isHost
 }) => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user.userInfo);
-  const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay)
+  const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay);
   // Compares the clicked event with the event id
-  const selectedEventForEditOrRemove = eventsOfTheDay.find((event) => eventId === event._id)
+  const selectedEventForEditOrRemove = eventsOfTheDay.find((event) => eventId === event._id);
 
   // Saves the filtered resulting event in event reducer
   const handleEditEvent = () => {
-    dispatch(events.actions.setSelectedEventForEdit(selectedEventForEditOrRemove))
-    setEditEvent(true)
-    // setHandleEvent(false)
+    dispatch(events.actions.setSelectedEventForEdit(selectedEventForEditOrRemove));
+    setEditEvent(true);
   }
   const handleValidation = (success) => {
     if (success) {
-      console.log('if success', success)
-      swalInformation('Deleted!', 'Your event has been deleted.', 'success', 2000)
+      console.log('if success', success);
+      swalInformation('Deleted!', 'Your event has been deleted.', 'success', 2000);
     } else {
-      console.log('else success', success)
-      swalInformation('Something went wrong!', 'Event could not be deleted. Try again', 'error', 2000)
+      console.log('else success', success);
+      swalInformation('Something went wrong!', 'Event could not be deleted. Try again', 'error', 2000);
     }
-    setTimeout(() => { window.location.reload() }, 2000)
+    setTimeout(() => { window.location.reload() }, 2000);
   }
   const handleDeleteEvent = () => {
     const options = {
@@ -83,22 +81,22 @@ const EventCard = ({
           .then((res) => res.json())
           .then((data) => {
             if (data.success) {
-              dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
-              dispatch(events.actions.setError(null))
-              handleValidation(data.success)
+              dispatch(events.actions.setHostingEvents(data.response.hostingEvents));
+              dispatch(events.actions.setError(null));
+              handleValidation(data.success);
             } else {
-              dispatch(events.actions.setError(data.response))
-              handleValidation(data.success)
+              dispatch(events.actions.setError(data.response));
+              handleValidation(data.success);
             }
           })
           .catch((err) => {
-            console.error(err.stack)
+            console.error(err.stack);
           })
       }
-    })
-  }
+    });
+  };
 
-  const loggedInUser = useSelector((store) => store.user.userInfo.accessToken)
+  const loggedInUser = useSelector((store) => store.user.userInfo.accessToken);
   if (loggedInUser && isHost) {
     return (
       <EventCardWithBasicInfo key={id}>
@@ -110,7 +108,7 @@ const EventCard = ({
           <p><IoMdTime /> {eventDate}</p>
         </EventInfo>
       </EventCardWithBasicInfo>
-    )
+    );
   } else if (loggedInUser) {
     return (
       <StyledEventCard key={id}>
@@ -138,7 +136,7 @@ const EventCard = ({
           </HandleEventContainer>
           : <ApplyToEvent eventId={id} eventHost={host} />}
       </StyledEventCard>
-    )
+    );
   } else {
     return (
       <EventCardWithBasicInfo key={id}>
@@ -150,9 +148,9 @@ const EventCard = ({
           <p><IoMdTime /> {eventTime}</p>
         </EventInfo>
       </EventCardWithBasicInfo>
-    )
+    );
   }
-}
+};
 
 export default EventCard;
 
@@ -168,19 +166,16 @@ row-gap: 0.1rem;
     column-gap: 0.5rem
   }
 `
-
 const GameTitleWrapper = styled.div`
   max-width: 100%;
   word-wrap: break-word;
   max-height: 3rem;
   overflow-y: auto;
   `
-
 const GameTitleWrapperLimited = styled(GameTitleWrapper)`
   max-height: 4rem;
   overflow-y: hidden;
 `
-
 const StyledEventCard = styled.div`
   width: 100%;
   padding: 1rem;
@@ -211,7 +206,6 @@ const HandleEventContainer = styled.section`
   top: 1rem;
   right: -2rem;
 `
-
 const GameImageContainer = styled.div`
   width: 8rem;
   height: 8rem;
@@ -230,10 +224,10 @@ const EventCardWithBasicInfo = styled(StyledEventCard)`
   }
 `
 const EventInfo = styled.div`
-  
   h3 {
     vertical-align: text-top;
   }
+
   span, h3 {
     color: #DE605B;
   }

@@ -11,8 +11,8 @@ export const swalBlurBackground = (text, time) => {
     background: 'transparent',
     showConfirmButton: false,
     timer: time
-  })
-}
+  });
+};
 
 export const swalInformation = (title, text, icon, timer) => {
   Swal.fire({
@@ -23,7 +23,5 @@ export const swalInformation = (title, text, icon, timer) => {
     background: 'transparent',
     showConfirmButton: false,
     timer
-  })
-}
-
-// TODO: ta timer som parameter och ändra det beroende av länged av texten
+  });
+};
