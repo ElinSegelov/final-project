@@ -11,7 +11,7 @@ import { FormWrapperContainer } from 'styles/Containers';
 import { FilledButton } from 'styles/Button.styles';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
 import { swalBlurBackground } from 'utils/sweetAlerts';
-import events from 'reducers/events';
+// import events from 'reducers/events';
 import styled from 'styled-components/macro';
 
 const Login = () => {
@@ -52,7 +52,7 @@ const Login = () => {
           batch(() => {
             dispatch(user.actions.setUserInfo(data.response))
             dispatch(user.actions.setError(null));
-            dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
+            // dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
           });
         } else {
           batch(() => {

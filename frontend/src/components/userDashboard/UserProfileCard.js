@@ -10,12 +10,12 @@ const UserProfileCard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loggedInUser = useSelector((store) => store.user.userInfo);
-  const hostingEventsForDisplaying = useSelector((store) => store.events.hostingEvents);
+  const hostingEventsForDisplaying = useSelector((store) => store.user.userInfo.hostingEvents);
 
   const handleLogout = () => {
     localStorage.clear();
     navigate('/');
-    dispatch(user.actions.setLoggedInUser([]));
+    dispatch(user.actions.setLoggedInUser({}));
   }
   return (
     <ProfileCard>

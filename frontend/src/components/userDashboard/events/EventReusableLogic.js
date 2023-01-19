@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import events from 'reducers/events';
+import user from 'reducers/user'
 import { swalInformation } from 'utils/sweetAlerts';
 import { API_URL } from 'utils/urls';
 import { InnerWrapper } from 'styles/Containers';
@@ -18,7 +19,7 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
   const [description, setDescription] = useState('');
   const [tempEventInfoForEdit, setTempEventInfoForEdit] = useState({});
   const [county, setCounty] = useState('');
-  const user = useSelector((store) => store.user.userInfo);
+  const userInfo = useSelector((store) => store.user.userInfo);
   const selectedGame = useSelector((store) => store.events.selectedGameWithDataFromAPI);
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit);
 
@@ -62,7 +63,7 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': user.accessToken
+            'Authorization': userInfo.accessToken
           },
           body: JSON.stringify(
             tempEventInfoForEdit
@@ -73,7 +74,7 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
           .then((data) => {
             if (data.success) {
               batch(() => {
-                dispatch(events.actions.setHostingEvents(data.response.hostingEvents));
+                dispatch(user.actions.setHostingEvents(data.response.hostingEvents));
                 dispatch(events.actions.setError(null));
                 handleEventValidation(data.success);
               })
@@ -102,11 +103,11 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': user.accessToken
+          'Authorization': userInfo.accessToken
         },
         body: JSON.stringify({
-          hostId: user.userId,
-          host: user.username,
+          hostId: userInfo.userId,
+          host: userInfo.username,
           eventDate: eventDate.toISOString(),
           eventTime,
           venue,
@@ -122,7 +123,21 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            dispatch(events.actions.setHostingEvents(data.response.hostingEvents));
+            console.log('push to store', user.actions.pushEventToHostingEvents)
+            dispatch(user.actions.pushEventToHostingEvents({
+              hostId: userInfo.userId,
+              host: userInfo.username,
+              eventDate: eventDate.toISOString(),
+              eventTime,
+              venue,
+              county,
+              game: gameName,
+              openSpots,
+              totalSpots,
+              description,
+              image: selectedGame.image
+            }));
+            // dispatch(events.actions.setHostingEvents(data.response.hostingEvents));
             dispatch(events.actions.setError(null));
             handleEventValidation(data.success);
           } else {
