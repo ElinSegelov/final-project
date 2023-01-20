@@ -22,7 +22,7 @@ const Header = () => {
   return (
     <StyledHeader>
       <FlexDiv>
-        <Link className="logo" to="/"><Logo src={logo} alt="Octahedron" /></Link>
+        <LinkLogo className="logo" to="/"><Logo src={logo} alt="Octahedron" /></LinkLogo>
         <NavLinkWrapper style={navMenuActive ? { display: 'flex' } : { display: 'none' }}>
           <NavLinks>
             <NavLink to="/" end><NavText>Home</NavText></NavLink>
@@ -48,6 +48,10 @@ const Header = () => {
 }
 
 export default Header;
+
+const LinkLogo = styled(Link)`
+  transform: none;
+`
 
 const StyledHeader = styled.header`
   height: 12vh;
