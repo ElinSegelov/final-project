@@ -35,6 +35,7 @@ const CreateEvent = ({
         <DatePicker
           selected={eventDate}
           dateFormat="yyyy/MM/dd"
+          calendarStartDay={1}
           onSelect={handleDateSelection} />
         <ScreenReaderLabel htmlFor="eventTime">Event time</ScreenReaderLabel>
         <Input

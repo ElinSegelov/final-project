@@ -22,7 +22,7 @@ const Header = () => {
   return (
     <StyledHeader>
       <FlexDiv>
-        <Link to="/"><Logo src={logo} alt="Octahedron" /></Link>
+        <Link className="logo" to="/"><Logo src={logo} alt="Octahedron" /></Link>
         <NavLinkWrapper style={navMenuActive ? { display: 'flex' } : { display: 'none' }}>
           <NavLinks>
             <NavLink to="/" end><NavText>Home</NavText></NavLink>
@@ -69,6 +69,10 @@ const FlexDiv = styled.div`
   height: 12vh;
   align-items: center;
   margin: 0 auto;
+
+  .logo {
+    transform: none;
+  }
 `
 const FlexDivUserAndHamburger = styled.div`
   display: flex;
