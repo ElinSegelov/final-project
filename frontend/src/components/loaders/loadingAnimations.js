@@ -13,13 +13,17 @@ export const LoadingBlurBackground = () => {
 
 export const LoadingForGameSearch = () => {
   return (
-    <GifLoader src={loaderOrange} alt="loader" />
+    <GifLoaderForGameSearch src={loaderOrange} alt="loader" />
   );
 };
 
 const GifLoader = styled.img`
   width: 20rem;
   height: 20rem;
+`
+const GifLoaderForGameSearch = styled.img`
+  width: 100%;
+  height: auto;
 `
 const LoaderWrapper = styled.div`
   display: flex;

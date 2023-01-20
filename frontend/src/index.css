@@ -70,18 +70,18 @@ a {
   height: fit-content;
   transition: 0.3s;
 }
-  @media(min-width: 1024px) { 
-    a:hover {
-      transform: scale(1.15)
-    }
-
-    input:hover, 
-    select:hover,
-    textarea:hover {
-      background: var(--lightDark);
-      color: var(--light);
-    }
+@media (min-width: 1024px) {
+  a:hover {
+    transform: scale(1.15);
   }
+
+  input:hover,
+  select:hover,
+  textarea:hover {
+    background: var(--lightDark);
+    color: var(--light);
+  }
+}
 
 button {
   border: none;
@@ -106,7 +106,6 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
   outline: 1px solid #aeaed6;
-  transform:scale(1.05);
 }
 
 input::-webkit-input-placeholder {
@@ -125,7 +124,8 @@ input::-ms-input-placeholder {
   color: #363c46;
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: #a1a1a2;
 }
 
@@ -266,7 +266,7 @@ body.swal2-shown > [aria-hidden='true'] {
 
 .swal2-icon.swal2-question {
   border-color: var(--light) !important;
-  color: var(--light)
+  color: var(--light);
 }
 
 .swal2-styled.swal2-confirm {
@@ -286,6 +286,3 @@ body.swal2-shown > [aria-hidden='true'] {
   border: none;
   margin: 0.5rem;
 }
-
-
-
