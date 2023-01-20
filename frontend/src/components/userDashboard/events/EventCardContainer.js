@@ -8,12 +8,12 @@ import styled from 'styled-components/macro';
 import EventCard from './EventCard';
 
 const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
-  const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay)
-  const selectedDate = useSelector((store) => store.events.selectedDate)
-  const countyFilter = useSelector((store) => store.events.countyFilter)
+  const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay);
+  const selectedDate = useSelector((store) => store.events.selectedDate);
+  const countyFilter = useSelector((store) => store.events.countyFilter);
   const allEvents = [];
 
-  const eventsOfTheDayInSelectedCounty = eventsOfTheDay.filter((event) => event.county === countyFilter)
+  const eventsOfTheDayInSelectedCounty = eventsOfTheDay.filter((event) => event.county === countyFilter);
   // If no specific county is selected, allEvents is replaced with previous value of eventsOfTheDay
   if (countyFilter === 'All') {
     allEvents.push(...allEvents, eventsOfTheDay.map((event) => {
@@ -36,11 +36,11 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
           description={event.description}
           eventName={event.eventName}
           eventTime={event.eventTime} />
-      )
-    }))
+      );
+    }));
   } else {
     // If a specific county is selected, allEvents is replaced with eventsFilterdByCounty
-    const eventsFilterdByCounty = eventsOfTheDay.filter((event) => event.county === countyFilter)
+    const eventsFilterdByCounty = eventsOfTheDay.filter((event) => event.county === countyFilter);
     allEvents.push(...allEvents, eventsFilterdByCounty.map((event) => {
       return (
         <EventCard
@@ -61,8 +61,8 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
           description={event.description}
           eventName={event.eventName}
           eventTime={event.eventTime} />
-      )
-    }))
+      );
+    }));
   }
   return (
     <ActiveEventSection>
@@ -79,8 +79,8 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
           {allEvents}
         </LogedInEventContainer>}
     </ActiveEventSection>
-  )
-}
+  );
+};
 
 export default EventCardContainer;
 
@@ -105,6 +105,7 @@ const LogedInEventContainer = styled(StyledEventCardContainer)`
     display: flex;
     width: 100%
   }
+  
   @media (min-width: 1400px) {
     width: 57rem;
     align-items: left;

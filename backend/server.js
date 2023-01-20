@@ -30,7 +30,7 @@ app.use(express.json());
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {
-    const user = await User.findOne({ accessToken })
+    const user = await User.findOne({ accessToken });
     if (user) {
       next();
     } else {
@@ -38,14 +38,14 @@ const authenticateUser = async (req, res, next) => {
         success: false,
         response: "Please log in"
       });
-    }
+    };
   } catch (err) {
     res.status(400).json({
       success: false,
       response: err.stack
     });
-  }
-}
+  };
+};
 
 // Routes
 app.get("/", (_, res) => {
@@ -54,7 +54,7 @@ app.get("/", (_, res) => {
 
 // -------------------------------- USER --------------------------------
 
-app.post("/register", registerUser)
+app.post("/register", registerUser);
 app.post("/login", loginUser);
 
 app.get("/user", authenticateUser);

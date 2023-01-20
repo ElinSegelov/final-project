@@ -14,17 +14,20 @@ export const FormWrapper = styled.section`
   margin-top: 1rem;
   position: relative;
   padding: 2rem 0;
+
   @media (min-width: 768px) {
     min-width: 25rem;
     padding: 2rem;
     margin-top: 0;
   }
+
   @media (min-width: 1024px) {
     width: 80%;
     min-height: 60vh;
     max-width: 27rem;
   }
 `
+
 export const Form = styled.form`
   gap: 0.5rem;
   display: flex;
@@ -38,7 +41,6 @@ export const Input = styled.input`
 `
 
 export const Select = styled.select`
-  //width: 12rem;
   width: 100%;
   height: 2.5rem;
   margin-top: 0.5rem;
@@ -53,6 +55,7 @@ export const ScreenReaderLabel = styled.label`
 
 export const SpotsInformation = styled.div`
   text-align: center;
+  
   legend {
     width: 12rem;
     display: flex;

@@ -1,7 +1,7 @@
 /* eslint-disable quote-props */
 import { createSlice } from '@reduxjs/toolkit';
 import { swalInformation } from 'utils/sweetAlerts';
-import { API_URL } from 'utils/utils';
+import { API_URL } from 'utils/urls';
 
 const events = createSlice({
   name: 'events',
@@ -53,17 +53,17 @@ export const loadEvents = (accessToken) => {
         'Content-Type': 'application/json',
         'Authorization': accessToken
       }
-    }
+    };
     try {
       const response = await fetch(API_URL('event'), options);
-      const data = await response.json()
+      const data = await response.json();
       if (data.success) {
-        dispatch(events.actions.setPostedEvents(data.response))
+        dispatch(events.actions.setPostedEvents(data.response));
       }
     } catch (error) {
       console.error(error.stack);
-      dispatch(events.actions.setError(error.message))
-      swalInformation('Could not load any events.', 'Try again later', 'error', 3000)
+      dispatch(events.actions.setError(error.message));
+      swalInformation('Could not load any events.', 'Try again later', 'error', 3000);
     }
-  }
-}
+  };
+};

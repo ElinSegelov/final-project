@@ -9,13 +9,13 @@ import { ButtonReversed } from 'styles/Button.styles';
 const UserProfileCard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loggedInUser = useSelector((store) => store.user.userInfo)
-  const hostingEventsForDisplaying = useSelector((store) => store.events.hostingEvents)
+  const loggedInUser = useSelector((store) => store.user.userInfo);
+  const hostingEventsForDisplaying = useSelector((store) => store.user.userInfo.hostingEvents);
 
   const handleLogout = () => {
-    localStorage.clear()
-    navigate('/')
-    dispatch(user.actions.setLoggedInUser([]))
+    localStorage.clear();
+    navigate('/');
+    dispatch(user.actions.setLoggedInUser({}));
   }
   return (
     <ProfileCard>
@@ -30,15 +30,14 @@ const UserProfileCard = () => {
       </ImageAndUserInfoWapper>
       <LogOutButton type="button" onClick={handleLogout}>Log Out</LogOutButton>
     </ProfileCard>
-  )
-}
+  );
+};
 
 export default UserProfileCard;
 
 const LogOutButton = styled(ButtonReversed)`
   width: 7rem;
 `
-
 const ProfileCard = styled.section`
   display: flex;
   justify-content: space-between;
@@ -68,7 +67,6 @@ const UserInfoWapper = styled.div`
   flex-direction: column;
   justify-content: center;
 `
-
 const UserName = styled.h2`
   color: var(--orangeRed);
 `

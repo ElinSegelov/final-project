@@ -13,6 +13,7 @@ export const Main = styled.main`
     position: relative;
   }
 `
+
 export const InnerWrapper = styled.section`
   width: 100%;
   display: flex;
@@ -36,6 +37,7 @@ export const CalenderAndCardWrapper = styled.div`
     min-height: calc(100vh - 15vh);
   }
 `
+
 export const StyledEventCardContainer = styled.section`
   display: flex;
   flex-direction: column;
@@ -63,13 +65,13 @@ export const FormWrapperContainer = styled.div`
     font-size: 14px; 
     text-align: center;
   }
+  
   span {
     text-decoration: underline;
     color: var(--orangeRed);
   }
   
   @media (min-width: 1024px) {
-    //width: 60%;
     margin: auto 0;
   }
 `

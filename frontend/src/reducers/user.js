@@ -14,7 +14,10 @@ const user = createSlice({
       store.error = action.payload;
     },
     setLoggedInUser: (store, action) => {
-      store.userInfo = action.payload
+      store.userInfo = action.payload;
+    },
+    changeToHostingEvents: (store, action) => {
+      store.userInfo.hostingEvents = action.payload;
     }
   }
 });

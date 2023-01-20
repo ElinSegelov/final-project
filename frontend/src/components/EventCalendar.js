@@ -13,22 +13,22 @@ const EventCalendar = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [daysWithEvents, setDaysWithEvents] = useState([]);
   const dispatch = useDispatch();
-  const postedEvents = useSelector((store) => store.events.postedEvents)
-  const accessToken = useSelector((store) => store.user.userInfo.accessToken)
-  const countyFilter = useSelector((store) => store.events.countyFilter)
+  const postedEvents = useSelector((store) => store.events.postedEvents);
+  const accessToken = useSelector((store) => store.user.userInfo.accessToken);
+  const countyFilter = useSelector((store) => store.events.countyFilter);
 
   useEffect(() => {
     dispatch(loadEvents(accessToken));
-  }, [])
+  }, []);
 
   const handleDateSelection = (selectedDate) => {
     setStartDate(selectedDate);
-  }
+  };
   useEffect(() => {
     batch(() => {
       dispatch(events.actions.setSelectDate(startDate.toISOString()));
-    })
-  }, [dispatch, startDate])
+    });
+  }, [dispatch, startDate]);
 
   useEffect(() => {
     if (postedEvents) {
@@ -36,28 +36,28 @@ const EventCalendar = () => {
       // These are dispatched to the store as eventsOfTheDay.
       const selectedDayEvents = postedEvents.filter(
         (event) => event.eventDate.slice(0, 10) === startDate.toISOString().slice(0, 10)
-      )
+      );
       dispatch(events.actions.setEventsOfTheDay(selectedDayEvents));
       // For the datepicker to show whether the selected day has posted events,
       // the dates stored in the reducer needs to be paresed back to ISO
       if (countyFilter === 'All') {
         const postedEventsWithISODate = postedEvents.map(
           (activeEvent) => parseISO(activeEvent.eventDate)
-        )
-        setDaysWithEvents(postedEventsWithISODate)
+        );
+        setDaysWithEvents(postedEventsWithISODate);
       } else {
         // Filtering events based on selected county.
         // Updating daysWithEvents to have datepicker highlight days with events in the selected county.
         const filteredEventsBasedOnCounty = postedEvents.filter(
           (event) => event.county === countyFilter
-        )
+        );
         const filteredEventsBasedOnCountyWithISODate = filteredEventsBasedOnCounty.map(
           (activeEvent) => parseISO(activeEvent.eventDate)
-        )
-        setDaysWithEvents(filteredEventsBasedOnCountyWithISODate)
+        );
+        setDaysWithEvents(filteredEventsBasedOnCountyWithISODate);
       }
     }
-  }, [postedEvents, startDate, countyFilter])
+  }, [postedEvents, startDate, countyFilter]);
 
   return (
     <EventCalendarWrapper>
@@ -76,14 +76,16 @@ export default EventCalendar;
 
 const EventCalendarWrapper = styled.div`
   width: 100%;
+  
   @media(min-width: 768px) {
     width: 30rem;
   }
+  
   @media(min-width: 1024px) {
     width: 100%;
   }
+  
   @media(min-width: 1400px) {
     width: 30rem;
   }
-  
 `

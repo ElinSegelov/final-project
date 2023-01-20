@@ -1,7 +1,7 @@
 import { User } from '../../Models';
 import bcrypt from 'bcrypt';
 
-const salt = bcrypt.genSaltSync()
+const salt = bcrypt.genSaltSync();
 
 export const registerUser = async (req, res) => {
   const { username, password, email } = req.body;
@@ -29,11 +29,11 @@ export const registerUser = async (req, res) => {
           attendingEvents: newUser.attendingEvents
         }
       });
-    }
+    };
   } catch (err) {
     res.status(400).json({
       success: false,
       response: err
     });
-  }
+  };
 };

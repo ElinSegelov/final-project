@@ -5,13 +5,13 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, batch, useSelector } from 'react-redux';
 import user from 'reducers/user';
 import ui from 'reducers/ui';
-import { API_URL } from 'utils/utils';
+import { API_URL } from 'utils/urls';
 import { Form, FormWrapper, Input, ScreenReaderLabel } from 'styles/Forms';
 import { FormWrapperContainer } from 'styles/Containers';
 import { FilledButton } from 'styles/Button.styles';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
 import { swalBlurBackground } from 'utils/sweetAlerts';
-import events from 'reducers/events';
+// import events from 'reducers/events';
 import styled from 'styled-components/macro';
 
 const Login = () => {
@@ -21,30 +21,30 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const accessToken = useSelector((store) => store.user.userInfo.accessToken);
   const userId = useSelector((store) => store.user.userInfo.userId);
-  const isLoading = useSelector((store) => store.ui.isLoading)
-  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
+  const isLoading = useSelector((store) => store.ui.isLoading);
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
   useEffect(() => {
     if (loggedInUser || accessToken) {
       navigate(`/user/${userId}`);
     }
-  }, [loggedInUser, navigate, userId, accessToken])
+  }, [loggedInUser, navigate, userId, accessToken]);
 
   const handleValidation = (data) => {
-    setEmail('')
-    setPassword('')
-    swalBlurBackground(data.response, 2000)
-  }
+    setEmail('');
+    setPassword('');
+    swalBlurBackground(data.response, 2000);
+  };
   const onFormSubmit = (event) => {
-    dispatch(ui.actions.setLoading(true))
-    event.preventDefault()
+    dispatch(ui.actions.setLoading(true));
+    event.preventDefault();
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ email, password })
-    }
+    };
     fetch(API_URL('login'), options)
       .then((res) => res.json())
       .then((data) => {
@@ -52,7 +52,7 @@ const Login = () => {
           batch(() => {
             dispatch(user.actions.setUserInfo(data.response))
             dispatch(user.actions.setError(null));
-            dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
+            // dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
           });
         } else {
           batch(() => {
@@ -67,7 +67,7 @@ const Login = () => {
         swalBlurBackground('Something went wrong. Please try again later', 2000)
       })
       .finally(() => dispatch(ui.actions.setLoading(false)))
-  }
+  };
   return (
     <FormWrapperContainer>
       {isLoading
@@ -97,8 +97,8 @@ const Login = () => {
           <Link to="/register"><p>Not a user? <span>Register here</span></p></Link>
         </FormWrapper>}
     </FormWrapperContainer>
-  )
-}
+  );
+};
 
 export default Login;
 

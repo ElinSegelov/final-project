@@ -6,13 +6,13 @@ import events from 'reducers/events';
 import styled from 'styled-components/macro';
 
 const EventLocationSearch = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const countyOptions = countys.map((county) => {
     return <option key={county} value={county}>{county}</option>
-  })
+  });
   const handleOnChange = (value) => {
-    dispatch(events.actions.setCountyFilter(value))
-  }
+    dispatch(events.actions.setCountyFilter(value));
+  };
   return (
     <CountySearchForm>
       <label htmlFor="county-search">Filter events by county
@@ -27,8 +27,8 @@ const EventLocationSearch = () => {
         </Select>
       </label>
     </CountySearchForm>
-  )
-}
+  );
+};
 
 export default EventLocationSearch;
 
@@ -37,9 +37,11 @@ const CountySearchForm = styled.form`
   display: flex;
   width: 100%;
   grid-column: 2 / 3;
+  
   label {
     width: 100%;
   }
+  
   @media(min-width: 768px) {
     width: 30rem;
   }

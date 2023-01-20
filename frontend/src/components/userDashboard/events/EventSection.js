@@ -12,8 +12,8 @@ import EventReusableLogic from './EventReusableLogic';
 import EventLocationSearch from './EventLocationSearch';
 
 const EventSection = () => {
-  const [handleEvent, setHandleEvent] = useState(false)
-  const [editEvent, setEditEvent] = useState(false)
+  const [handleEvent, setHandleEvent] = useState(false);
+  const [editEvent, setEditEvent] = useState(false);
 
   return (
     <SectionWrapper>
@@ -38,8 +38,8 @@ const EventSection = () => {
               editEvent={editEvent} />
           </CalenderAndCardWrapper>}
     </SectionWrapper>
-  )
-}
+  );
+};
 
 export default EventSection;
 
@@ -54,6 +54,7 @@ const SectionWrapper = styled.section`
   flex-direction: column;
   max-width: 100%;
   align-items: center;
+  
   @media (min-width: 1024px) {
     position: relative;
     min-height: calc(100vh - 15vh);
