@@ -72,7 +72,7 @@ a {
 }
   @media(min-width: 1024px) { 
     a:hover {
-      transform: scale(1.2)
+      transform: scale(1.15)
     }
 
     input:hover, 

@@ -6,7 +6,6 @@ import styled from 'styled-components/macro';
 import EventCalendar from 'components/EventCalendar';
 import EventCardContainer from 'components/userDashboard/events/EventCardContainer';
 import { CalenderAndCardWrapper, InnerWrapper } from 'styles/Containers';
-// import { FilledButton, ButtonReversed } from 'styles/Button.styles';
 import Tutorial from './Tutorial';
 
 const LandingPage = () => {

@@ -11,6 +11,7 @@ export const Main = styled.main`
 
   @media (min-width: 1024px) {
     position: relative;
+    justify-content: center;
   }
 `
 

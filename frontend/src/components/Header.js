@@ -26,8 +26,8 @@ const Header = () => {
         <NavLinkWrapper style={navMenuActive ? { display: 'flex' } : { display: 'none' }}>
           <NavLinks>
             <NavLink to="/" end><NavText>Home</NavText></NavLink>
-            <NavLink to="/underConstruction"><NavText>How it works</NavText></NavLink>
-            <NavLink to="/underConstruction"><NavText>About us</NavText></NavLink>
+            <NavLink to="/under-construction"><NavText>How it works</NavText></NavLink>
+            <NavLink to="/about-us"><NavText>About us</NavText></NavLink>
             <NavLink to="/login"><NavText>Profile</NavText></NavLink>
             {!accessToken ? <NavLink to="/login"><NavText>Log in</NavText></NavLink> : null}
           </NavLinks>
