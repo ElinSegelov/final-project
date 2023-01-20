@@ -7,6 +7,7 @@ import user from 'reducers/user';
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import Register from 'components/SignupLoginForm/Register';
 import NotFound from 'components/NotFound';
+import AboutUs from 'components/AboutUs';
 import UnderConstruction from 'components/UnderConstruction'
 import LandingPage from 'components/landingPage/LandingPage';
 import Header from 'components/Header';
@@ -33,7 +34,8 @@ const App = () => {
           <BackgroundImage src={BackgroundImg} alt="" />
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/underConstruction" element={<UnderConstruction />} />
+            <Route path="/under-construction" element={<UnderConstruction />} />
+            <Route path="/about-us" element={<AboutUs />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/user/:id" element={<Dashboard />} />
@@ -51,12 +53,17 @@ export default App;
 const BackgroundImage = styled.img`
   position: fixed;
   z-index: -1;
-  width: 150vw;
+  width: 150%;
   opacity: 0.15;
   top: 5vh;
 
   @media(min-width: 768px) {
-    width: 53rem;
-    top: 3rem;
+    top: 15%;
+    width: 100%
+  }
+  @media(min-width: 1024px) {
+    width: auto;
+    height: 95%;
+    top: 4rem;
   }
 `
