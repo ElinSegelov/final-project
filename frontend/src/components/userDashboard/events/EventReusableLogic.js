@@ -38,25 +38,23 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
 
   const handleEventValidation = (success) => {
     if (selectedEventForEdit === tempEventInfoForEdit) {
-      swalInformation('No changes were made', '', 'warning', 2000);
+      swalInformation('No changes were made', '', 'warning', 2000)
     } else if (editEvent && success) {
-      swalInformation('Your event has been updated!', '', 'success', 2000);
-      setEditEvent(false);
-      setTimeout(() => { window.location.reload() }, 2000);
+      swalInformation('Your event has been updated!', '', 'success', 2000)
+      setEditEvent(false)
     } else if (handleEvent) {
-      swalInformation('Your event has been created!', '', 'success', 2000);
-      setHandleEvent(false);
-      setTimeout(() => { window.location.reload() }, 2000);
+      swalInformation('Your event has been created!', '', 'success', 2000)
+      setHandleEvent(false)
     } else {
-      swalInformation('Your event has been created!', '', 'success', 2000);
-      setHandleEvent(false);
-      setEditEvent(false);
-      setTimeout(() => { window.location.reload() }, 2000);
+      swalInformation('Your event has been created!', '', 'success', 2000)
+      setHandleEvent(false)
+      setEditEvent(false)
     }
   }
 
   const onFormSubmit = (event) => {
     event.preventDefault();
+    console.log(tempEventInfoForEdit)
     if (editEvent) {
       if (selectedEventForEdit !== tempEventInfoForEdit) {
         const options = {
@@ -74,7 +72,7 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
           .then((data) => {
             if (data.success) {
               batch(() => {
-                dispatch(user.actions.setHostingEvents(data.response.hostingEvents));
+                dispatch(user.actions.changeToHostingEvents(data.response.hostingEvents));
                 dispatch(events.actions.setError(null));
                 handleEventValidation(data.success);
               })
@@ -123,26 +121,16 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            console.log('push to store', user.actions.pushEventToHostingEvents)
-            dispatch(user.actions.pushEventToHostingEvents({
-              hostId: userInfo.userId,
-              host: userInfo.username,
-              eventDate: eventDate.toISOString(),
-              eventTime,
-              venue,
-              county,
-              game: gameName,
-              openSpots,
-              totalSpots,
-              description,
-              image: selectedGame.image
-            }));
-            // dispatch(events.actions.setHostingEvents(data.response.hostingEvents));
-            dispatch(events.actions.setError(null));
-            handleEventValidation(data.success);
+            batch(() => {
+              dispatch(user.actions.changeToHostingEvents(data.response.hostingEvents));
+              dispatch(events.actions.setError(null));
+              handleEventValidation(data.success);
+            })
           } else {
-            dispatch(events.actions.setError(data.response));
-            handleEventValidation(data.success);
+            batch(() => {
+              dispatch(events.actions.setError(data.response));
+              handleEventValidation(data.success);
+            })
           }
         })
         .catch((err) => {

@@ -10,15 +10,15 @@ export const deleteEvent = async (req, res) => {
 
       if (user.username === host.username) {
         if (eventToDelete) {
-          const deletedEventFromSchema = await Event.findByIdAndDelete({ _id: eventId });          
+          const deletedEventFromModel = await Event.findByIdAndDelete({ _id: eventId });          
           const updatedHostingEvents = await User.findOneAndUpdate({ _id: eventToDelete.hostId },
             { $pull: { hostingEvents: { _id: eventToDelete._id } } }, { new: true });
  
-          if (updatedHostingEvents && deletedEventFromSchema) {
+          if (updatedHostingEvents && deletedEventFromModel) {
             res.status(200).json({
               success: true,
               response: {
-                deletedEventFromSchema: deletedEventFromSchema,
+                deletedEventFromModel: deletedEventFromModel,
                 hostingEvents: updatedHostingEvents.hostingEvents,
                 message: "The event has been deleted"
               }
@@ -51,6 +51,7 @@ export const deleteEvent = async (req, res) => {
       res.status(500).json({
         success: false,
         response: {
+          note: err.message,
           message: err.stack
         }
       });

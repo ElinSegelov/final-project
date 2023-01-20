@@ -4,7 +4,7 @@
 import React from 'react';
 import Swal from 'sweetalert2';
 import { swalInformation } from 'utils/sweetAlerts';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { RiEdit2Fill } from 'react-icons/ri';
 import { IoMdTime } from 'react-icons/io';
 import { MdLocationOn, MdDelete } from 'react-icons/md';
@@ -12,6 +12,7 @@ import { GiClosedBarbute } from 'react-icons/gi';
 import { HiUserGroup, HiClock } from 'react-icons/hi';
 import { BsHouseFill } from 'react-icons/bs';
 import events from 'reducers/events';
+import user from 'reducers/user'
 import { API_URL } from 'utils/urls';
 import { TransparentButton } from 'styles/Button.styles';
 import styled from 'styled-components/macro';
@@ -36,7 +37,7 @@ const EventCard = ({
   isHost
 }) => {
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user.userInfo);
+  const userInfo = useSelector((store) => store.user.userInfo);
   const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay);
   // Compares the clicked event with the event id
   const selectedEventForEditOrRemove = eventsOfTheDay.find((event) => eventId === event._id);
@@ -61,12 +62,13 @@ const EventCard = ({
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': user.accessToken
+        'Authorization': userInfo.accessToken
       },
       body: JSON.stringify({
         eventId: selectedEventForEditOrRemove._id
       })
     }
+    console.log('selected event', selectedEventForEditOrRemove)
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -81,12 +83,16 @@ const EventCard = ({
           .then((res) => res.json())
           .then((data) => {
             if (data.success) {
-              dispatch(events.actions.setHostingEvents(data.response.hostingEvents));
-              dispatch(events.actions.setError(null));
-              handleValidation(data.success);
+              batch(() => {
+                dispatch(user.actions.changeToHostingEvents(data.response.hostingEvents));
+                dispatch(events.actions.setError(null));
+                handleValidation(data.success);
+              })
             } else {
-              dispatch(events.actions.setError(data.response));
-              handleValidation(data.success);
+              batch(() => {
+                dispatch(events.actions.setError(data.response));
+                handleValidation(data.success);
+              })
             }
           })
           .catch((err) => {
@@ -128,7 +134,7 @@ const EventCard = ({
           </InfoWrapper>
         </EventInfo>
         <DescriptionParagraph>{description}</DescriptionParagraph>
-        {user.userId === hostId
+        {userInfo.userId === hostId
           ?
           <HandleEventContainer>
             <TransparentButton type="button" onClick={(handleDeleteEvent)}><MdDelete /></TransparentButton>

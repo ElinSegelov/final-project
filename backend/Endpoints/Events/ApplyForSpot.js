@@ -49,6 +49,28 @@ export const applyForSpot = async (req, res) => {
                 </p>
               </div>
             `
+            /*
+            subject: A new player wants to join your party for playing ${selectedEvent.game}`,
+            html: `
+            Hello {host.username},
+
+             User {username} has applied for a spot at your party for the board game session below.
+
+            {selectedEvent.game}
+            {selectedEvent.date}
+            {selectedEvent.time}
+            {selectedEvent.county}
+            {selectedEvent.venue}
+
+            Please contact {username} on their e-mail {userEmail} and make arrangements for the board gaming session, 
+            also let them know if they are accepted to your party or not.
+
+            Please remember to update the number of missing players in your evnet as you accept new players into 
+            your party.
+
+            Hope you’ll have a nice time,
+            Octahedron */
+
           };
           transporter.sendMail(messageToHost, (error, info) => {
             if (error) {
