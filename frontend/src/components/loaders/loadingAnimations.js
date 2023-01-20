@@ -6,6 +6,7 @@ export const LoadingBlurBackground = () => {
   return (
     <LoaderWrapper>
       <GifLoader src={loaderOrange} alt="loader" />
+      <h2>Loading...</h2>
     </LoaderWrapper>
   );
 };
@@ -17,19 +18,20 @@ export const LoadingForGameSearch = () => {
 };
 
 const GifLoader = styled.img`
-  width: 100%;
-  height: auto;
+  width: 20rem;
+  height: 20rem;
 `
 const LoaderWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   align-items:center;
   justify-content: center; 
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   background-color: var(--darkOpacity);
-  width: 100%;
-  height: calc(100vh - 12vh - 2rem);
+  width: 100vw;
+  height: calc(100vh - 17vh);
   position: relative;
-  bottom: 2rem;
+  bottom: 1rem;
 `
 

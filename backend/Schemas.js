@@ -6,8 +6,8 @@ export const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
     unique: true,
-    minlength: 3,
-    maxlength: 15,
+    minlength: 2,
+    maxlength: 10,
     required: true
   },
   password: {

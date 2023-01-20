@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable operator-linebreak */
 import React, { useEffect, useState } from 'react';
@@ -10,7 +11,7 @@ import { Form, FormWrapper, Input, ScreenReaderLabel } from 'styles/Forms';
 import { FormWrapperContainer } from 'styles/Containers';
 import { FilledButton } from 'styles/Button.styles';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
-import { swalBlurBackground } from 'utils/sweetAlerts';
+import { swalInformation } from 'utils/sweetAlerts';
 // import events from 'reducers/events';
 import styled from 'styled-components/macro';
 
@@ -33,7 +34,7 @@ const Login = () => {
   const handleValidation = (data) => {
     setEmail('');
     setPassword('');
-    swalBlurBackground(data.response, 2000);
+    swalInformation(data.response, '', 'warning', 2500)
   };
   const onFormSubmit = (event) => {
     dispatch(ui.actions.setLoading(true));
@@ -52,7 +53,6 @@ const Login = () => {
           batch(() => {
             dispatch(user.actions.setUserInfo(data.response))
             dispatch(user.actions.setError(null));
-            // dispatch(events.actions.setHostingEvents(data.response.hostingEvents))
           });
         } else {
           batch(() => {
@@ -64,39 +64,41 @@ const Login = () => {
       })
       .catch((error) => {
         console.error(error)
-        swalBlurBackground('Something went wrong. Please try again later', 2000)
+        swalInformation('Something went wrong.', 'Please try again later', 'error', 2500)
       })
       .finally(() => dispatch(ui.actions.setLoading(false)))
   };
   return (
-    <FormWrapperContainer>
+    <>
       {isLoading
         ? <LoadingBlurBackground />
         :
-        <FormWrapper>
-          <Form onSubmit={onFormSubmit}>
-            <h2>Login</h2>
-            <ScreenReaderLabel htmlFor="email">E-mail</ScreenReaderLabel>
-            <Input
-              required
-              placeholder="E-mail"
-              type="text"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)} />
-            <ScreenReaderLabel htmlFor="password">Password</ScreenReaderLabel>
-            <Input
-              required
-              placeholder="Password"
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)} />
-            <LoginButton type="submit">Log In</LoginButton>
-          </Form>
-          <Link to="/register"><p>Not a user? <span>Register here</span></p></Link>
-        </FormWrapper>}
-    </FormWrapperContainer>
+        <FormWrapperContainer>
+          <FormWrapper>
+            <Form onSubmit={onFormSubmit}>
+              <h2>Login</h2>
+              <ScreenReaderLabel htmlFor="email">E-mail</ScreenReaderLabel>
+              <Input
+                required
+                placeholder="E-mail"
+                type="text"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)} />
+              <ScreenReaderLabel htmlFor="password">Password</ScreenReaderLabel>
+              <Input
+                required
+                placeholder="Password"
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)} />
+              <LoginButton type="submit">Log In</LoginButton>
+            </Form>
+            <Link to="/register"><p>Not a user? <span>Register here</span></p></Link>
+          </FormWrapper>
+        </FormWrapperContainer>}
+    </>
   );
 };
 
