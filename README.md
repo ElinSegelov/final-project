@@ -11,7 +11,7 @@ The time scope for this project was set to three weeks of part time (50%) work. 
 
 At the current state, users are able to create events and apply for a spot at posted events. When an application is sent the host of the event receives a e-mail with the applicants e-mail address. All contact between the applicant and the host occurs outside the application. 
 
-If we had more time we would like to add functionality for users to add each other as friends, invite friends to events and make it possible for all communication to take place within the application. 
+If we had more time we would like to add functionality for users to add each other as friends, invite friends to events and make it possible for all communication to take place within the application. Our first priority is however, making our code less repetitive and split up the component EventReusableLogic and also make it more reusable.
 # Screenshots
  <img src="https://i.postimg.cc/fbdk9nVd/Ska-rmavbild-2023-01-16-kl-16-38-28.png">
  
