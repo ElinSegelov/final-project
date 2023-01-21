@@ -8,7 +8,7 @@ import { FormWrapper, Form, Input, ScreenReaderLabel } from 'styles/Forms';
 import { FormWrapperContainer } from 'styles/Containers';
 import { FilledButton } from 'styles/Button.styles';
 import { LoadingBlurBackground } from 'components/loaders/loadingAnimations';
-import { swalBlurBackground, swalInformation } from 'utils/sweetAlerts';
+import { swalInformation } from 'utils/sweetAlerts';
 import user from 'reducers/user';
 import ui from 'reducers/ui';
 import styled from 'styled-components/macro';
@@ -33,20 +33,20 @@ const Register = () => {
 
   const handleValidation = (data) => {
     if (password.length < 8) {
-      swalBlurBackground('Password must be at least 8 characters', 2000);
+      swalInformation('Password must be at least 8 characters', '', 'warning', 2500)
       setPassword('');
       setRepeatPassword('');
+    } else if (username.length < 2 || username.length > 10) {
+      swalInformation('Username must be between 2 and 10 characters', '', 'warning', 2500)
+      setUsername('');
     } else if (data.response.keyValue.username === username) {
-      swalBlurBackground('This username already exist', 2000);
+      swalInformation('This username already exist', '', 'warning', 2500)
       setUsername('');
     } else if (data.response.keyValue.email === email) {
-      swalBlurBackground('This email already exist', 2000);
+      swalInformation('This email already exist', '', 'warning', 2500)
       setEmail('');
     } else {
-      setPassword('');
-      setUsername('');
-      setEmail('');
-      swalBlurBackground('Something went wrong. Please try again later', 2000);
+      swalInformation('Something went wrong.', 'Please try again later', 'error', 2500)
     }
   };
 
@@ -80,11 +80,11 @@ const Register = () => {
         })
         .catch((error) => {
           console.error(error.stack)
-          swalBlurBackground('Something went wrong. Please, try again later', 2000)
+          swalInformation('Something went wrong.', 'Please try again later', 'error', 2500)
         })
         .finally(() => dispatch(ui.actions.setLoading(false)))
     } else if (password !== repeatPassword) {
-      swalInformation('Passwords are not equal', '', 'warning', 2000);
+      swalInformation('Passwords are not equal', '', 'warning', 2500);
       dispatch(ui.actions.setLoading(false));
     }
   };
@@ -108,6 +108,8 @@ const Register = () => {
             <Input
               required
               placeholder="Username *"
+              minLength={2}
+              maxLength={10}
               type="text"
               id="username"
               value={username}

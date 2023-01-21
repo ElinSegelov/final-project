@@ -31,7 +31,7 @@ const AboutUs = () => {
           <UserInfoWapper>
             <Name>{person.name}</Name>
             <a href={person.linkedIn}><Links><IoLogoLinkedin />LinkedIn Profile</Links></a>
-            <a href={person.web}><Links><BsBriefcaseFill /> Portflio</Links></a>
+            <a href={person.web}><Links><BsBriefcaseFill /> Portfolio</Links></a>
           </UserInfoWapper>
         </ImageAndUserInfoWapper>
       </ProfileCard>
@@ -43,19 +43,20 @@ const AboutUs = () => {
       <ContentWrapper>
         <TextWrapper>
           <p>
-          Octahedron is the result of a final project in a frontend developer boot camp at Technigo.
+            Octahedron is the result of a final project in a frontend
+            developer boot camp at Technigo.
           </p>
           <p>
-        The idea about Octahedron came to us when we were talking about only having one
-        or two friends who enjoy playing bord games like we do. So we decided to
-        make a site where people can find more players for their bord game sessions.
-        We had plenty of big ideas and from them we have created Octahedron.
+            The idea about Octahedron came to us when we were talking about only having one
+            or two friends who enjoy playing bord games like we do. So we decided to
+            make a site where people can find more players for their bord game sessions.
+            We had plenty of big ideas and from them we have created Octahedron.
           </p>
           <p>
-        The scope for the final project was three weeks of part time work so we didn’t have enought
-        time to add all the features we wanted. As we enjoy the concept too much to leave it here,
-        we will continue working on it as a side project, fixing bugs and adding features along
-        the way.
+            The scope for the final project was three weeks of part time work so we didn’t
+            have enought time to add all the features we wanted. As we enjoy the concept too
+            much to leave it here, we will continue working on it as a side project,
+            fixing bugs and adding features along the way.
           </p>
         </TextWrapper>
         <CardContainer>
