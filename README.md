@@ -11,7 +11,13 @@ The time scope for this project was set to three weeks of part time (50%) work. 
 
 At the current state, users are able to create events and apply for a spot at posted events. When an application is sent the host of the event receives a e-mail with the applicants e-mail address. All contact between the applicant and the host occurs outside the application. 
 
-If we had more time we would like to add functionality for users to add each other as friends, invite friends to events and make it possible for all communication to take place within the application. 
+If we had more time we would like to add functionality for users to add each other as friends, invite friends to events and make it possible for all communication to take place within the application. Our first priority is however, making our code less repetitive and split up the component EventReusableLogic and also make it more reusable.
+
+## Known issues
+At the moment it is not possible to search for games using more than one word. This issue is caused by limitations of a middleman api we are using.
+There is also an error in the console stating that each child in list should have a unique key prop. To out best ability we have tried to fix this, adding keys to the elements, but without success.
+These issues will be corrected as soon as possible.
+
 # Screenshots
  <img src="https://i.postimg.cc/fbdk9nVd/Ska-rmavbild-2023-01-16-kl-16-38-28.png">
  
