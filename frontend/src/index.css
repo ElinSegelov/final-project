@@ -31,8 +31,6 @@ body {
   width: 100%;
 }
 
-/* ----------HUR SER DET HÄR UT PÅ PC?---------- */
-
 ::-webkit-scrollbar {
   width: 6px;
   height: 5px;
@@ -70,6 +68,7 @@ a {
   height: fit-content;
   transition: 0.3s;
 }
+
 @media (min-width: 1024px) {
   a:hover {
     transform: scale(1.15);
@@ -130,7 +129,6 @@ textarea::placeholder {
 }
 
 /* ----------- DATEPICKER ---------- */
-
 .react-datepicker-wrapper {
   width: fit-content;
 }
@@ -224,19 +222,6 @@ textarea::placeholder {
 }
 
 /* ----------- Sweet Alerts ---------- */
-
-/* .swal2-icon-content {
-  color: var(--orangeRed);
-} */
-
-/* .swal2-icon {
-  color: var(--orangeRed);
-} */
-
-/* .swal2-warning {
-  color: var(--orangeRed);
-} */
-
 .swal2-shown {
   width: 100vw;
   overflow: hidden;

@@ -14,7 +14,6 @@ export const Main = styled.main`
     justify-content: center;
   }
 `
-
 export const InnerWrapper = styled.section`
   width: 100%;
   display: flex;
@@ -26,7 +25,6 @@ export const InnerWrapper = styled.section`
     align-items: center;
   }
 `
-
 export const CalenderAndCardWrapper = styled.div`
   width: fit-content;
   margin: 1rem auto;
@@ -34,11 +32,11 @@ export const CalenderAndCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 2rem;
+  
   @media (min-width: 1024px) {
     min-height: calc(100vh - 15vh);
   }
 `
-
 export const StyledEventCardContainer = styled.section`
   display: flex;
   flex-direction: column;

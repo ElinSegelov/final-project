@@ -58,7 +58,6 @@ const CalendarAndEvents = styled(CalenderAndCardWrapper)`
     margin: 0;
   }
 `
-
 const RegisterLoginWrapper = styled.div`
   display: flex;
   flex-direction: column;

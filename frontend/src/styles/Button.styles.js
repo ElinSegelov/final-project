@@ -16,7 +16,6 @@ export const FilledButton = styled.button`
     }
   }
 `
-
 export const ButtonReversed = styled.button`
   padding: 0.5rem;
   border-radius: 0.6rem;
@@ -33,7 +32,6 @@ export const ButtonReversed = styled.button`
     }
   }
 `
-
 export const TransparentButton = styled.button`
   width: 2rem;
   height: 2rem;
@@ -50,7 +48,6 @@ export const TransparentButton = styled.button`
     }
   }
 `
-
 export const GoBackFromCreateOrEditButton = styled(TransparentButton)`
   position: absolute;
   left: 1rem;

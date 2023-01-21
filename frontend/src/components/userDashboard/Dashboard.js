@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import user from 'reducers/user';
-// import events from 'reducers/events';
 import styled from 'styled-components/macro';
 import EventSection from './events/EventSection';
 import UserProfileCard from './UserProfileCard';
@@ -18,10 +17,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    // const hosting = JSON.parse(localStorage.getItem('hostingEvents'));
     if (loggedInUser) {
       dispatch(user.actions.setLoggedInUser(loggedInUser));
-      // dispatch(events.actions.setHostingEvents(hosting));
     }
   }, [dispatch]);
 
@@ -34,7 +31,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     localStorage.setItem('loggedInUser', JSON.stringify(userInfo));
-    // localStorage.setItem('hostingEvents', JSON.stringify(hostingEvents));
   }, [hostingEvents, userInfo]);
   return (
     <DashboardWrapper>

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-// import { FormWrapper } from 'styles/Forms';
 
 const UnderConstruction = () => {
   return (
@@ -34,10 +33,12 @@ const NotFoundWrapper = styled.div`
   p {
     font-size: 36px;
   }
+
   @media (min-width: 768px) {
     h1 {
       font-size: 90px;
     }
+    
     p {
       font-size: 50px;
     }

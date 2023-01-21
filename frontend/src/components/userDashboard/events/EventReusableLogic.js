@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable quote-props */
 import React, { useEffect, useState } from 'react';
-import { batch, useDispatch, useSelector } from 'react-redux';
 import events from 'reducers/events';
 import user from 'reducers/user'
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { swalInformation } from 'utils/sweetAlerts';
 import { API_URL } from 'utils/urls';
 import { InnerWrapper } from 'styles/Containers';
@@ -22,9 +22,8 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
   const userInfo = useSelector((store) => store.user.userInfo);
   const selectedGame = useSelector((store) => store.events.selectedGameWithDataFromAPI);
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit);
-
-  let gameName;
   const dispatch = useDispatch();
+  let gameName;
 
   useEffect(() => {
     if (editEvent) {

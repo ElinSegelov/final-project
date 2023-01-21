@@ -2,12 +2,12 @@
 import React from 'react';
 import BGGData from 'components/userDashboard/events/BGGData';
 import styled from 'styled-components/macro';
-import { FormWrapper, Form, Input, Select, SpotsInformation, TextArea, ScreenReaderLabel } from 'styles/Forms';
 import DatePicker from 'react-datepicker';
-import { FilledButton, GoBackFromCreateOrEditButton } from 'styles/Button.styles';
-import 'react-datepicker/dist/react-datepicker.css';
 import countys from 'utils/countys';
+import { FormWrapper, Form, Input, Select, SpotsInformation, TextArea, ScreenReaderLabel } from 'styles/Forms';
+import { FilledButton, GoBackFromCreateOrEditButton } from 'styles/Button.styles';
 import { FaArrowLeft } from 'react-icons/fa';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CreateEvent = ({
   setEventTime,

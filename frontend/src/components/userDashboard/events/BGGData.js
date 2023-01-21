@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable operator-linebreak */
-/* eslint-disable react/jsx-closing-tag-location */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import events from 'reducers/events';
@@ -95,7 +93,6 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
             {suggestions}
           </GameSelect>
         </>
-
         : null}
     </BGGFetchForm>
   );

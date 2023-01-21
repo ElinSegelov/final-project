@@ -27,32 +27,27 @@ export const FormWrapper = styled.section`
     max-width: 27rem;
   }
 `
-
 export const Form = styled.form`
   gap: 0.5rem;
   display: flex;
   flex-direction: column;
   width: 12rem;
 `
-
 export const Input = styled.input`
   width: 100%;
   height: 2.5rem;
 `
-
 export const Select = styled.select`
   width: 100%;
   height: 2.5rem;
   margin-top: 0.5rem;
 `
-
 export const ScreenReaderLabel = styled.label`
   visibility: hidden;
   font-size: 1px;
   height: fit-content;
   position: absolute;
 `
-
 export const SpotsInformation = styled.div`
   text-align: center;
   

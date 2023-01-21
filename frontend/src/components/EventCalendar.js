@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable operator-linebreak */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
@@ -47,7 +45,7 @@ const EventCalendar = () => {
         setDaysWithEvents(postedEventsWithISODate);
       } else {
         // Filtering events based on selected county.
-        // Updating daysWithEvents to have datepicker highlight days with events in the selected county.
+        // Updateing daysWithEvents so datepicker highlight days with events in the selected county.
         const filteredEventsBasedOnCounty = postedEvents.filter(
           (event) => event.county === countyFilter
         );

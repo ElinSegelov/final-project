@@ -3,6 +3,9 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import Swal from 'sweetalert2';
+import events from 'reducers/events';
+import user from 'reducers/user'
+import styled from 'styled-components/macro';
 import { swalInformation } from 'utils/sweetAlerts';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { RiEdit2Fill } from 'react-icons/ri';
@@ -11,11 +14,8 @@ import { MdLocationOn, MdDelete } from 'react-icons/md';
 import { GiClosedBarbute } from 'react-icons/gi';
 import { HiUserGroup, HiClock } from 'react-icons/hi';
 import { BsHouseFill } from 'react-icons/bs';
-import events from 'reducers/events';
-import user from 'reducers/user'
 import { API_URL } from 'utils/urls';
 import { TransparentButton } from 'styles/Button.styles';
-import styled from 'styled-components/macro';
 import ApplyToEvent from './ApplyToEvent';
 
 const EventCard = ({
@@ -201,7 +201,6 @@ const StyledEventCard = styled.div`
   @media (min-width: 1400px) {
     width:100%;
   }
-
 `
 const HandleEventContainer = styled.section`
   grid-column: 1 / 3;

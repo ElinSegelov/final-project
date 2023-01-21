@@ -1,9 +1,9 @@
 import React from 'react';
-import countys from 'utils/countys';
-import { Select } from 'styles/Forms';
-import { useDispatch } from 'react-redux';
 import events from 'reducers/events';
+import countys from 'utils/countys';
 import styled from 'styled-components/macro';
+import { useDispatch } from 'react-redux';
+import { Select } from 'styles/Forms';
 
 const EventLocationSearch = () => {
   const dispatch = useDispatch();

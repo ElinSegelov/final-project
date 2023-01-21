@@ -53,10 +53,6 @@ const Header = () => {
 
 export default Header;
 
-// const LinkLogo = styled(Link)`
-//   transform: none;
-// `
-
 const StyledHeader = styled.header`
   height: 12vh;
   min-height: 4rem;

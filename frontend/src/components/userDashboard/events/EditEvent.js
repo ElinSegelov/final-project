@@ -2,14 +2,14 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import BGGData from 'components/userDashboard/events/BGGData';
+import countys from 'utils/countys';
+import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
 import { parseISO } from 'date-fns';
 import { FilledButton, GoBackFromCreateOrEditButton } from 'styles/Button.styles';
 import { FormWrapper, Form, Select, TextArea, SpotsInformation, Input, ScreenReaderLabel } from 'styles/Forms';
-import 'react-datepicker/dist/react-datepicker.css';
 import { FaArrowLeft } from 'react-icons/fa';
-import countys from 'utils/countys';
-import styled from 'styled-components/macro';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const EditEvent = ({
   editEvent,

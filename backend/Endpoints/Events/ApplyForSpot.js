@@ -28,49 +28,27 @@ export const applyForSpot = async (req, res) => {
           const messageToHost = {
             from: process.env.EMAIL,
             to: `${host.email}`,
-            subject: `${username} wants to join your party for playing ${selectedEvent.game}`,
-            html: `
-              <p>
-                User <span style="color:#DE605B; font-size: 1.2rem;">${username}</span> wants to join your party.
-                Please contact <span style="color:#DE605B; font-size: 1.2rem;">${username}</span> on ${userEmail}
-              </p>
-              <div style="
-                padding: 1rem 2rem;
-                border-radius: 0.6rem;
-                color: #FFF;
-                background-color: #363c46;">
+            subject: `A new player wants to join your party for playing ${selectedEvent.game}`,
+            text: `
+              Hello ${host.username},
 
-                <h3 style="color: #DE605B;">${selectedEvent.game}</h3>
-                <img style="width: 10rem;" src=${selectedEvent.image} alt="game" />
-                <p><span style="color: #DE605B;">Location:</span> ${selectedEvent.county}, ${selectedEvent.venue}</p>
-                <p><span style="color: #DE605B;">Time:</span> ${selectedEvent.eventTime}</p>
-                <p>
-                  <span style="color: #DE605B;">Open spots:</span> ${selectedEvent.openSpots} / ${selectedEvent.totalSpots}
-                </p>
-              </div>
+              The player ${username} has applied for a spot at your party for the board game session below.
+
+              ${selectedEvent.game}
+              ${selectedEvent.eventDate.slice(0, 10)}
+              ${selectedEvent.eventTime}
+              ${selectedEvent.county}
+              ${selectedEvent.venue}
+
+              Please contact ${username} on their e-mail ${userEmail} and make arrangements for the board gaming session, 
+              also let them know if they are accepted to your party or not.
+
+              Please remember to update the number of missing players in your event as you accept new players into 
+              your party.
+              
+              Hope you’ll have a nice time,
+              Octahedron 
             `
-            /*
-            subject: A new player wants to join your party for playing ${selectedEvent.game}`,
-            html: `
-            Hello {host.username},
-
-             User {username} has applied for a spot at your party for the board game session below.
-
-            {selectedEvent.game}
-            {selectedEvent.date}
-            {selectedEvent.time}
-            {selectedEvent.county}
-            {selectedEvent.venue}
-
-            Please contact {username} on their e-mail {userEmail} and make arrangements for the board gaming session, 
-            also let them know if they are accepted to your party or not.
-
-            Please remember to update the number of missing players in your evnet as you accept new players into 
-            your party.
-
-            Hope you’ll have a nice time,
-            Octahedron */
-
           };
           transporter.sendMail(messageToHost, (error, info) => {
             if (error) {
