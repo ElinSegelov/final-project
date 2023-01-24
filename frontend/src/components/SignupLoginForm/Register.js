@@ -50,9 +50,7 @@ const Register = () => {
     }
   };
 
-  const onFormSubmit = (event) => {
-    dispatch(ui.actions.setLoading(true))
-    event.preventDefault();
+  const fetchDataRegister = async () => {
     const options = {
       method: 'POST',
       headers: {
@@ -61,33 +59,40 @@ const Register = () => {
       body: JSON.stringify({ username, password, email })
     };
     if (password === repeatPassword) {
-      fetch(API_URL('register'), options)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.success) {
-            batch(() => {
-              dispatch(user.actions.setUserInfo(data.response));
-              dispatch(user.actions.setError(null));
-            });
-            navigate(`/user/${userId}`);
-          } else {
-            batch(() => {
-              dispatch(user.actions.setUserInfo({}));
-              dispatch(user.actions.setError(data.response));
-              handleValidation(data);
-            });
-          }
-        })
-        .catch((error) => {
-          console.error(error.stack)
-          swalInformation('Something went wrong.', 'Please try again later', 'error', 2500)
-        })
-        .finally(() => dispatch(ui.actions.setLoading(false)))
+      try {
+        const response = await fetch(API_URL('register'), options);
+        const data = await response.json();
+        if (data.success) {
+          batch(() => {
+            dispatch(user.actions.setUserInfo(data.response))
+            dispatch(user.actions.setError(null));
+          });
+          navigate(`/user/${userId}`)
+        } else {
+          batch(() => {
+            dispatch(user.actions.setUserInfo({}));
+            dispatch(user.actions.setError(data.response));
+            handleValidation(data);
+          });
+        }
+      } catch (error) {
+        console.error(error)
+        swalInformation('Something went wrong.', 'Please try again later', 'error', 2500)
+      } finally {
+        dispatch(ui.actions.setLoading(false))
+      }
     } else if (password !== repeatPassword) {
       swalInformation('Passwords are not equal', '', 'warning', 2500);
       dispatch(ui.actions.setLoading(false));
     }
   };
+
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+    dispatch(ui.actions.setLoading(true))
+    fetchDataRegister();
+  };
+
   return (
     <FormWrapperContainer>
       {isLoading
