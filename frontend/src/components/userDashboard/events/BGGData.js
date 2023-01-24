@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable operator-linebreak */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +8,7 @@ import { LoadingForGameSearch } from 'components/loaders/loadingAnimations';
 import { BGG_API_SEARCH_BY_NAME, BGG_API_SEARCH_BY_OBJECT_ID } from 'utils/urls';
 import { Form, Input, ScreenReaderLabel, Select } from 'styles/Forms';
 import styled from 'styled-components/macro';
+// import { xml2js } from 'xml-js';
 
 const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) => {
   const [searchParameter, setSearchParameter] = useState('');
@@ -15,14 +17,15 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
   const isLoading = useSelector((store) => store.ui.isLoading);
 
   const fetchData = async (bggEndpoint, objectId) => {
-    const URL = `https://api.factmaven.com/xml-to-json/?xml=${bggEndpoint}${objectId || searchParameter}`;
+    // const URL = `https://api.factmaven.com/xml-to-json/?xml=${bggEndpoint}${objectId || searchParameter}`;
+    const URL = `${BGG_API_SEARCH_BY_NAME}${searchParameter}`;
     let info;
     let gameName;
 
     try {
       const response = await fetch(URL);
       const data = await response.json();
-
+      console.log('xml data', data)
       if (data) {
         if (objectId) {
           // Checking if the fetch is to objectId endpoint.
