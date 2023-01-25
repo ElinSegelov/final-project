@@ -76,6 +76,9 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
           placeholder={(tempEventInfoForEdit && tempEventInfoForEdit.game) || 'Game'}
           type="text"
           onChange={(event) => setSearchParameter(event.target.value)} />
+        <p hidden={suggestions.length}>
+          Type most prominent word in game title. Press enter.
+        </p>
         {isLoading
           ?
           <LoaderWrapper>
@@ -104,7 +107,16 @@ export default BGGData;
 const InputWrapper = styled.div`
   position: relative;
   display: flex;
+  flex-direction: column;
   margin-bottom: 2.5rem;
+
+  p {
+    font-size: 14px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    position: absolute;
+    top: 2.5rem;
+  }
 `
 const LoaderWrapper = styled.div`
   width: 2rem;

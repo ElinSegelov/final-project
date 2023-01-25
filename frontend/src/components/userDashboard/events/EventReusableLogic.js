@@ -53,8 +53,9 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-    console.log(tempEventInfoForEdit)
-    if (editEvent) {
+    if (!gameName) {
+      swalInformation('Please, search for game and select one from the dropdown', '', 'warning', 2900)
+    } else if (editEvent) {
       if (selectedEventForEdit !== tempEventInfoForEdit) {
         const options = {
           method: 'PATCH',
@@ -75,6 +76,7 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
                 dispatch(events.actions.setError(null));
                 handleEventValidation(data.success);
               })
+              dispatch(events.actions.setSelectedGameWithDataFromAPI({}))
             } else {
               batch(() => {
                 dispatch(events.actions.setError(data.response));
@@ -125,6 +127,7 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
               dispatch(events.actions.setError(null));
               handleEventValidation(data.success);
             })
+            dispatch(events.actions.setSelectedGameWithDataFromAPI({}))
           } else {
             batch(() => {
               dispatch(events.actions.setError(data.response));
@@ -134,6 +137,7 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
         })
         .catch((err) => {
           console.error(err.stack);
+          handleEventValidation();
         });
     }
   };

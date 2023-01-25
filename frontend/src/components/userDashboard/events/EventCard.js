@@ -49,10 +49,8 @@ const EventCard = ({
   }
   const handleValidation = (success) => {
     if (success) {
-      console.log('if success', success);
       swalInformation('Deleted!', 'Your event has been deleted.', 'success', 2000);
     } else {
-      console.log('else success', success);
       swalInformation('Something went wrong!', 'Event could not be deleted. Try again', 'error', 2000);
     }
     setTimeout(() => { window.location.reload() }, 2000);
@@ -68,7 +66,6 @@ const EventCard = ({
         eventId: selectedEventForEditOrRemove._id
       })
     }
-    console.log('selected event', selectedEventForEditOrRemove)
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
