@@ -23,7 +23,6 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
   const selectedGame = useSelector((store) => store.events.selectedGameWithDataFromAPI);
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit);
   const dispatch = useDispatch();
-  let gameName;
 
   useEffect(() => {
     if (editEvent) {
@@ -53,9 +52,13 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
 
   const onFormSubmit = (event) => {
     event.preventDefault();
+<<<<<<< Updated upstream
     if (!gameName) {
       swalInformation('Please, search for game and select one from the dropdown', '', 'warning', 2900)
     } else if (editEvent) {
+=======
+    if (editEvent) {
+>>>>>>> Stashed changes
       if (selectedEventForEdit !== tempEventInfoForEdit) {
         const options = {
           method: 'PATCH',
@@ -88,6 +91,7 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
       } else {
         handleEventValidation();
       }
+<<<<<<< Updated upstream
     } else {
       // The games sometimes have several titles. We check if there are more than one title, if so,
       // we find the primary one.
@@ -139,8 +143,52 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
           console.error(err.stack);
           handleEventValidation();
         });
+=======
+>>>>>>> Stashed changes
     }
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': userInfo.accessToken
+      },
+      body: JSON.stringify({
+        hostId: userInfo.userId,
+        host: userInfo.username,
+        eventDate: eventDate.toISOString(),
+        eventTime,
+        venue,
+        county,
+        game: selectedGame.name,
+        openSpots,
+        totalSpots,
+        description,
+        image: selectedGame.image_url
+      })
+    };
+
+    fetch(API_URL('event'), options)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          batch(() => {
+            dispatch(user.actions.changeToHostingEvents(data.response.hostingEvents));
+            dispatch(events.actions.setError(null));
+            handleEventValidation(data.success);
+          })
+        } else {
+          batch(() => {
+            dispatch(events.actions.setError(data.response));
+            handleEventValidation(data.success);
+          })
+        }
+      })
+      .catch((err) => {
+        console.error(err.stack);
+      });
   };
+
   return (
     <InnerWrapper>
       {editEvent

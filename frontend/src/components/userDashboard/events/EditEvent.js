@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
-import BGGData from 'components/userDashboard/events/BGGData';
+import BGGData from 'components/userDashboard/events/BGAData';
 import countys from 'utils/countys';
 import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';

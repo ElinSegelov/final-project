@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import BGGData from 'components/userDashboard/events/BGGData';
+import BGGData from 'components/userDashboard/events/BGAData';
 import styled from 'styled-components/macro';
 import DatePicker from 'react-datepicker';
 import countys from 'utils/countys';
