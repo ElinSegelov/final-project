@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable quote-props */
 import React, { useEffect, useState } from 'react';
@@ -53,9 +54,7 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-    if (!gameName) {
-      swalInformation('Please, search for game and select one from the dropdown', '', 'warning', 2900)
-    } else if (editEvent) {
+    if (editEvent) {
       if (selectedEventForEdit !== tempEventInfoForEdit) {
         const options = {
           method: 'PATCH',
@@ -91,11 +90,15 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
     } else {
       // The games sometimes have several titles. We check if there are more than one title, if so,
       // we find the primary one.
-      if (selectedGame.name.length > 1) {
-        const nameOfGame = selectedGame.name.find((nameGame) => nameGame.primary === 'true');
-        gameName = nameOfGame.text;
+      if (selectedGame) {
+        if (selectedGame.name.length > 1) {
+          const nameOfGame = selectedGame.name.find((nameGame) => nameGame.primary === 'true');
+          gameName = nameOfGame.text;
+        } else {
+          gameName = selectedGame.name.text;
+        }
       } else {
-        gameName = selectedGame.name.text;
+        swalInformation('Please search for game and select one from the dropdown', '', 'warning', 2900)
       }
 
       const options = {
