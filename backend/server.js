@@ -13,6 +13,8 @@ import { getUserInfo } from "./Endpoints/User/GetUserInfo";
 import { loginUser } from "./Endpoints/User/LoginUser";
 import { registerUser } from "./Endpoints/User/RegisterUser";
 import { updateUserInfo } from "./Endpoints/User/UpdateUserInfo";
+import { SendFriendRequest } from "./Endpoints/User/friends/SendFriendRequest";
+import { AcceptFriendRequest } from "./Endpoints/User/friends/AcceptFriendRequest";
 
 dotenv.config();
 mongoose.set('strictQuery', true);
@@ -57,6 +59,12 @@ app.get("/", (_, res) => {
 app.post("/register", registerUser);
 app.post("/login", loginUser);
 
+app.post("/friends", authenticateUser);
+app.post("/friends", SendFriendRequest);
+
+app.patch("/friends", authenticateUser);
+app.patch("/friends", AcceptFriendRequest);
+
 app.get("/user", authenticateUser);
 app.get("/user", getUserInfo);
 
@@ -66,6 +74,8 @@ app.patch("/user", updateUserInfo);
 
 app.delete("/user", authenticateUser);
 app.delete("/user", deleteUser);
+
+
 
 // -------------------------------- EVENTS ------------------------------
 app.post("/event", authenticateUser);

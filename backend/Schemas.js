@@ -39,6 +39,12 @@ export const UserSchema = new mongoose.Schema({
   },
   attendingEvents: {
     type: Array
+  },
+  friendsList: {
+    type: Array
+  },
+  pendingFriends: {
+    type: Array
   }
 });
 
