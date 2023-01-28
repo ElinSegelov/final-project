@@ -112,7 +112,7 @@ const Register = () => {
             <ScreenReaderLabel htmlFor="username">Username</ScreenReaderLabel>
             <Input
               required
-              placeholder="Username *"
+              placeholder="Username (2-10 chars) *"
               minLength={2}
               maxLength={10}
               type="text"

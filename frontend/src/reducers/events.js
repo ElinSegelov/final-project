@@ -8,7 +8,7 @@ const events = createSlice({
   initialState: {
     postedEvents: [],
     eventsOfTheDay: [],
-    selectedGameWithDataFromAPI: {},
+    selectedGameWithDataFromAPI: null,
     selectedEventForEdit: [],
     selectedDate: (new Date().toISOString()),
     hostingEvents: [],

@@ -18,7 +18,8 @@ const AboutUs = () => {
       linkedIn: 'https://www.linkedin.com/in/davidballesterfont/',
       web: 'https://davidballester.dev/',
       email: 'dballesterfont@gmail.com',
-      portrait: 'https://davidballester.dev/static/media/profile-pic.c307e335e5b25c324099.jpg'
+      portrait: 'https://davidballester.dev/static/media/profile-pic.a4381bec9c8e9fe25a84.webp'
+
     }
   ]
 
