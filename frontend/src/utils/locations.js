@@ -1,4 +1,4 @@
-const countys = [
+const locations = [
   'Blekinge county',
   'Dalarnas county',
   'Gotlands county',
@@ -22,4 +22,4 @@ const countys = [
   'Östergötlands county'
 ]
 
-export default countys;
+export default locations;

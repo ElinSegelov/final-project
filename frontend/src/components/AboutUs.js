@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import { IoLogoLinkedin } from 'react-icons/io5'
 import { BsBriefcaseFill } from 'react-icons/bs'
 
+//! Ersätta det mot fetch till /aboutusinfo
 const AboutUs = () => {
   const info = [
     {
@@ -18,6 +19,7 @@ const AboutUs = () => {
       web: 'https://davidballester.dev/',
       email: 'dballesterfont@gmail.com',
       portrait: 'https://davidballester.dev/static/media/profile-pic.a4381bec9c8e9fe25a84.webp'
+
     }
   ]
 

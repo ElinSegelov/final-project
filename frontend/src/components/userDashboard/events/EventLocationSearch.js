@@ -1,13 +1,13 @@
 import React from 'react';
 import events from 'reducers/events';
-import countys from 'utils/countys';
+import locations from 'utils/locations.js';
 import styled from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
 import { Select } from 'styles/Forms';
 
 const EventLocationSearch = () => {
   const dispatch = useDispatch();
-  const countyOptions = countys.map((county) => {
+  const countyOptions = locations.map((county) => {
     return <option key={county} value={county}>{county}</option>
   });
   const handleOnChange = (value) => {
