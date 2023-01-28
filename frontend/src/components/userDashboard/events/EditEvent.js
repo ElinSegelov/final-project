@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import BGGData from 'components/userDashboard/events/BGAData';
-import countys from 'utils/countys';
+import locations from 'utils/locations.js';
 import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
 import { parseISO } from 'date-fns';
@@ -27,7 +27,7 @@ const EditEvent = ({
     setTempEventInfoForEdit({ ...tempEventInfoForEdit, eventDate: date.toISOString() });
   };
 
-  const countyOptions = countys.map((county) => {
+  const countyOptions = locations.map((county) => {
     return <option key={county} value={county}>{county}</option>
   });
   return (

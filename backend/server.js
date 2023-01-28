@@ -88,8 +88,8 @@ app.post("/applyForSpot", applyForSpot);
 
 // -------------------------------- CONTENT ------------------------------
 
-app.get("/bga", authenticateUser);
-app.get("/bga", boardGameData);
+app.post("/bga", authenticateUser);
+app.post("/bga", boardGameData);
 
 // Start the server
 app.listen(port, () => {

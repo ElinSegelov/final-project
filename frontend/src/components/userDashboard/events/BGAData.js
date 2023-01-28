@@ -1,3 +1,4 @@
+/* eslint-disable quote-props */
 /* eslint-disable indent */
 /* eslint-disable operator-linebreak */
 
@@ -6,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import events from 'reducers/events';
 import ui from 'reducers/ui';
 import { LoadingForGameSearch } from 'components/loaders/loadingAnimations';
-import { BGA_API } from 'utils/urlForBGA'
+import { URL_BGA_ENDPOINT } from 'utils/urls'
 import styled from 'styled-components/macro';
 import { Input, ScreenReaderLabel, Select } from 'styles/Forms';
 import axios from 'axios';
@@ -15,43 +16,40 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
   const [suggestions, setSuggestions] = useState([]);
   const [gameInfo, setGameInfo] = useState({});
   const dispatch = useDispatch();
+  const userInfo = useSelector((store) => store.user.userInfo);
   const isLoading = useSelector((store) => store.ui.isLoading);
-  let info;
-  let cancelToken;
   let response;
+  let baseGames;
 
   const handleSearchInputChange = async (event) => {
-    const { value } = event.target;
+    const searchParameter = event.target.value;
+    console.log(userInfo.accessToken)
 
-    if (value.length > 2) {
+    if (searchParameter.length > 2) {
       dispatch(ui.actions.setLoading(true));
 
-      if (cancelToken) {
-        cancelToken.cancel('Fetch cancelled due to new request');
-      }
-
-      cancelToken = axios.CancelToken.source();
       try {
-        response = await axios.get(
-          BGA_API(`${value}`),
-          { cancelToken: cancelToken.token }
-        );
+        const options = {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': userInfo.accessToken
+          }
+        }
+        const data = JSON.stringify({ searchParameter });
+        response = await axios.post(URL_BGA_ENDPOINT, data, options);
+        baseGames = response.data.response;
+        console.log(baseGames)
       } catch (error) {
         console.warn(error.message)
       }
 
       if (response) {
         // !kan data komma utan field 'games'?
-        if (response.data.games) {
-          info = response.data.games;
-          const baseGames = info.filter((game) => game.type === 'game')
-
-          setGameInfo(response.data.games)
+          setGameInfo(baseGames)
           const suggestedGames = baseGames.map((game) => {
             return <option key={game.id} value={game.id}>{game.name}</option>
           });
           setSuggestions(suggestedGames);
-        }
       }
       dispatch(ui.actions.setLoading(false));
     }

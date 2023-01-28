@@ -1,28 +1,32 @@
+import axios from 'axios';
+
 export const boardGameData = async (req, res) => {
 	const accessToken = req.header("Authorization");
 	if (accessToken) {
 		const { searchParameter } = req.body;
     if (searchParameter) {
 			const BGA_API = `https://api.boardgameatlas.com/api/search?name=${searchParameter}&limit=100&client_id=${process.env.BGA_CLIENT_ID}`;
-			try {
-				const response = await fetch(BGA_API);
-				const gameData = await response.json();
 
-				if (gameData) {
+      try {
+        const response = await fetch(BGA_API);
+        if (response) {
+					const gameData = await response.json();
           const info = gameData.games;
           const baseGames = info.filter((game) => game.type === 'game');
 
           res.status(200).json({
             success: true,
+            searchParameter: searchParameter,
             response: baseGames
           });
 				};
-			} catch (err) {
-				res.status(503).json({
-					success: false,
-					response: err.stack
-				});
-			}
+      } catch (error) {
+        console.warn(error.message)
+        res.status(400).json({
+          success: false,
+          response: error.message
+        });
+      }
 		} else {
 			res.status(400).json({
 				success: false,
