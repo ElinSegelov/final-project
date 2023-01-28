@@ -23,7 +23,6 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
 
   const handleSearchInputChange = async (event) => {
     const searchParameter = event.target.value;
-    console.log(userInfo.accessToken)
 
     if (searchParameter.length > 2) {
       dispatch(ui.actions.setLoading(true));
@@ -44,7 +43,6 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
       }
 
       if (response) {
-        // !kan data komma utan field 'games'?
           setGameInfo(baseGames)
           const suggestedGames = baseGames.map((game) => {
             return <option key={game.id} value={game.id}>{game.name}</option>
