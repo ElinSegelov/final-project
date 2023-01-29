@@ -15,6 +15,7 @@ import { registerUser } from "./Endpoints/User/RegisterUser";
 import { updateUserInfo } from "./Endpoints/User/UpdateUserInfo";
 import { SendFriendRequest } from "./Endpoints/User/friends/SendFriendRequest";
 import { AcceptFriendRequest } from "./Endpoints/User/friends/AcceptFriendRequest";
+import { boardGameData } from "./Endpoints/APIProxy/BGA";
 
 dotenv.config();
 mongoose.set('strictQuery', true);
@@ -94,6 +95,11 @@ app.patch("/event", updateEvent);
 
 app.post("/applyForSpot", authenticateUser);
 app.post("/applyForSpot", applyForSpot);
+
+// -------------------------------- CONTENT ------------------------------
+
+app.post("/bga", authenticateUser);
+app.post("/bga", boardGameData);
 
 // Start the server
 app.listen(port, () => {
