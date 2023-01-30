@@ -11,24 +11,15 @@ import { Select } from 'styles/Forms';
 import { API_URL } from 'utils/urls';
 
 const EventLocationSearch = () => {
-  const accessToken = useSelector((store) => store.user.userInfo.accessToken);
   const allLocationsFromStore = useSelector((store) => store.events.locations);
   const dispatch = useDispatch();
 
   const getAllLocations = async () => {
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': accessToken
-      }
-    };
     try {
-      const response = await fetch(API_URL('locations'), options);
+      const response = await fetch(API_URL('locations'));
       const data = await response.json()
       const allLocations = data.response[0].locations[0].swedishCounties;
       dispatch(events.actions.setLocations(allLocations))
-      console.log(allLocations)
     } catch (err) {
       console.error(err.message)
     }

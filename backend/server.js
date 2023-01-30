@@ -88,16 +88,13 @@ app.patch("/event", updateEvent);
 app.post("/applyForSpot", authenticateUser);
 app.post("/applyForSpot", applyForSpot);
 
-// app.get("/locations", authenticateUser);
 app.get("/locations", locations);
-
 
 // -------------------------------- CONTENT ------------------------------
 
 app.post("/bga", authenticateUser);
 app.post("/bga", boardGameData);
 
-app.get("/aboutUs", authenticateUser);
 app.get("/aboutUs", aboutUs);
 
 // Start the server

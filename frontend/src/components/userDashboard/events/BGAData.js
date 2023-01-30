@@ -37,7 +37,6 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
         const data = JSON.stringify({ searchParameter });
         response = await axios.post(URL_BGA_ENDPOINT, data, options);
         baseGames = response.data.response;
-        console.log(baseGames)
       } catch (error) {
         console.warn(error.message)
       }
