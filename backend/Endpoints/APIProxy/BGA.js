@@ -17,7 +17,7 @@ export const boardGameData = async (req, res) => {
       let response;
       try {
         response = await axios.get(
-          BGA_API, { canceltoken: cancelToken.token}
+          BGA_API, { cancelToken: cancelToken.token }
         )
         if (response) {
           const info = response.data.games
@@ -30,6 +30,7 @@ export const boardGameData = async (req, res) => {
           });
 				};
       } catch (err) {
+        console.log(err.message)
         res.status(400).json({
           success: false,
           response: err.stack,
@@ -55,7 +56,6 @@ export const boardGameData = async (req, res) => {
         res.status(400).json({
           success: false,
           response: error.stack,
-          banan: true
         });
       } */
 		} else {

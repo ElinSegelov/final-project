@@ -20,12 +20,18 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
   const isLoading = useSelector((store) => store.ui.isLoading);
   let response;
   let baseGames;
-
+  let cancelToken;
   const handleSearchInputChange = async (event) => {
     const searchParameter = event.target.value;
 
     if (searchParameter.length > 2) {
       dispatch(ui.actions.setLoading(true));
+
+      if (cancelToken) {
+        cancelToken.cancel('Fetch cancelled due to new request')
+      }
+
+      cancelToken = axios.CancelToken.source();
 
       try {
         const options = {
@@ -37,7 +43,7 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
         const data = JSON.stringify({ searchParameter });
         response = await axios.post(URL_BGA_ENDPOINT, data, options);
         baseGames = response.data.response;
-        console.log(baseGames)
+        console.log(searchParameter, baseGames)
       } catch (error) {
         console.warn(error.message)
       }
