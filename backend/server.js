@@ -14,11 +14,13 @@ import { loginUser } from "./Endpoints/User/LoginUser";
 import { registerUser } from "./Endpoints/User/RegisterUser";
 import { updateUserInfo } from "./Endpoints/User/UpdateUserInfo";
 import { boardGameData } from "./Endpoints/APIProxy/BGA";
+import { locations } from "./Endpoints/Events/Locations";
+import { aboutUs } from "./Endpoints/Content/AboutUs";
 
 dotenv.config();
 mongoose.set('strictQuery', true);
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/final-project";
+export const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/final-project";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
@@ -86,10 +88,17 @@ app.patch("/event", updateEvent);
 app.post("/applyForSpot", authenticateUser);
 app.post("/applyForSpot", applyForSpot);
 
+app.get("/locations", authenticateUser);
+app.get("/locations", locations);
+
+
 // -------------------------------- CONTENT ------------------------------
 
 app.post("/bga", authenticateUser);
 app.post("/bga", boardGameData);
+
+app.get("/aboutUs", authenticateUser);
+app.get("/aboutUs", aboutUs);
 
 // Start the server
 app.listen(port, () => {
