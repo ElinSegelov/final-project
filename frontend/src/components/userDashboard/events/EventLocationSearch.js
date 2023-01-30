@@ -1,13 +1,44 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable quote-props */
+import React, { useEffect } from 'react';
 import events from 'reducers/events';
-import locations from 'utils/locations.js';
+// import locations from 'utils/locations.js';
 import styled from 'styled-components/macro';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Select } from 'styles/Forms';
+import { API_URL } from 'utils/urls';
 
 const EventLocationSearch = () => {
+  const accessToken = useSelector((store) => store.user.userInfo.accessToken);
+  const allLocationsFromStore = useSelector((store) => store.events.locations);
   const dispatch = useDispatch();
-  const countyOptions = locations.map((county) => {
+
+  const getAllLocations = async () => {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': accessToken
+      }
+    };
+    try {
+      const response = await fetch(API_URL('locations'), options);
+      const data = await response.json()
+      const allLocations = data.response[0].locations[0].swedishCounties;
+      dispatch(events.actions.setLocations(allLocations))
+      console.log(allLocations)
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  useEffect(() => {
+    getAllLocations()
+  }, []);
+
+  const countyOptions = allLocationsFromStore.map((county) => {
     return <option key={county} value={county}>{county}</option>
   });
   const handleOnChange = (value) => {

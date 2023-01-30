@@ -88,7 +88,7 @@ app.patch("/event", updateEvent);
 app.post("/applyForSpot", authenticateUser);
 app.post("/applyForSpot", applyForSpot);
 
-app.get("/locations", authenticateUser);
+// app.get("/locations", authenticateUser);
 app.get("/locations", locations);
 
 

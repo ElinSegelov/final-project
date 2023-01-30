@@ -12,6 +12,7 @@ const events = createSlice({
     selectedEventForEdit: [],
     selectedDate: (new Date().toISOString()),
     hostingEvents: [],
+    locations: [],
     countyFilter: 'All',
     error: null
   },
@@ -33,6 +34,9 @@ const events = createSlice({
     },
     setHostingEvents: (store, action) => {
       store.hostingEvents = action.payload
+    },
+    setLocations: (store, action) => {
+      store.locations = action.payload
     },
     setCountyFilter: (store, action) => {
       store.countyFilter = action.payload
