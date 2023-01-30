@@ -32,6 +32,7 @@ const Dashboard = () => {
   useEffect(() => {
     localStorage.setItem('loggedInUser', JSON.stringify(userInfo));
   }, [hostingEvents, userInfo]);
+
   return (
     <DashboardWrapper>
       {window.innerWidth < 1024

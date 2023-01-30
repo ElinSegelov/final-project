@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable no-underscore-dangle */ // Ignores _ in _id
 import React from 'react';
@@ -13,14 +12,15 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
   const countyFilter = useSelector((store) => store.events.countyFilter);
   const allEvents = [];
 
-  const eventsOfTheDayInSelectedCounty = eventsOfTheDay.filter((event) => event.county === countyFilter);
+  const eventsOfTheDayInSelectedCounty = eventsOfTheDay.filter(
+    (event) => event.county === countyFilter
+  );
   // If no specific county is selected, allEvents is replaced with previous value of eventsOfTheDay
   if (countyFilter === 'All') {
     allEvents.push(...allEvents, eventsOfTheDay.map((event) => {
       return (
         <EventCard
-          key={event._id}
-          id={event._id}
+          key={`${event._id}`}
           image={event.image}
           eventId={event._id}
           setEditEvent={setEditEvent}
@@ -44,8 +44,7 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
     allEvents.push(...allEvents, eventsFilterdByCounty.map((event) => {
       return (
         <EventCard
-          key={event._id}
-          id={event._id}
+          key={`${event._id}`}
           image={event.image}
           eventId={event._id}
           setEditEvent={setEditEvent}

@@ -19,7 +19,6 @@ import { TransparentButton } from 'styles/Button.styles';
 import ApplyToEvent from './ApplyToEvent';
 
 const EventCard = ({
-  id,
   hostId,
   eventId,
   game,
@@ -102,7 +101,7 @@ const EventCard = ({
   const loggedInUser = useSelector((store) => store.user.userInfo.accessToken);
   if (loggedInUser && isHost) {
     return (
-      <EventCardWithBasicInfo key={id}>
+      <EventCardWithBasicInfo key={eventId}>
         <GameTitleWrapperLimited>
           <h3>{game}</h3>
         </GameTitleWrapperLimited>
@@ -114,7 +113,7 @@ const EventCard = ({
     );
   } else if (loggedInUser) {
     return (
-      <StyledEventCard key={id}>
+      <StyledEventCard key={eventId}>
         <GameImageContainer>
           <GameImage src={image} alt={game} />
         </GameImageContainer>
@@ -137,12 +136,12 @@ const EventCard = ({
             <TransparentButton type="button" onClick={(handleDeleteEvent)}><MdDelete /></TransparentButton>
             <TransparentButton type="button" onClick={(handleEditEvent)}><RiEdit2Fill /></TransparentButton>
           </HandleEventContainer>
-          : <ApplyToEvent eventId={id} eventHost={host} />}
+          : <ApplyToEvent eventId={eventId} eventHost={host} />}
       </StyledEventCard>
     );
   } else {
     return (
-      <EventCardWithBasicInfo key={id}>
+      <EventCardWithBasicInfo key={eventId}>
         <GameTitleWrapperLimited>
           <h3>{game}</h3>
         </GameTitleWrapperLimited>
