@@ -1,31 +1,30 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { IoLogoLinkedin } from 'react-icons/io5'
 import { BsBriefcaseFill } from 'react-icons/bs'
+import { API_URL } from 'utils/urls';
 
-//! Ersätta det mot fetch till /aboutusinfo
 const AboutUs = () => {
-  const info = [
-    {
-      name: 'Elin Segelöv',
-      linkedIn: 'https://www.linkedin.com/in/elin-s-683a867a/',
-      web: 'https://elinsegelov.netlify.app',
-      email: 'elin.segelov@gmail.com',
-      portrait: 'https://elinsegelov.netlify.app/static/media/portrait.6c39ec6df5103d58d5d2.webp'
-    },
-    {
-      name: 'David Ballester',
-      linkedIn: 'https://www.linkedin.com/in/davidballesterfont/',
-      web: 'https://davidballester.dev/',
-      email: 'dballesterfont@gmail.com',
-      portrait: 'https://davidballester.dev/static/media/profile-pic.a4381bec9c8e9fe25a84.webp'
+  const [aboutUsInfo, setAboutUsInfo] = useState([])
 
+  const getAboutUs = async () => {
+    try {
+      const response = await fetch(API_URL('aboutUs'));
+      const data = await response.json()
+      setAboutUsInfo(data.response[0].aboutUs)
+    } catch (err) {
+      console.error(err.message)
     }
-  ]
+  }
 
-  const contactCards = info.map((person) => {
+  useEffect(() => {
+    getAboutUs()
+  }, []);
+
+  const contactCards = aboutUsInfo.map((person) => {
     return (
-      <ProfileCard>
+      <ProfileCard key={person.name}>
         <ImageAndUserInfoWapper>
           <Img src={person.portrait} alt={person.name} />
           <UserInfoWapper>
@@ -37,6 +36,7 @@ const AboutUs = () => {
       </ProfileCard>
     )
   })
+
   return (
     <AboutUsContainer>
       <h1>About us</h1>
