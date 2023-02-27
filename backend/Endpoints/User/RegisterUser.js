@@ -33,7 +33,7 @@ export const registerUser = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       success: false,
-      response: err
+      response: err.stack
     });
   };
 };

@@ -18,6 +18,7 @@ import { AcceptFriendRequest } from "./Endpoints/User/friends/AcceptFriendReques
 import { boardGameData } from "./Endpoints/APIProxy/BGA";
 import { locations } from "./Endpoints/Events/Locations";
 import { aboutUs } from "./Endpoints/Content/AboutUs";
+import { CancelFriendRequest } from "./Endpoints/User/friends/CancelFriendRequest";
 
 dotenv.config();
 mongoose.set('strictQuery', true);
@@ -67,6 +68,9 @@ app.post("/friends", SendFriendRequest);
 
 app.patch("/friends", authenticateUser);
 app.patch("/friends", AcceptFriendRequest);
+
+app.patch("/cancel-request", authenticateUser);
+app.patch("/cancel-request", CancelFriendRequest);
 
 app.get("/user", authenticateUser);
 app.get("/user", getUserInfo);
