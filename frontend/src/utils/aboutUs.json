@@ -1,0 +1,20 @@
+[
+  {
+    "aboutUs": [
+      {
+        "name": "Elin Segelöv",
+        "linkedIn": "https://www.linkedin.com/in/elin-s-683a867a/",
+        "web": "https://elinsegelov.netlify.app",
+        "email": "elin.segelov@gmail.com",
+        "portrait": "https://elinsegelov.netlify.app/static/media/portrait.6c39ec6df5103d58d5d2.webp"
+      },
+      {
+        "name": "David Ballester",
+        "linkedIn": "https://www.linkedin.com/in/davidballesterfont/",
+        "web": "https://davidballester.dev/",
+        "email": "dballesterfont@gmail.com",
+        "portrait": "https://davidballester.dev/static/media/profile-pic.a4381bec9c8e9fe25a84.webp"
+      }
+    ]
+  }
+]

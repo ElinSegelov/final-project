@@ -34,9 +34,8 @@ const Login = () => {
     setPassword('');
     swalInformation(data.response, '', 'warning', 2500)
   };
-  const onFormSubmit = (event) => {
-    dispatch(ui.actions.setLoading(true));
-    event.preventDefault();
+
+  const fetchDataLogIn = async () => {
     const options = {
       method: 'POST',
       headers: {
@@ -44,28 +43,36 @@ const Login = () => {
       },
       body: JSON.stringify({ email, password })
     };
-    fetch(API_URL('login'), options)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          batch(() => {
-            dispatch(user.actions.setUserInfo(data.response))
-            dispatch(user.actions.setError(null));
-          });
-        } else {
-          batch(() => {
-            dispatch(user.actions.setUserInfo({}))
-            dispatch(user.actions.setError(data.response))
-            handleValidation(data)
-          });
-        }
-      })
-      .catch((error) => {
-        console.error(error)
-        swalInformation('Something went wrong.', 'Please try again later', 'error', 2500)
-      })
-      .finally(() => dispatch(ui.actions.setLoading(false)))
-  };
+
+    try {
+      const response = await fetch(API_URL('login'), options);
+      const data = await response.json();
+      if (data.success) {
+        batch(() => {
+          dispatch(user.actions.setUserInfo(data.response))
+          dispatch(user.actions.setError(null));
+        });
+      } else {
+        batch(() => {
+          dispatch(user.actions.setUserInfo({}))
+          dispatch(user.actions.setError(data.response))
+          handleValidation(data)
+        });
+      }
+    } catch (error) {
+      console.error(error)
+      swalInformation('Something went wrong.', 'Please try again later', 'error', 2500)
+    } finally {
+      dispatch(ui.actions.setLoading(false))
+    }
+  }
+
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+    dispatch(ui.actions.setLoading(true));
+    fetchDataLogIn();
+  }
+
   return (
     <>
       {isLoading

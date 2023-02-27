@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import BGGData from 'components/userDashboard/events/BGGData';
+import BGGData from 'components/userDashboard/events/BGAData';
 import styled from 'styled-components/macro';
 import DatePicker from 'react-datepicker';
-import countys from 'utils/countys';
+import locations from 'utils/locations.js';
 import { FormWrapper, Form, Input, Select, SpotsInformation, TextArea, ScreenReaderLabel } from 'styles/Forms';
 import { FilledButton, GoBackFromCreateOrEditButton } from 'styles/Button.styles';
 import { FaArrowLeft } from 'react-icons/fa';
@@ -22,7 +22,7 @@ const CreateEvent = ({
   totalSpots,
   setHandleEvent
 }) => {
-  const countyOptions = countys.map((county) => {
+  const countyOptions = locations.map((county) => {
     return <option key={county} value={county}>{county}</option>
   });
 

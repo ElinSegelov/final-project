@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable quote-props */
 import React, { useEffect, useState } from 'react';
@@ -24,7 +23,6 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
   const selectedGame = useSelector((store) => store.events.selectedGameWithDataFromAPI);
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit);
   const dispatch = useDispatch();
-  let gameName;
 
   useEffect(() => {
     if (editEvent) {
@@ -54,6 +52,7 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
 
   const onFormSubmit = (event) => {
     event.preventDefault();
+
     if (editEvent) {
       if (selectedEventForEdit !== tempEventInfoForEdit) {
         const options = {
@@ -87,63 +86,50 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
       } else {
         handleEventValidation();
       }
-    } else {
-      // The games sometimes have several titles. We check if there are more than one title, if so,
-      // we find the primary one.
-      if (selectedGame) {
-        if (selectedGame.name.length > 1) {
-          const nameOfGame = selectedGame.name.find((nameGame) => nameGame.primary === 'true');
-          gameName = nameOfGame.text;
-        } else {
-          gameName = selectedGame.name.text;
-        }
-      } else {
-        swalInformation('Please search for game and select one from the dropdown', '', 'warning', 2900)
-      }
-
-      const options = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': userInfo.accessToken
-        },
-        body: JSON.stringify({
-          hostId: userInfo.userId,
-          host: userInfo.username,
-          eventDate: eventDate.toISOString(),
-          eventTime,
-          venue,
-          county,
-          game: gameName,
-          openSpots,
-          totalSpots,
-          description,
-          image: selectedGame.image
-        })
-      };
-      fetch(API_URL('event'), options)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.success) {
-            batch(() => {
-              dispatch(user.actions.changeToHostingEvents(data.response.hostingEvents));
-              dispatch(events.actions.setError(null));
-              handleEventValidation(data.success);
-            })
-            dispatch(events.actions.setSelectedGameWithDataFromAPI({}))
-          } else {
-            batch(() => {
-              dispatch(events.actions.setError(data.response));
-              handleEventValidation(data.success);
-            })
-          }
-        })
-        .catch((err) => {
-          console.error(err.stack);
-          handleEventValidation();
-        });
     }
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': userInfo.accessToken
+      },
+      body: JSON.stringify({
+        hostId: userInfo.userId,
+        host: userInfo.username,
+        eventDate: eventDate.toISOString(),
+        eventTime,
+        venue,
+        county,
+        game: selectedGame.name,
+        openSpots,
+        totalSpots,
+        description,
+        image: selectedGame.image_url
+      })
+    };
+
+    fetch(API_URL('event'), options)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          batch(() => {
+            dispatch(user.actions.changeToHostingEvents(data.response.hostingEvents));
+            dispatch(events.actions.setError(null));
+            handleEventValidation(data.success);
+          })
+        } else {
+          batch(() => {
+            dispatch(events.actions.setError(data.response));
+            handleEventValidation(data.success);
+          })
+        }
+      })
+      .catch((err) => {
+        console.error(err.stack);
+      });
   };
+
   return (
     <InnerWrapper>
       {editEvent

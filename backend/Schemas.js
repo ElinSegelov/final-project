@@ -108,3 +108,15 @@ export const EventSchema = new mongoose.Schema({
     type: Array
   }
 });
+
+export const LocationsSchema = new mongoose.Schema({
+  locations: {
+    type: Array
+  }
+})
+
+export const AboutUsSchema = new mongoose.Schema({
+  aboutUs: {
+    type: Array
+  }
+})

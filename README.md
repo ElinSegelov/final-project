@@ -14,9 +14,7 @@ At the current state, users are able to create events and apply for a spot at po
 If we had more time we would like to add functionality for users to add each other as friends, invite friends to events and make it possible for all communication to take place within the application. Our first priority is however, making our code less repetitive and split up the component EventReusableLogic and also make it more reusable.
 
 ## Known issues
-At the moment it is not possible to search for games using more than one word. This issue is caused by limitations of a middleman api we are using.
-There is also an error in the console stating that each child in list should have a unique key prop. To out best ability we have tried to fix this, adding keys to the elements, but without success.
-These issues will be corrected as soon as possible.
+When searching for games, sometimes the user will encounter an error making the suggestions appear "out of order". This is due to the fact that multiple requests are sent to the Board Game Atlas API each time the search parameter is changed. This sometimes makes the "game suggestions" show the response of a previous request, rather than the latest. We aim to solve this by cancelling previous requests when a new one is sent. This issue will be corrected as soon as possible.
 
 # Screenshots
  <img src="https://i.postimg.cc/fbdk9nVd/Ska-rmavbild-2023-01-16-kl-16-38-28.png">
