@@ -9,7 +9,7 @@ export const SendFriendRequest = async (req, res) => {
     if (userSendingRequest) {
       try {
         if (userSendingRequest.friendsList.length > 0) {
-          // This checks if the userGetting Requested already is in the friendList of the user Sending the request
+          // This checks if the userGetting Requested is already in the friendList of the user Sending the request
           const findIfAlreadyFriends = userSendingRequest.friendsList.find((friend) => friend.username === userGettingRequest.username);
 
           if (findIfAlreadyFriends.username === userGettingRequest.username) {

@@ -1,17 +1,21 @@
 import { User } from "../../../Models";
 
 export const CancelFriendRequest = async (req, res) => {
-    const { _id } = req.body;
-    if (_id) {
-      const userCancellingRequest = await User.findOne({ accessToken: req.header("Authorization") });
-      if (userCancellingRequest) {
-        const userGettingCancelled = await User.findOne({ _id });
-        if (userGettingCancelled) {
-          const updatedPendingFriendsFromUserGettingCancelled = await User.findByIdAndUpdate({ _id: userGettingCancelled._id},
-           { $pull: { pendingFriends: { _id: userCancellingRequest._id } } }, { new: true }
+  const { _id } = req.body;
+  if (_id) {
+    const userCancellingRequest = await User.findOne({ accessToken: req.header("Authorization") });
+    if (userCancellingRequest) {
+      const userGettingCancelled = await User.findOne({ _id });
+      try {
+        // This finds userSendingRequest and userGettingRequest inside pendingFriends
+        const findPendingInUserGettingCancelled = userGettingCancelled.pendingFriends.find((friend) => friend.username === userCancellingRequest.username);
+        const findPendingInUserCancellingRequest = userCancellingRequest.pendingFriends.find((friend) => friend.username === userGettingCancelled.username);
+        if (findPendingInUserGettingCancelled && findPendingInUserCancellingRequest) {
+          const updatedPendingFriendsFromUserGettingCancelled = await User.findByIdAndUpdate({ _id: userGettingCancelled._id },
+            { $pull: { pendingFriends: { _id: userCancellingRequest._id } } }, { new: true }
           )
-          const updatedPendingFromUserCancellingRequest = await User.findByIdAndUpdate({ _id: userGettingCancelled._id},
-           { $pull: { pendingFriends: { _id: userCancellingRequest._id } } }, { new: true }
+          const updatedPendingFromUserCancellingRequest = await User.findByIdAndUpdate({ _id: userCancellingRequest._id },
+            { $pull: { pendingFriends: { _id: userGettingCancelled._id } } }, { new: true }
           )
           if (updatedPendingFriendsFromUserGettingCancelled && updatedPendingFromUserCancellingRequest) {
             //! DUBBELKOLLA STATUS OCH RESPONSE. 201
@@ -29,18 +33,29 @@ export const CancelFriendRequest = async (req, res) => {
               response: "Something went wrong. We couldn't cancel your request to this user"
             })
           )
+        } else {
+          res.status(400).json({
+            success: false,
+            response: "There is nothing to cancel"
+          })
         }
-      } else {
-        res.styatus(401).json({
+      } catch (err) {
+        res.status(400).json({
           success: false,
-          response: "Please log in"
+          response: err.stack
         })
-      } 
+      }
     } else {
       res.styatus(401).json({
         success: false,
-        response: "We couldn't find this user to be added as a friend"
+        response: "Please log in"
       })
     }
+  } else {
+    res.styatus(401).json({
+      success: false,
+      response: "We couldn't find this user to be added as a friend"
+    })
+  }
 
- }
+}
