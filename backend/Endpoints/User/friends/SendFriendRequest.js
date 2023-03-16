@@ -1,6 +1,6 @@
 import { User } from "../../../Models";
 
-export const SendFriendRequest = async (req, res) => {
+export const sendFriendRequest = async (req, res) => {
   const { _id } = req.body;
 
   if (_id) {
