@@ -42,11 +42,11 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
       }
 
       if (response) {
-          setGameInfo(baseGames)
-          const suggestedGames = baseGames.map((game) => {
-            return <option key={game.id} value={game.id}>{game.name}</option>
-          });
-          setSuggestions(suggestedGames);
+        setGameInfo(baseGames)
+        const suggestedGames = baseGames.map((game) => {
+          return <option key={game.id} value={game.id}>{game.name}</option>
+        });
+        setSuggestions(suggestedGames);
       }
       dispatch(ui.actions.setLoading(false));
     }
@@ -58,9 +58,11 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
 
     if (editEvent) {
       setTempEventInfoForEdit(
-        { ...tempEventInfoForEdit,
-        game: selectedGame.name,
-        image: selectedGame.image_url }
+        {
+          ...tempEventInfoForEdit,
+          game: selectedGame.name,
+          image: selectedGame.image_url
+        }
       );
     }
   };
