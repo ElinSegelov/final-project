@@ -13,12 +13,14 @@ import { getUserInfo } from "./Endpoints/User/GetUserInfo";
 import { loginUser } from "./Endpoints/User/LoginUser";
 import { registerUser } from "./Endpoints/User/RegisterUser";
 import { updateUserInfo } from "./Endpoints/User/UpdateUserInfo";
-import { SendFriendRequest } from "./Endpoints/User/friends/SendFriendRequest";
-import { AcceptFriendRequest } from "./Endpoints/User/friends/AcceptFriendRequest";
+import { sendFriendRequest } from "./Endpoints/User/friends/SendFriendRequest";
+import { acceptFriendRequest } from "./Endpoints/User/friends/AcceptFriendRequest";
 import { boardGameData } from "./Endpoints/APIProxy/BGA";
 import { locations } from "./Endpoints/Events/Locations";
 import { aboutUs } from "./Endpoints/Content/AboutUs";
-import { CancelFriendRequest } from "./Endpoints/User/friends/CancelFriendRequest";
+import { cancelFriendRequest } from "./Endpoints/User/friends/CancelFriendRequest";
+import { removeFriend } from "./Endpoints/User/friends/RemoveFriend";
+import { testFriendRequest } from "./Endpoints/User/friends/TestSend";
 
 dotenv.config();
 mongoose.set('strictQuery', true);
@@ -64,13 +66,16 @@ app.post("/register", registerUser);
 app.post("/login", loginUser);
 
 app.post("/friends", authenticateUser);
-app.post("/friends", SendFriendRequest);
+app.post("/friends", testFriendRequest);
 
 app.patch("/friends", authenticateUser);
-app.patch("/friends", AcceptFriendRequest);
+app.patch("/friends", acceptFriendRequest);
 
 app.patch("/cancel-request", authenticateUser);
-app.patch("/cancel-request", CancelFriendRequest);
+app.patch("/cancel-request", cancelFriendRequest);
+
+app.delete("/friends", authenticateUser);
+app.delete("/friends", removeFriend);
 
 app.get("/user", authenticateUser);
 app.get("/user", getUserInfo);

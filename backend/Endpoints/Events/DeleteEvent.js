@@ -10,10 +10,10 @@ export const deleteEvent = async (req, res) => {
 
       if (user.username === host.username) {
         if (eventToDelete) {
-          const deletedEventFromModel = await Event.findByIdAndDelete({ _id: eventId });          
+          const deletedEventFromModel = await Event.findByIdAndDelete({ _id: eventId });
           const updatedHostingEvents = await User.findOneAndUpdate({ _id: eventToDelete.hostId },
             { $pull: { hostingEvents: { _id: eventToDelete._id } } }, { new: true });
- 
+
           if (updatedHostingEvents && deletedEventFromModel) {
             res.status(200).json({
               success: true,
@@ -62,6 +62,6 @@ export const deleteEvent = async (req, res) => {
       response: {
         message: "Please supply relevant parameters"
       }
-    });  
+    });
   };
 };

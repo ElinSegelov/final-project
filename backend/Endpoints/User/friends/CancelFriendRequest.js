@@ -1,6 +1,6 @@
 import { User } from "../../../Models";
 
-export const CancelFriendRequest = async (req, res) => {
+export const cancelFriendRequest = async (req, res) => {
   const { _id } = req.body;
   if (_id) {
     const userCancellingRequest = await User.findOne({ accessToken: req.header("Authorization") });
