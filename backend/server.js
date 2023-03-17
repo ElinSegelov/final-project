@@ -20,7 +20,8 @@ import { locations } from "./Endpoints/Events/Locations";
 import { aboutUs } from "./Endpoints/Content/AboutUs";
 import { cancelFriendRequest } from "./Endpoints/User/friends/CancelFriendRequest";
 import { removeFriend } from "./Endpoints/User/friends/RemoveFriend";
-import { testFriendRequest } from "./Endpoints/User/friends/TestSend";
+
+
 
 dotenv.config();
 mongoose.set('strictQuery', true);
@@ -66,7 +67,7 @@ app.post("/register", registerUser);
 app.post("/login", loginUser);
 
 app.post("/friends", authenticateUser);
-app.post("/friends", testFriendRequest);
+app.post("/friends", sendFriendRequest);
 
 app.patch("/friends", authenticateUser);
 app.patch("/friends", acceptFriendRequest);
@@ -86,8 +87,6 @@ app.patch("/user", updateUserInfo);
 
 app.delete("/user", authenticateUser);
 app.delete("/user", deleteUser);
-
-
 
 // -------------------------------- EVENTS ------------------------------
 app.post("/event", authenticateUser);
