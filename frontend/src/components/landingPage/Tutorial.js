@@ -11,13 +11,13 @@ const Tutorial = () => {
       </HeadingWrapper>
       <TutorialContainer>
         <HorizontalLine1> </HorizontalLine1>
-        <DiceBullet1 src={lightDice} alt="" />
+        <DiceBullet1 src={lightDice} alt="bulletpoint dice" />
         <HorizontalLine2> </HorizontalLine2>
-        <DiceBullet2 src={lightDice} alt="" />
+        <DiceBullet2 src={lightDice} alt="bulletpoint dice" />
         <HorizontalLine3> </HorizontalLine3>
-        <DiceBullet3 src={lightDice} alt="" />
+        <DiceBullet3 src={lightDice} alt="bulletpoint dice" />
         <HorizontalLine4> </HorizontalLine4>
-        <DiceBullet4 src={lightDice} alt="" />
+        <DiceBullet4 src={lightDice} alt="bulletpoint dice" />
         <HorizontalLine5> </HorizontalLine5>
         <PWrapper1><h3>Choose</h3><p>game</p></PWrapper1>
         <PWrapper2><h3>Create</h3><p>event</p></PWrapper2>
@@ -72,7 +72,7 @@ const HeadingWrapper = styled.div`
     }
   }
 `
-const TutorialContainer = styled.div`
+export const TutorialContainer = styled.div`
   display: grid;
   grid-template-columns: 2rem 80%;
   align-items: center;
@@ -94,7 +94,7 @@ const TutorialContainer = styled.div`
     top: 13vh;
   }
 `
-const PWrapper = styled.div`
+export const PWrapper = styled.div`
   grid-column: 2;
   font-size: 1.25rem;
   display: flex;
@@ -124,16 +124,16 @@ const PWrapper = styled.div`
     }
 } 
 `
-const PWrapper1 = styled(PWrapper)`
+export const PWrapper1 = styled(PWrapper)`
   grid-row: 2;
 `
-const PWrapper2 = styled(PWrapper)`
+export const PWrapper2 = styled(PWrapper)`
   grid-row: 4;
 `
-const PWrapper3 = styled(PWrapper)`
+export const PWrapper3 = styled(PWrapper)`
   grid-row: 6;
 `
-const PWrapper4 = styled(PWrapper)`
+export const PWrapper4 = styled(PWrapper)`
   grid-row: 8;
 
   @media(min-width: 1024px) {
@@ -142,7 +142,7 @@ const PWrapper4 = styled(PWrapper)`
     }
   }
 `
-const HorizontalLine = styled.div`
+export const HorizontalLine = styled.div`
   visibility: hidden;
   height: 2rem;
   grid-column: 1;
@@ -156,22 +156,22 @@ const HorizontalLine = styled.div`
     visibility: visible;
   }
 `
-const HorizontalLine1 = styled(HorizontalLine)`
+export const HorizontalLine1 = styled(HorizontalLine)`
   grid-row: 1;
 `
-const HorizontalLine2 = styled(HorizontalLine)`
+export const HorizontalLine2 = styled(HorizontalLine)`
   grid-row: 3;
 `
-const HorizontalLine3 = styled(HorizontalLine)`
+export const HorizontalLine3 = styled(HorizontalLine)`
   grid-row: 5;
 `
-const HorizontalLine4 = styled(HorizontalLine)`
+export const HorizontalLine4 = styled(HorizontalLine)`
   grid-row: 7;
 `
-const HorizontalLine5 = styled(HorizontalLine)`
+export const HorizontalLine5 = styled(HorizontalLine)`
   grid-row: 9;
 `
-const DiceBullet = styled.img`
+export const DiceBullet = styled.img`
   width: 2rem;
 
   @media(min-width: 1024px) {
@@ -179,15 +179,15 @@ const DiceBullet = styled.img`
     width: 3rem;
   }
 `
-const DiceBullet1 = styled(DiceBullet)`
+export const DiceBullet1 = styled(DiceBullet)`
   grid-row: 2;
 `
-const DiceBullet2 = styled(DiceBullet)`
+export const DiceBullet2 = styled(DiceBullet)`
   grid-row: 4;
 `
-const DiceBullet3 = styled(DiceBullet)`
+export const DiceBullet3 = styled(DiceBullet)`
   grid-row: 6;
 `
-const DiceBullet4 = styled(DiceBullet)`
+export const DiceBullet4 = styled(DiceBullet)`
   grid-row: 8;
 `

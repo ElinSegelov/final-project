@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 import { IoLogoLinkedin } from 'react-icons/io5'
 import { BsBriefcaseFill } from 'react-icons/bs'
 import { API_URL } from 'utils/urls';
+import { InformationContainer } from 'styles/Containers';
 
 const AboutUs = () => {
   const [aboutUsInfo, setAboutUsInfo] = useState([])
@@ -13,8 +14,8 @@ const AboutUs = () => {
       const response = await fetch(API_URL('aboutUs'));
       const data = await response.json()
       setAboutUsInfo(data.response[0].aboutUs)
-    } catch (err) {
-      console.error(err.message)
+    } catch (error) {
+      console.error(error.message)
     }
   }
 
@@ -38,7 +39,7 @@ const AboutUs = () => {
   })
 
   return (
-    <AboutUsContainer>
+    <InformationContainer>
       <h1>About us</h1>
       <ContentWrapper>
         <TextWrapper>
@@ -65,37 +66,12 @@ const AboutUs = () => {
           </CardWrapper>
         </CardContainer>
       </ContentWrapper>
-    </AboutUsContainer>
+    </InformationContainer>
   );
 }
 
 export default AboutUs;
 
-const AboutUsContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background-color: var(--lightDarkOpacity);
-  border-radius: 0.6rem;
-  min-height: calc(100vh - 17vh);
-  width: 90vw;
-  padding: 1rem;
-  
-  h1 {
-    color: var(--orangeRed);
-    font-size: 2.5rem;
-    text-align: center;
-    font-family: 'Gotham-book';
-    line-height: 0.9;
-  }
-  @media (min-width: 768px) { 
-    padding: 10rem;
-    justify-content: center;
-  }
-  @media (min-width: 1024px) { 
-    align-items: center;
-  }
-`
 const ContentWrapper = styled.div`
   @media (min-width: 1024px) { 
     display: flex;

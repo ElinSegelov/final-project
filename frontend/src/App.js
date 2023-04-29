@@ -8,13 +8,13 @@ import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import Register from 'components/SignupLoginForm/Register';
 import NotFound from 'components/NotFound';
 import AboutUs from 'components/AboutUs';
-import UnderConstruction from 'components/UnderConstruction'
 import LandingPage from 'components/landingPage/LandingPage';
 import Header from 'components/Header';
 import Dashboard from 'components/userDashboard/Dashboard';
 import Login from 'components/SignupLoginForm/Login';
 import styled from 'styled-components/macro';
 import { Main } from 'styles/Containers';
+import HowItWorks from 'components/HowItWorks';
 import BackgroundImg from './assets/images/mini-logo-orange.png';
 
 const App = () => {
@@ -34,7 +34,7 @@ const App = () => {
           <BackgroundImage src={BackgroundImg} alt="" />
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/under-construction" element={<UnderConstruction />} />
+            <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />

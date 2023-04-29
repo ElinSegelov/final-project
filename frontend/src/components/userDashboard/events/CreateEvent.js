@@ -1,6 +1,5 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import BGGData from 'components/userDashboard/events/BGAData';
+import BGAData from 'components/userDashboard/events/BGAData';
 import styled from 'styled-components/macro';
 import DatePicker from 'react-datepicker';
 import locations from 'utils/locations.js';
@@ -25,7 +24,7 @@ const CreateEvent = ({
     <FormWrapper>
       <GoBackFromCreateOrEditButton type="button" onClick={() => setHandleEvent(false)}><FaArrowLeft /></GoBackFromCreateOrEditButton>
       <h2>Create event</h2>
-      <BGGData setTempEventInfoForEdit={setTempEventInfoForEdit} />
+      <BGAData setTempEventInfoForEdit={setTempEventInfoForEdit} />
       <Form onSubmit={onFormSubmit}>
         <DatePicker
           selected={eventDate}
@@ -39,7 +38,6 @@ const CreateEvent = ({
           onChange={(event) => {
             setTempEventInfoForEdit({ ...tempEventInfoForEdit, eventTime: event.target.value })
           }}
-          // onChange={(event) => setEventTime(event.target.value)}
           id="eventTime" />
 
         <SpotsInformation>
@@ -51,7 +49,6 @@ const CreateEvent = ({
               type="number"
               placeholder="Missing"
               id="openSpots"
-              // onChange={(event) => setOpenSpots(event.target.value)}
               onChange={(event) => {
                 setTempEventInfoForEdit({ ...tempEventInfoForEdit, openSpots: event.target.value })
               }}
@@ -65,7 +62,6 @@ const CreateEvent = ({
               placeholder="Total"
               type="number"
               id="totalSpots"
-              // onChange={(event) => setTotalSpots(event.target.value)}
               onChange={(event) => {
                 setTempEventInfoForEdit({ ...tempEventInfoForEdit, totalSpots: event.target.value })
               }}
@@ -76,7 +72,6 @@ const CreateEvent = ({
         <ScreenReaderLabel htmlFor="countySelect">Select county</ScreenReaderLabel>
         <Select
           id="countySelect"
-          // onChange={(event) => setCounty(event.target.value)}
           onChange={(event) => {
             setTempEventInfoForEdit({ ...tempEventInfoForEdit, county: event.target.value })
           }}>
@@ -88,7 +83,6 @@ const CreateEvent = ({
         <Input
           placeholder="City/Town/Municipality"
           required
-          // onChange={(event) => setVenue(event.target.value)}
           onChange={(event) => {
             setTempEventInfoForEdit({ ...tempEventInfoForEdit, venue: event.target.value })
           }}
@@ -100,7 +94,6 @@ const CreateEvent = ({
           placeholder="Describe the event"
           maxLength={300}
           id="description"
-          // onChange={(event) => setDescription(event.target.value)}
           onChange={(event) => {
             setTempEventInfoForEdit({ ...tempEventInfoForEdit, description: event.target.value })
           }}

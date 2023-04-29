@@ -74,3 +74,33 @@ export const FormWrapperContainer = styled.div`
     margin: auto 0;
   }
 `
+
+export const InformationContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--lightDarkOpacity);
+  border-radius: 0.6rem;
+  min-height: calc(100vh - 17vh);
+  width: 90vw;
+  padding: 1rem;
+
+  h1 {
+    color: var(--orangeRed);
+    font-size: 2.5rem;
+    text-align: center;
+    font-family: 'Gotham-book';
+    line-height: 0.9;
+  }
+  @media (min-width: 768px) { 
+    padding: 10rem;
+    justify-content: center;
+  }
+  @media (min-width: 1024px) { 
+    align-items: center;
+  }
+`
+
+export const FlexDiv = styled.div`
+  display: flex
+`

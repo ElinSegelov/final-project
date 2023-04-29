@@ -23,7 +23,7 @@ const LandingPage = () => {
           <RegisterLoginWrapper>
             <Link className="login" to="/login">Log in</Link>
             <Link className="register" to="/register">Register</Link>
-          </RegisterLoginWrapper> : null}
+          </RegisterLoginWrapper> : false}
       </TutorialSection>
     </LandingpageInnerWrapper>
   );

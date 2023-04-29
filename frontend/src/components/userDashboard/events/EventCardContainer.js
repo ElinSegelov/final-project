@@ -44,7 +44,7 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
     allEvents.push(...allEvents, eventsFilterdByCounty.map((event) => {
       return (
         <EventCard
-          key={`${event._id}`}
+          key={event._id}
           image={event.image}
           eventId={event._id}
           setEditEvent={setEditEvent}
@@ -63,12 +63,13 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
       );
     }));
   }
+
   return (
     <ActiveEventSection>
       <EventsHeading>
         {(countyFilter === 'All' && eventsOfTheDay.length > 0) || (eventsOfTheDayInSelectedCounty.length > 0)
           ? <h3>Events on {selectedDate.slice(0, 10)}</h3>
-          : null}
+          : false}
       </EventsHeading>
       {unAutohrized
         ? <LandingpageEventContainer>

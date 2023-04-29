@@ -1,5 +1,8 @@
-/* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
+/* eslint-disable indent */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable max-len */
+
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable quote-props */
 import React, { useEffect, useState } from 'react';
@@ -18,7 +21,6 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
   const [tempEventInfoForEdit, setTempEventInfoForEdit] = useState({});
   const [county, setCounty] = useState('');
   const userInfo = useSelector((store) => store.user.userInfo);
-  const selectedGame = useSelector((store) => store.events.selectedGameWithDataFromAPI);
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit);
   const dispatch = useDispatch();
 
@@ -30,7 +32,6 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
 
   const handleDateSelection = (date) => {
     setEventDate(date);
-    console.log(date)
     setTempEventInfoForEdit({ ...tempEventInfoForEdit, eventDate: date.toISOString() })
   };
 
@@ -52,9 +53,9 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
 
   const onFormSubmit = async (event) => {
     event.preventDefault();
-    const options = methodHeadersBody('POST', userInfo, tempEventInfoForEdit)
 
     if (editEvent) {
+      const options = methodHeadersBody('PATCH', userInfo, tempEventInfoForEdit);
       if (selectedEventForEdit !== tempEventInfoForEdit) {
         try {
           const response = await fetch(API_URL('event'), options);
@@ -80,16 +81,7 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
         handleEventValidation();
       }
     } else if (handleEvent) {
-      // const options = methodHeadersBody('POST', userInfo, tempEventInfoForEdit)
-      console.log(tempEventInfoForEdit)
-      if (!tempEventInfoForEdit.eventDate) {
-        try {
-          await setTempEventInfoForEdit({ ...tempEventInfoForEdit, eventDate: eventDate.toISOString() })
-          console.log('färsöer lägga till datum', tempEventInfoForEdit)
-        } catch {
-          console.log('skit')
-        }
-      }
+      const options = methodHeadersBody('POST', userInfo, tempEventInfoForEdit);
       if (tempEventInfoForEdit.eventDate) {
         try {
           const response = await fetch(API_URL('event'), options);
@@ -111,11 +103,10 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
           console.error(err.stack);
         }
       } else {
-        window.alert('Click on selected date ');
+      swalInformation('Oops!', 'Please click on selected date', 'error', 2500)
       }
-    }
-  };
-
+  }
+}
   return (
     <InnerWrapper>
       {editEvent

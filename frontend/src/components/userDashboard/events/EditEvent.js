@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
-import BGGData from 'components/userDashboard/events/BGAData';
+import BGAData from 'components/userDashboard/events/BGAData';
 import locations from 'utils/locations.js';
 import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
@@ -34,7 +34,7 @@ const EditEvent = ({
     <FormWrapper>
       <GoBackFromCreateOrEditButton type="button" onClick={() => setEditEvent(false)}><FaArrowLeft /></GoBackFromCreateOrEditButton>
       <h2>Edit event</h2>
-      <BGGData
+      <BGAData
         tempEventInfoForEdit={tempEventInfoForEdit}
         editEvent={editEvent}
         setTempEventInfoForEdit={setTempEventInfoForEdit} />

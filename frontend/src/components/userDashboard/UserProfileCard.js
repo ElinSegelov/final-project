@@ -24,7 +24,7 @@ const UserProfileCard = () => {
         <UserInfoWapper>
           <UserName>{loggedInUser.username}</UserName>
           <p>Hosting {hostingEventsForDisplaying
-            ? hostingEventsForDisplaying.length : null} events
+            ? hostingEventsForDisplaying.length : false} events
           </p>
         </UserInfoWapper>
       </ImageAndUserInfoWapper>
