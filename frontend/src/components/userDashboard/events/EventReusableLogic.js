@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable quote-props */
 import React, { useEffect, useState } from 'react';
@@ -7,16 +9,12 @@ import { batch, useDispatch, useSelector } from 'react-redux';
 import { swalInformation } from 'utils/sweetAlerts';
 import { API_URL } from 'utils/urls';
 import { InnerWrapper } from 'styles/Containers';
+import { methodHeadersBody } from 'utils/requestOptions';
 import EditEvent from './EditEvent';
 import CreateEvent from './CreateEvent';
 
 const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEvent }) => {
   const [eventDate, setEventDate] = useState(new Date());
-  const [eventTime, setEventTime] = useState('');
-  const [venue, setVenue] = useState('');
-  const [openSpots, setOpenSpots] = useState('');
-  const [totalSpots, setTotalSpots] = useState('');
-  const [description, setDescription] = useState('');
   const [tempEventInfoForEdit, setTempEventInfoForEdit] = useState({});
   const [county, setCounty] = useState('');
   const userInfo = useSelector((store) => store.user.userInfo);
@@ -32,6 +30,8 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
 
   const handleDateSelection = (date) => {
     setEventDate(date);
+    console.log(date)
+    setTempEventInfoForEdit({ ...tempEventInfoForEdit, eventDate: date.toISOString() })
   };
 
   const handleEventValidation = (success) => {
@@ -50,84 +50,70 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
     }
   }
 
-  const onFormSubmit = (event) => {
+  const onFormSubmit = async (event) => {
     event.preventDefault();
+    const options = methodHeadersBody('POST', userInfo, tempEventInfoForEdit)
 
     if (editEvent) {
       if (selectedEventForEdit !== tempEventInfoForEdit) {
-        const options = {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': userInfo.accessToken
-          },
-          body: JSON.stringify(
-            tempEventInfoForEdit
-          )
+        try {
+          const response = await fetch(API_URL('event'), options);
+          const data = await response.json();
+
+          if (data.success) {
+            batch(() => {
+              dispatch(user.actions.changeToHostingEvents(data.response.hostingEvents));
+              dispatch(events.actions.setError(null));
+              handleEventValidation(data.success);
+            })
+            dispatch(events.actions.setSelectedGameWithDataFromAPI({}))
+          } else {
+            batch(() => {
+              dispatch(events.actions.setError(data.response));
+              handleEventValidation(data.success);
+            })
+          }
+        } catch (error) {
+          console.error(error.stack)
         }
-        fetch(API_URL('event'), options)
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.success) {
-              batch(() => {
-                dispatch(user.actions.changeToHostingEvents(data.response.hostingEvents));
-                dispatch(events.actions.setError(null));
-                handleEventValidation(data.success);
-              })
-              dispatch(events.actions.setSelectedGameWithDataFromAPI({}))
-            } else {
-              batch(() => {
-                dispatch(events.actions.setError(data.response));
-                handleEventValidation(data.success);
-              })
-            }
-          })
-          .catch((error) => console.error(error.stack));
       } else {
         handleEventValidation();
       }
-    }
-
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': userInfo.accessToken
-      },
-      body: JSON.stringify({
-        hostId: userInfo.userId,
-        host: userInfo.username,
-        eventDate: eventDate.toISOString(),
-        eventTime,
-        venue,
-        county,
-        game: selectedGame.name,
-        openSpots,
-        totalSpots,
-        description,
-        image: selectedGame.image_url
-      })
-    };
-
-    fetch(API_URL('event'), options)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          batch(() => {
-            dispatch(user.actions.changeToHostingEvents(data.response.hostingEvents));
-            dispatch(events.actions.setError(null));
-            handleEventValidation(data.success);
-          })
-        } else {
-          batch(() => {
-            dispatch(events.actions.setError(data.response));
-            handleEventValidation(data.success);
-          })
+    } else if (handleEvent) {
+      // const options = methodHeadersBody('POST', userInfo, tempEventInfoForEdit)
+      console.log(tempEventInfoForEdit)
+      if (!tempEventInfoForEdit.eventDate) {
+        try {
+          await setTempEventInfoForEdit({ ...tempEventInfoForEdit, eventDate: eventDate.toISOString() })
+          console.log('färsöer lägga till datum', tempEventInfoForEdit)
+        } catch {
+          console.log('skit')
         }
-      })
-      .catch((err) => {
-        console.error(err.stack);
-      });
+      }
+      if (tempEventInfoForEdit.eventDate) {
+        try {
+          const response = await fetch(API_URL('event'), options);
+          const data = await response.json();
+
+          if (data.success) {
+            batch(() => {
+              dispatch(user.actions.changeToHostingEvents(data.response.hostingEvents));
+              dispatch(events.actions.setError(null));
+              handleEventValidation(data.success);
+            })
+          } else {
+            batch(() => {
+              dispatch(events.actions.setError(data.response));
+              handleEventValidation(data.success);
+            })
+          }
+        } catch (err) {
+          console.error(err.stack);
+        }
+      } else {
+        window.alert('Click on selected date ');
+      }
+    }
   };
 
   return (
@@ -143,15 +129,10 @@ const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEve
           onFormSubmit={onFormSubmit} />
         : <CreateEvent
           setHandleEvent={setHandleEvent}
-          totalSpots={totalSpots}
           eventDate={eventDate}
-          setEventTime={setEventTime}
-          setVenue={setVenue}
-          setCounty={setCounty}
-          setOpenSpots={setOpenSpots}
-          setTotalSpots={setTotalSpots}
-          setDescription={setDescription}
           handleDateSelection={handleDateSelection}
+          setTempEventInfoForEdit={setTempEventInfoForEdit}
+          tempEventInfoForEdit={tempEventInfoForEdit}
           onFormSubmit={onFormSubmit} />}
     </InnerWrapper>
   );

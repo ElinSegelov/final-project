@@ -20,7 +20,7 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
     allEvents.push(...allEvents, eventsOfTheDay.map((event) => {
       return (
         <EventCard
-          key={`${event._id}`}
+          key={event._id}
           image={event.image}
           eventId={event._id}
           setEditEvent={setEditEvent}

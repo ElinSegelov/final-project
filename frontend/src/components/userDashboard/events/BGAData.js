@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable quote-props */
 /* eslint-disable indent */
 /* eslint-disable operator-linebreak */
@@ -56,13 +57,13 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
     const selectedGame = gameInfo.find((game) => game.id === event.target.value);
     dispatch(events.actions.setSelectedGameWithDataFromAPI(selectedGame));
 
-    if (editEvent) {
+    // if (editEvent) {
       setTempEventInfoForEdit(
         { ...tempEventInfoForEdit,
         game: selectedGame.name,
         image: selectedGame.image_url }
       );
-    }
+    // }
   };
 
   return (

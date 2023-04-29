@@ -10,16 +10,11 @@ import { FaArrowLeft } from 'react-icons/fa';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const CreateEvent = ({
-  setEventTime,
-  setVenue,
-  setCounty,
-  setOpenSpots,
-  setTotalSpots,
-  setDescription,
+  setTempEventInfoForEdit,
+  tempEventInfoForEdit,
   handleDateSelection,
   onFormSubmit,
   eventDate,
-  totalSpots,
   setHandleEvent
 }) => {
   const countyOptions = locations.map((county) => {
@@ -30,7 +25,7 @@ const CreateEvent = ({
     <FormWrapper>
       <GoBackFromCreateOrEditButton type="button" onClick={() => setHandleEvent(false)}><FaArrowLeft /></GoBackFromCreateOrEditButton>
       <h2>Create event</h2>
-      <BGGData />
+      <BGGData setTempEventInfoForEdit={setTempEventInfoForEdit} />
       <Form onSubmit={onFormSubmit}>
         <DatePicker
           selected={eventDate}
@@ -41,7 +36,10 @@ const CreateEvent = ({
         <Input
           type="time"
           required
-          onChange={(event) => setEventTime(event.target.value)}
+          onChange={(event) => {
+            setTempEventInfoForEdit({ ...tempEventInfoForEdit, eventTime: event.target.value })
+          }}
+          // onChange={(event) => setEventTime(event.target.value)}
           id="eventTime" />
 
         <SpotsInformation>
@@ -53,9 +51,12 @@ const CreateEvent = ({
               type="number"
               placeholder="Missing"
               id="openSpots"
-              onChange={(event) => setOpenSpots(event.target.value)}
+              // onChange={(event) => setOpenSpots(event.target.value)}
+              onChange={(event) => {
+                setTempEventInfoForEdit({ ...tempEventInfoForEdit, openSpots: event.target.value })
+              }}
               min="1"
-              max={totalSpots} />
+              max="8" />
 
             <p>of</p>
             <ScreenReaderLabel htmlFor="totalSpots">Number of players when party is full</ScreenReaderLabel>
@@ -64,13 +65,21 @@ const CreateEvent = ({
               placeholder="Total"
               type="number"
               id="totalSpots"
-              onChange={(event) => setTotalSpots(event.target.value)}
+              // onChange={(event) => setTotalSpots(event.target.value)}
+              onChange={(event) => {
+                setTempEventInfoForEdit({ ...tempEventInfoForEdit, totalSpots: event.target.value })
+              }}
               min="1"
               max="8" />
           </legend>
         </SpotsInformation>
         <ScreenReaderLabel htmlFor="countySelect">Select county</ScreenReaderLabel>
-        <Select id="countySelect" onChange={(event) => setCounty(event.target.value)}>
+        <Select
+          id="countySelect"
+          // onChange={(event) => setCounty(event.target.value)}
+          onChange={(event) => {
+            setTempEventInfoForEdit({ ...tempEventInfoForEdit, county: event.target.value })
+          }}>
           <option value={null}>Select county</option>
           {countyOptions}
           <option value="Other">Rest of world</option>
@@ -79,7 +88,10 @@ const CreateEvent = ({
         <Input
           placeholder="City/Town/Municipality"
           required
-          onChange={(event) => setVenue(event.target.value)}
+          // onChange={(event) => setVenue(event.target.value)}
+          onChange={(event) => {
+            setTempEventInfoForEdit({ ...tempEventInfoForEdit, venue: event.target.value })
+          }}
           type="text"
           id="venue" />
 
@@ -88,7 +100,10 @@ const CreateEvent = ({
           placeholder="Describe the event"
           maxLength={300}
           id="description"
-          onChange={(event) => setDescription(event.target.value)}
+          // onChange={(event) => setDescription(event.target.value)}
+          onChange={(event) => {
+            setTempEventInfoForEdit({ ...tempEventInfoForEdit, description: event.target.value })
+          }}
           rows="4" />
 
         <CreateButton type="submit">Create event</CreateButton>
