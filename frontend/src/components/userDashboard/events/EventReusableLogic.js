@@ -1,130 +1,30 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable indent */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable max-len */
-
 /* eslint-disable react/jsx-indent-props */
-/* eslint-disable quote-props */
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import events from 'reducers/events';
-import user from 'reducers/user'
-import { batch, useDispatch, useSelector } from 'react-redux';
-import { swalInformation } from 'utils/sweetAlerts';
-import { API_URL } from 'utils/urls';
+import { useDispatch, useSelector } from 'react-redux';
 import { InnerWrapper } from 'styles/Containers';
-import { methodHeadersBody } from 'utils/requestOptions';
 import EditEvent from './EditEvent';
 import CreateEvent from './CreateEvent';
 
-const EventReusableLogic = ({ handleEvent, setHandleEvent, editEvent, setEditEvent }) => {
-  const [eventDate, setEventDate] = useState(new Date());
-  const [tempEventInfoForEdit, setTempEventInfoForEdit] = useState({});
-  const [county, setCounty] = useState('');
-  const userInfo = useSelector((store) => store.user.userInfo);
+const EventReusableLogic = ({ setCreateEvent, editEvent, setEditEvent }) => {
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (editEvent) {
-      setTempEventInfoForEdit(selectedEventForEdit);
+      dispatch(events.actions.setTempEventInfoForEdit(selectedEventForEdit));
     }
   }, [selectedEventForEdit, editEvent]);
 
-  const handleDateSelection = (date) => {
-    setEventDate(date);
-    setTempEventInfoForEdit({ ...tempEventInfoForEdit, eventDate: date.toISOString() })
-  };
-
-  const handleEventValidation = (success) => {
-    if (selectedEventForEdit === tempEventInfoForEdit) {
-      swalInformation('No changes were made', '', 'warning', 2000)
-    } else if (editEvent && success) {
-      swalInformation('Your event has been updated!', '', 'success', 2000)
-      setEditEvent(false)
-    } else if (handleEvent) {
-      swalInformation('Your event has been created!', '', 'success', 2000)
-      setHandleEvent(false)
-    } else {
-      swalInformation('Your event has been created!', '', 'success', 2000)
-      setHandleEvent(false)
-      setEditEvent(false)
-    }
-  }
-
-  const onFormSubmit = async (event) => {
-    event.preventDefault();
-
-    if (editEvent) {
-      const options = methodHeadersBody('PATCH', userInfo, tempEventInfoForEdit);
-      if (selectedEventForEdit !== tempEventInfoForEdit) {
-        try {
-          const response = await fetch(API_URL('event'), options);
-          const data = await response.json();
-
-          if (data.success) {
-            batch(() => {
-              dispatch(user.actions.changeToHostingEvents(data.response.hostingEvents));
-              dispatch(events.actions.setError(null));
-              handleEventValidation(data.success);
-            })
-            dispatch(events.actions.setSelectedGameWithDataFromAPI({}))
-          } else {
-            batch(() => {
-              dispatch(events.actions.setError(data.response));
-              handleEventValidation(data.success);
-            })
-          }
-        } catch (error) {
-          console.error(error.stack)
-        }
-      } else {
-        handleEventValidation();
-      }
-    } else if (handleEvent) {
-      const options = methodHeadersBody('POST', userInfo, tempEventInfoForEdit);
-      if (tempEventInfoForEdit.eventDate) {
-        try {
-          const response = await fetch(API_URL('event'), options);
-          const data = await response.json();
-
-          if (data.success) {
-            batch(() => {
-              dispatch(user.actions.changeToHostingEvents(data.response.hostingEvents));
-              dispatch(events.actions.setError(null));
-              handleEventValidation(data.success);
-            })
-          } else {
-            batch(() => {
-              dispatch(events.actions.setError(data.response));
-              handleEventValidation(data.success);
-            })
-          }
-        } catch (err) {
-          console.error(err.stack);
-        }
-      } else {
-      swalInformation('Oops!', 'Please click on selected date', 'error', 2500)
-      }
-  }
-}
   return (
     <InnerWrapper>
       {editEvent
         ? <EditEvent
           setEditEvent={setEditEvent}
-          editEvent={editEvent}
-          eventDate={eventDate}
-          setCounty={setCounty}
-          setTempEventInfoForEdit={setTempEventInfoForEdit}
-          tempEventInfoForEdit={tempEventInfoForEdit}
-          onFormSubmit={onFormSubmit} />
+          editEvent={editEvent} />
         : <CreateEvent
-          setHandleEvent={setHandleEvent}
-          eventDate={eventDate}
-          handleDateSelection={handleDateSelection}
-          setTempEventInfoForEdit={setTempEventInfoForEdit}
-          tempEventInfoForEdit={tempEventInfoForEdit}
-          onFormSubmit={onFormSubmit} />}
+          setCreateEvent={setCreateEvent} />}
     </InnerWrapper>
   );
 };

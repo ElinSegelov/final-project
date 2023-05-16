@@ -1,67 +1,45 @@
 import { User, Event } from '../../Models';
 
 export const updateEvent = async (req, res) => {
-  const {
-    _id,
-    venue,
-    county,
-    game,
-    openSpots,
-    totalSpots,
-    description,
-    eventDate,
-    eventTime,
-    eventName,
-    image
-  } = req.body;
+  const {tempEventInfoForEdit} = req.body;
   
-  if (
-    _id,
-    venue,
-    county,
-    game,
-    openSpots,
-    totalSpots,
-    description,
-    eventDate,
-    eventTime,
-    eventName,
-    image) {     
+  if (tempEventInfoForEdit) {  
+    const id = tempEventInfoForEdit._id;   
 
     try {
-      const selectedEvent = await Event.findOne({ _id });
+      const selectedEvent = await Event.findOne({ id });
       const user = await User.findOne({ accessToken: req.header("Authorization") });
-      const host = await User.findOne({ _id: selectedEvent.hostId });
+      const host = await User.findOne({ id: selectedEvent.hostId });
       if (user.username === host.username) {
         if (selectedEvent) {
           const eventUpdatedFromModel = await Event.findOneAndUpdate(selectedEvent._id,
             { $set: {
-                venue,
-                county,
-                game,
-                openSpots,
-                totalSpots,
-                description,
-                eventDate,
-                eventTime,
-                eventName,
-                image 
+                venue: tempEventInfoForEdit.venue,
+                county: tempEventInfoForEdit.county,
+                game: tempEventInfoForEdit.game,
+                openSpots: tempEventInfoForEdit.openSpots,
+                totalSpots: tempEventInfoForEdit.totalSpots,
+                description: tempEventInfoForEdit.description,
+                eventDate: tempEventInfoForEdit.eventDate,
+                eventTime: tempEventInfoForEdit.eventTime,
+                eventName: tempEventInfoForEdit.eventName,
+                image: tempEventInfoForEdit.image 
               } 
             }
           );
           if (eventUpdatedFromModel) {
-            const updatedHostingEvents = await User.findOneAndUpdate({ _id: user._id, 'hostingEvents._id': selectedEvent._id },
+            const updatedHostingEvents = await User.findOneAndUpdate({ id: user._id, 'hostingEvents._id': selectedEvent._id },
             { $set: { 
-              'hostingEvents.$.venue': venue,
-              'hostingEvents.$.county': county,
-              'hostingEvents.$.game': game,
-              'hostingEvents.$.openSpots': openSpots,
-              'hostingEvents.$.totalSpots': totalSpots,
-              'hostingEvents.$.description': description,
-              'hostingEvents.$.eventDate': eventDate,
-              'hostingEvents.$.eventTime': eventTime,
-              'hostingEvents.$.eventName': eventName,
-              'hostingEvents.$.image': image
+              'hostingEvents.$.venue': tempEventInfoForEdit.venue,
+              'hostingEvents.$.county': tempEventInfoForEdit.county,
+              'hostingEvents.$.game': tempEventInfoForEdit.game,
+              'hostingEvents.$.openSpots': tempEventInfoForEdit.openSpots,
+              'hostingEvents.$.totalSpots': tempEventInfoForEdit.totalSpots,
+              'hostingEvents.$.description': tempEventInfoForEdit.description,
+              'hostingEvents.$.eventDate': tempEventInfoForEdit.eventDate,
+              'hostingEvents.$.eventTime': tempEventInfoForEdit.eventTime,
+              'hostingEvents.$.eventName': tempEventInfoForEdit.eventName,
+              'hostingEvents.$.image': tempEventInfoForEdit.image
             }}, { new: true } );
 
             if (updatedHostingEvents) {
@@ -94,7 +72,9 @@ export const updateEvent = async (req, res) => {
     } catch (err) {
       res.status(500).json({
         success: false,
-        response: err
+        response: {
+          message: err.stack
+        }
       });
     };
   }

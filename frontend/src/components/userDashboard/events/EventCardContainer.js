@@ -6,7 +6,7 @@ import { StyledEventCardContainer } from 'styles/Containers';
 import styled from 'styled-components/macro';
 import EventCard from './EventCard';
 
-const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
+const EventCardContainer = ({ setEditEvent, unAutohrized }) => {
   const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay);
   const selectedDate = useSelector((store) => store.events.selectedDate);
   const countyFilter = useSelector((store) => store.events.countyFilter);
@@ -25,7 +25,6 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
           eventId={event._id}
           setEditEvent={setEditEvent}
           hostId={event.hostId}
-          setHandleEvent={setHandleEvent}
           game={event.game}
           host={event.host}
           county={event.county}
@@ -49,7 +48,6 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
           eventId={event._id}
           setEditEvent={setEditEvent}
           hostId={event.hostId}
-          setHandleEvent={setHandleEvent}
           game={event.game}
           host={event.host}
           county={event.county}

@@ -1,6 +1,5 @@
 /* eslint-disable indent */
 /* eslint-disable no-nested-ternary */
-/* eslint-disable react/jsx-closing-tag-location */
 import React, { useState } from 'react';
 import EventCalendar from 'components/EventCalendar';
 import { BsPlusLg } from 'react-icons/bs';
@@ -12,31 +11,24 @@ import EventReusableLogic from './EventReusableLogic';
 import EventLocationSearch from './EventLocationSearch';
 
 const EventSection = () => {
-  const [handleEvent, setHandleEvent] = useState(false);
+  const [createEvent, setCreateEvent] = useState(false);
   const [editEvent, setEditEvent] = useState(false);
 
   return (
     <SectionWrapper>
-      {handleEvent
+      {createEvent
         ? <EventReusableLogic
-            handleEvent={handleEvent}
-            setHandleEvent={setHandleEvent}
-            editEvent={editEvent} />
+            setCreateEvent={setCreateEvent} />
         : editEvent
           ? <EventReusableLogic
               editEvent={editEvent}
-              setEditEvent={setEditEvent}
-              setHandleEvent={setHandleEvent} />
+              setEditEvent={setEditEvent} />
           : <CalenderAndCardWrapper>
-            <EventLocationSearch />
-            <ToggleEditCreateButton type="button" onClick={() => setHandleEvent(true)}><BsPlusLg /> Create event</ToggleEditCreateButton>
-            <EventCalendar />
-            <EventCardContainer
-              setHandleEvent={setHandleEvent}
-              handleEvent={handleEvent}
-              setEditEvent={setEditEvent}
-              editEvent={editEvent} />
-          </CalenderAndCardWrapper>}
+              <EventLocationSearch />
+              <ToggleEditCreateButton type="button" onClick={() => setCreateEvent(true)}><BsPlusLg /> Create event</ToggleEditCreateButton>
+              <EventCalendar />
+              <EventCardContainer setEditEvent={setEditEvent} />
+            </CalenderAndCardWrapper>}
     </SectionWrapper>
   );
 };

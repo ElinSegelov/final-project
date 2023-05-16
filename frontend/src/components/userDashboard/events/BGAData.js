@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable quote-props */
 /* eslint-disable indent */
 /* eslint-disable operator-linebreak */
@@ -18,6 +19,7 @@ const BGAData = ({ tempEventInfoForEdit, setTempEventInfoForEdit }) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((store) => store.user.userInfo);
   const isLoading = useSelector((store) => store.ui.isLoading);
+  const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit);
   let response;
   let baseGames;
 
@@ -67,7 +69,7 @@ const BGAData = ({ tempEventInfoForEdit, setTempEventInfoForEdit }) => {
     <GameInfoLegend>
       <InputWrapper>
         <Input
-          placeholder={(tempEventInfoForEdit && tempEventInfoForEdit.game) || 'Search for game'}
+          placeholder={(selectedEventForEdit && selectedEventForEdit.game) || 'Search for game'}
           type="text"
           onChange={handleSearchInputChange} />
         {isLoading
