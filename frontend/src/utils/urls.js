@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const BASE_URL = 'https://final-project-backend-anic.onrender.com/';
+const BASE_URL = 'https://final-project-backend-anic.onrender.com';
 const URL = 'http://localhost:8080';
 
 // export const URL_BGA_ENDPOINT = `${URL}/bga`
