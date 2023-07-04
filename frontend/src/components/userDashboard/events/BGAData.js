@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable quote-props */
 /* eslint-disable indent */
 /* eslint-disable operator-linebreak */
@@ -12,12 +13,13 @@ import styled from 'styled-components/macro';
 import { Input, ScreenReaderLabel, Select } from 'styles/Forms';
 import axios from 'axios';
 
-const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) => {
+const BGAData = ({ tempEventInfoForEdit, setTempEventInfoForEdit }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [gameInfo, setGameInfo] = useState({});
   const dispatch = useDispatch();
   const userInfo = useSelector((store) => store.user.userInfo);
   const isLoading = useSelector((store) => store.ui.isLoading);
+  const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit);
   let response;
   let baseGames;
 
@@ -56,20 +58,18 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
     const selectedGame = gameInfo.find((game) => game.id === event.target.value);
     dispatch(events.actions.setSelectedGameWithDataFromAPI(selectedGame));
 
-    if (editEvent) {
       setTempEventInfoForEdit(
         { ...tempEventInfoForEdit,
         game: selectedGame.name,
         image: selectedGame.image_url }
       );
-    }
   };
 
   return (
     <GameInfoLegend>
       <InputWrapper>
         <Input
-          placeholder={(tempEventInfoForEdit && tempEventInfoForEdit.game) || 'Search for game'}
+          placeholder={(selectedEventForEdit && selectedEventForEdit.game) || 'Search for game'}
           type="text"
           onChange={handleSearchInputChange} />
         {isLoading
@@ -77,7 +77,7 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
           <LoaderWrapper>
             <LoadingForGameSearch />
           </LoaderWrapper>
-          : null}
+          : false}
       </InputWrapper>
       {suggestions.length
         ?
@@ -91,12 +91,12 @@ const BGGData = ({ tempEventInfoForEdit, setTempEventInfoForEdit, editEvent }) =
             {suggestions}
           </GameSelect>
         </>
-        : null}
+        : false}
     </GameInfoLegend>
   );
 };
 
-export default BGGData;
+export default BGAData;
 
 const InputWrapper = styled.div`
   position: relative;

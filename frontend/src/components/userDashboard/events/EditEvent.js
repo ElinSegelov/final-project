@@ -1,40 +1,92 @@
+
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import BGGData from 'components/userDashboard/events/BGAData';
+import BGAData from 'components/userDashboard/events/BGAData';
 import locations from 'utils/locations.js';
 import styled from 'styled-components/macro';
-import { useSelector } from 'react-redux';
+import user from 'reducers/user';
+import events from 'reducers/events';
+import { API_URL } from 'utils/urls';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { parseISO } from 'date-fns';
+import { swalInformation } from 'utils/sweetAlerts';
+import { methodHeadersBody } from 'utils/requestOptions';
 import { FilledButton, GoBackFromCreateOrEditButton } from 'styles/Button.styles';
 import { FormWrapper, Form, Select, TextArea, SpotsInformation, Input, ScreenReaderLabel } from 'styles/Forms';
 import { FaArrowLeft } from 'react-icons/fa';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const EditEvent = ({
-  editEvent,
-  onFormSubmit,
-  tempEventInfoForEdit,
-  setTempEventInfoForEdit,
-  setEditEvent,
-  setCounty
-}) => {
+const EditEvent = ({ editEvent, setEditEvent }) => {
   const selectedEventForEdit = useSelector((store) => store.events.selectedEventForEdit);
   const [startDate, setStartDate] = useState(parseISO(selectedEventForEdit.eventDate));
+  const userInfo = useSelector((store) => store.user.userInfo);
+  const dispatch = useDispatch();
+  const [tempEventInfoForEdit, setTempEventInfoForEdit] = useState({})
+
+  useEffect(() => {
+    setTempEventInfoForEdit(selectedEventForEdit)
+  }, [selectedEventForEdit]);
 
   const handleTempDateSelection = (date) => {
     setStartDate(date);
     setTempEventInfoForEdit({ ...tempEventInfoForEdit, eventDate: date.toISOString() });
   };
 
+  const handleEventValidation = (success) => {
+    if (selectedEventForEdit === tempEventInfoForEdit) {
+      swalInformation('No changes were made', '', 'warning', 2000)
+    } else if (editEvent && success) {
+      swalInformation('Your event has been updated!', '', 'success', 2000)
+      setEditEvent(false)
+    } else {
+      swalInformation('Something went wrong', 'Try again later', 'error', 2500)
+    }
+  }
+
+  const onFormSubmit = async (event) => {
+    event.preventDefault();
+    const options = methodHeadersBody('PATCH', userInfo, tempEventInfoForEdit);
+
+    if (selectedEventForEdit !== tempEventInfoForEdit) {
+      try {
+        const response = await fetch(API_URL('event'), options);
+        const data = await response.json();
+        if (data.success) {
+          batch(() => {
+            dispatch(user.actions.changeToHostingEvents(data.response.hostingEvents));
+            dispatch(events.actions.setError(null));
+            handleEventValidation(data.success);
+            dispatch(events.actions.setSelectedGameWithDataFromAPI({}))
+          })
+        } else {
+          batch(() => {
+            dispatch(events.actions.setError(data.response));
+            handleEventValidation(data.success);
+          })
+        }
+      } catch (error) {
+        console.error(error.stack)
+      }
+    } else {
+      handleEventValidation();
+    }
+  }
+
+  const handleGoBack = () => {
+    setEditEvent(false);
+    dispatch(events.actions.setSelectedEventForEdit([]))
+  }
+
   const countyOptions = locations.map((county) => {
     return <option key={county} value={county}>{county}</option>
   });
+
   return (
     <FormWrapper>
-      <GoBackFromCreateOrEditButton type="button" onClick={() => setEditEvent(false)}><FaArrowLeft /></GoBackFromCreateOrEditButton>
+      <GoBackFromCreateOrEditButton type="button" onClick={() => handleGoBack()}><FaArrowLeft /></GoBackFromCreateOrEditButton>
       <h2>Edit event</h2>
-      <BGGData
+      <BGAData
         tempEventInfoForEdit={tempEventInfoForEdit}
         editEvent={editEvent}
         setTempEventInfoForEdit={setTempEventInfoForEdit} />
@@ -84,8 +136,12 @@ const EditEvent = ({
           </legend>
         </SpotsInformation>
         <ScreenReaderLabel htmlFor="countySelect">Select county</ScreenReaderLabel>
-        <Select id="countySelect" onChange={(event) => setCounty(event.target.value)}>
-          <option value={null}>Select county</option>
+        <Select
+          id="countySelect"
+          onChange={(event) => {
+            setTempEventInfoForEdit({ ...tempEventInfoForEdit, county: event.target.value })
+          }}>
+          <option value={tempEventInfoForEdit.county || null}>{tempEventInfoForEdit.county ? tempEventInfoForEdit.county : 'Select county'}</option>
           {countyOptions}
           <option value="Other">Rest of world</option>
         </Select>

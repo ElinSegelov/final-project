@@ -30,10 +30,10 @@ const Header = () => {
         <NavLinkWrapper style={navMenuActive ? { display: 'flex' } : { display: 'none' }}>
           <NavLinks>
             <NavLink to="/" end onClick={closeOnClick}><NavText>Home</NavText></NavLink>
-            <NavLink to="/under-construction" onClick={closeOnClick}><NavText>How it works</NavText></NavLink>
+            <NavLink to="/how-it-works" onClick={closeOnClick}><NavText>How it works</NavText></NavLink>
             <NavLink to="/about-us" onClick={closeOnClick}><NavText>About us</NavText></NavLink>
             <NavLink to="/login" onClick={closeOnClick}><NavText>Profile</NavText></NavLink>
-            {!accessToken ? <NavLink to="/login"><NavText>Log in</NavText></NavLink> : null}
+            {!accessToken ? <NavLink to="/login"><NavText>Log in</NavText></NavLink> : false}
           </NavLinks>
         </NavLinkWrapper>
         <FlexDivUserAndHamburger>

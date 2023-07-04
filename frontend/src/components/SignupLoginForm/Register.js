@@ -76,7 +76,7 @@ const Register = () => {
           });
         }
       } catch (error) {
-        console.error(error)
+        console.error(error.stack)
         swalInformation('Something went wrong.', 'Please try again later', 'error', 2500)
       } finally {
         dispatch(ui.actions.setLoading(false))

@@ -6,7 +6,7 @@ import { StyledEventCardContainer } from 'styles/Containers';
 import styled from 'styled-components/macro';
 import EventCard from './EventCard';
 
-const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
+const EventCardContainer = ({ setEditEvent, unAutohrized }) => {
   const eventsOfTheDay = useSelector((store) => store.events.eventsOfTheDay);
   const selectedDate = useSelector((store) => store.events.selectedDate);
   const countyFilter = useSelector((store) => store.events.countyFilter);
@@ -20,12 +20,11 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
     allEvents.push(...allEvents, eventsOfTheDay.map((event) => {
       return (
         <EventCard
-          key={`${event._id}`}
+          key={event._id}
           image={event.image}
           eventId={event._id}
           setEditEvent={setEditEvent}
           hostId={event.hostId}
-          setHandleEvent={setHandleEvent}
           game={event.game}
           host={event.host}
           county={event.county}
@@ -44,12 +43,11 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
     allEvents.push(...allEvents, eventsFilterdByCounty.map((event) => {
       return (
         <EventCard
-          key={`${event._id}`}
+          key={event._id}
           image={event.image}
           eventId={event._id}
           setEditEvent={setEditEvent}
           hostId={event.hostId}
-          setHandleEvent={setHandleEvent}
           game={event.game}
           host={event.host}
           county={event.county}
@@ -63,12 +61,13 @@ const EventCardContainer = ({ setHandleEvent, setEditEvent, unAutohrized }) => {
       );
     }));
   }
+
   return (
     <ActiveEventSection>
       <EventsHeading>
         {(countyFilter === 'All' && eventsOfTheDay.length > 0) || (eventsOfTheDayInSelectedCounty.length > 0)
           ? <h3>Events on {selectedDate.slice(0, 10)}</h3>
-          : null}
+          : false}
       </EventsHeading>
       {unAutohrized
         ? <LandingpageEventContainer>
