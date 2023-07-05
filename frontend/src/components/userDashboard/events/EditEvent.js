@@ -47,7 +47,7 @@ const EditEvent = ({ editEvent, setEditEvent }) => {
   const onFormSubmit = async (event) => {
     event.preventDefault();
     const options = methodHeadersBody('PATCH', userInfo, tempEventInfoForEdit);
-
+    console.log('options', options)
     if (selectedEventForEdit !== tempEventInfoForEdit) {
       try {
         const response = await fetch(API_URL('event'), options);
@@ -58,6 +58,7 @@ const EditEvent = ({ editEvent, setEditEvent }) => {
             dispatch(events.actions.setError(null));
             handleEventValidation(data.success);
             dispatch(events.actions.setSelectedGameWithDataFromAPI({}))
+            dispatch(events.actions.setSelectedEventForEdit([]))
           })
         } else {
           batch(() => {

@@ -2,17 +2,14 @@ import { User, Event } from '../../Models';
 
 export const updateEvent = async (req, res) => {
   const {tempEventInfoForEdit} = req.body;
-  
-  if (tempEventInfoForEdit) {  
-    const id = tempEventInfoForEdit._id;   
-
+  if (tempEventInfoForEdit) {         
     try {
-      const selectedEvent = await Event.findOne({ id });
+      const selectedEvent = await Event.findOne({ _id: tempEventInfoForEdit._id });
       const user = await User.findOne({ accessToken: req.header("Authorization") });
       const host = await User.findOne({ id: selectedEvent.hostId });
       if (user.username === host.username) {
         if (selectedEvent) {
-          const eventUpdatedFromModel = await Event.findOneAndUpdate(selectedEvent._id,
+          const eventUpdatedFromModel = await Event.findOneAndUpdate( { _id: tempEventInfoForEdit._id },
             { $set: {
                 venue: tempEventInfoForEdit.venue,
                 county: tempEventInfoForEdit.county,
@@ -23,12 +20,12 @@ export const updateEvent = async (req, res) => {
                 eventDate: tempEventInfoForEdit.eventDate,
                 eventTime: tempEventInfoForEdit.eventTime,
                 eventName: tempEventInfoForEdit.eventName,
-                image: tempEventInfoForEdit.image 
+                image: tempEventInfoForEdit.image
               } 
             }
           );
           if (eventUpdatedFromModel) {
-            const updatedHostingEvents = await User.findOneAndUpdate({ id: user._id, 'hostingEvents._id': selectedEvent._id },
+            const updatedHostingEvents = await User.findOneAndUpdate({ _id: user._id, 'hostingEvents._id': selectedEvent._id },
             { $set: { 
               'hostingEvents.$.venue': tempEventInfoForEdit.venue,
               'hostingEvents.$.county': tempEventInfoForEdit.county,
@@ -51,7 +48,7 @@ export const updateEvent = async (req, res) => {
                   message: "The event has been updated"
                 }
               });
-            }  
+            };
           };
         } else {
           res.status(400).json({
@@ -68,7 +65,7 @@ export const updateEvent = async (req, res) => {
             message: "Unauthorized attempt to edit event"
           }
         });
-      }
+      };
     } catch (err) {
       res.status(500).json({
         success: false,
@@ -77,5 +74,5 @@ export const updateEvent = async (req, res) => {
         }
       });
     };
-  }
+  };
 };
