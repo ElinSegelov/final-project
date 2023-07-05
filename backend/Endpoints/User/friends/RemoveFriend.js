@@ -26,7 +26,6 @@ export const removeFriend = async (req, res) => {
           })
         }
       }
-
     } catch (err) {
       res.status(500).json({
         success: false,
@@ -35,5 +34,10 @@ export const removeFriend = async (req, res) => {
         }
       })
     }
+  } else {
+      res.status(400).json({
+        success: false,
+        response: "Please provide the user ID"
+      })
   }
 }

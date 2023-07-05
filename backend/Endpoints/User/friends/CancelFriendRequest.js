@@ -18,11 +18,11 @@ export const cancelFriendRequest = async (req, res) => {
             { $pull: { pendingFriends: { _id: userGettingCancelled._id } } }, { new: true }
           )
           if (updatedPendingFriendsFromUserGettingCancelled && updatedPendingFromUserCancellingRequest) {
-            //! DUBBELKOLLA STATUS OCH RESPONSE. 201
             res.status(200).json({
               success: true,
               response: {
                 message: "We cancelled your request",
+                // Kolla om det verkligen behövs så mycket info
                 updatedPendingFriendsFromUserGettingCancelled: updatedPendingFriendsFromUserGettingCancelled,
                 updatedPendingFromUserCancellingRequest: updatedPendingFromUserCancellingRequest
               }
@@ -46,15 +46,15 @@ export const cancelFriendRequest = async (req, res) => {
         })
       }
     } else {
-      res.styatus(401).json({
+      res.status(401).json({
         success: false,
         response: "Please log in"
       })
     }
   } else {
-    res.styatus(401).json({
+    res.status(400).json({
       success: false,
-      response: "We couldn't find this user to be added as a friend"
+      response: "Please provide the user ID"
     })
   }
 

@@ -32,6 +32,7 @@ export const acceptFriendRequest = async (req, res) => {
                     success: true,
                     response: {
                       message: "You are now friends",
+                      // Kolla om det svaret blir för lång eller onödigt mycket info
                       userAcceptingRequest: updatedAcceptedUserFromPendingFriends,
                       userGettingAccepted: updatedRequestedUserFromPendingFriends
                     }
@@ -76,7 +77,7 @@ export const acceptFriendRequest = async (req, res) => {
   } else {
     res.status(400).json({
       success: false,
-      response: "Please provide the user ID that you want to delete"
+      response: "Please provide the user ID that you want to be friends with"
     })
   }
 }

@@ -6,6 +6,7 @@ export const sendFriendRequest = async (req, res) => {
   if (_id) {
     const userGettingRequest = await User.findOne({ _id });
     const userSendingRequest = await User.findOne({ accessToken: req.header("Authorization") });
+    // På FE plocka _id från userGettingRequest profil
     if (userSendingRequest) {
       try {
         const findIfPending = userSendingRequest.pendingFriends.find((friend) => friend.username === userGettingRequest.username);
@@ -69,7 +70,7 @@ export const sendFriendRequest = async (req, res) => {
   } else {
     res.status(400).json({
       success: false,
-      response: "Please provide the user ID that you want to delete"
+      response: "Please provide the user ID that you want to be friends with"
     })
   }
 }
